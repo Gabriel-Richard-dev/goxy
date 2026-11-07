@@ -66,9 +66,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    environment:
-      name: producao
-      url: https://goxy.gabrielrichard.dev
     env:
       VPS_HOST: ${{ secrets.VPS_HOST }}
     steps:
@@ -98,7 +95,7 @@ jobs:
       - name: Healthcheck
         if: env.VPS_HOST != ''
         run: |
-          for i in $(seq 1 30); do
+          for _ in $(seq 1 30); do
             if curl -fsS https://goxy.gabrielrichard.dev/api/goxys/saude; then echo; exit 0; fi
             sleep 5
           done
