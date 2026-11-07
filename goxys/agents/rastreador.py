@@ -53,6 +53,20 @@ def inconsistencias(case: Case, pedido: dict, cliente: dict, rastreio: dict, his
     return out
 
 
+def pedido_sugerido(historico: dict) -> dict | None:
+    """Pedido mais recente do cliente (prioriza entregue/em trânsito), para a Voz perguntar "é este?"."""
+    peds = [p for p in (historico or {}).get("pedidos") or [] if p.get("order_id")
+            and str(p.get("data_pedido") or "") <= agora_ambiente().strftime("%Y-%m-%d")]
+    if not peds:
+        return None
+    peds.sort(key=lambda p: (p.get("status_entrega") in ("entregue", "em_transito"), str(p.get("data_pedido") or "")),
+              reverse=True)
+    p = peds[0]
+    prod = (p.get("descricao_produto") or "").split(" + ")[0]
+    return {"order_id": p["order_id"], "produto": prod, "data_pedido": p.get("data_pedido"),
+            "status_entrega": p.get("status_entrega")}
+
+
 async def run(case: Case) -> None:
     async with passo(case, "rastreador", "consultando pedido, cliente e rastreio") as s:
         if not case.order_id and not case.customer_id:
@@ -63,38 +77,47 @@ async def run(case: Case) -> None:
             return
         pedido: dict = {}
         erros: list[str] = []
+        status_http: dict[str, int | None] = {}
+        nao_encontrado = False
         if case.order_id and not case.customer_id:
             try:
                 pedido = await tools.get_order(case, case.order_id)
                 case.customer_id = pedido.get("customer_id")
             except tools.ToolError as e:
-                erros.append(str(e))
+                nao_encontrado = e.status == 404
+                if not nao_encontrado:
+                    erros.append(str(e))
 
-        async def _safe(coro):
+        async def _safe(nome, coro):
             try:
                 return await coro
             except tools.ToolError as e:
-                erros.append(str(e))
+                status_http[nome] = e.status
+                if not (nome in ("pedido", "rastreio") and e.status == 404):
+                    erros.append(str(e))
                 return {}
 
         data_prometida = pedido.get("data_prometida") if pedido else None
         tarefas = []
         nomes = []
-        if case.order_id and not pedido:
-            tarefas.append(_safe(tools.get_order(case, case.order_id)))
+        if case.order_id and not pedido and not nao_encontrado:
+            tarefas.append(_safe("pedido", tools.get_order(case, case.order_id)))
             nomes.append("pedido")
         if case.customer_id:
-            tarefas += [_safe(tools.get_customer(case, case.customer_id)),
-                        _safe(tools.get_customer_history(case, case.customer_id))]
+            tarefas += [_safe("cliente", tools.get_customer(case, case.customer_id)),
+                        _safe("historico", tools.get_customer_history(case, case.customer_id))]
             nomes += ["cliente", "historico"]
-        if case.order_id:
-            tarefas.append(_safe(tools.get_tracking(case, case.order_id, data_prometida=data_prometida)))
+        if case.order_id and not nao_encontrado:
+            tarefas.append(_safe("rastreio", tools.get_tracking(case, case.order_id, data_prometida=data_prometida)))
             nomes.append("rastreio")
         res = dict(zip(nomes, await asyncio.gather(*tarefas)))  # fan-out paralelo
         pedido = pedido or res.get("pedido") or {}
         cliente = res.get("cliente") or {}
         historico = res.get("historico") or {}
         rastreio = res.get("rastreio") or {}
+        if case.order_id and not pedido and (nao_encontrado or status_http.get("pedido") == 404):
+            nao_encontrado = True
+            rastreio = {}        # sem pedido, ninguém afirma status de entrega
         # o rastreio pode ter rodado antes de sabermos a data prometida: recalcula atraso
         if rastreio and pedido.get("data_prometida") and "dias_atraso" not in rastreio:
             tools._calc_atraso(rastreio, pedido.get("data_prometida"))
@@ -106,6 +129,13 @@ async def run(case: Case) -> None:
             "pedido": pedido, "cliente": cliente, "historico": historico, "rastreio": rastreio,
             "fonte_rastreio": rastreio.get("fonte"), "inconsistencias": inc, "erros": erros,
         }
+        if nao_encontrado:
+            case.dossie["pedido_nao_encontrado"] = {"numero_informado": case.order_id}
+        elif not pedido:
+            case.dossie["pedido_nao_informado"] = True
+        sug = pedido_sugerido(historico) if not pedido else None
+        if sug:
+            case.dossie["pedido_sugerido"] = sug
 
         # linha do tempo
         partes = []
@@ -151,7 +181,14 @@ async def run(case: Case) -> None:
         if any(i["tipo"] == "prioridade" for i in inc):
             case.triagem["urgencia"] = "alta"
             case.triagem["reclame_aqui_aberto"] = True
-        if not pedido and case.order_id:
-            s.status = "falhou"
-            s.titulo = f"pedido {case.order_id} não encontrado"
+        if nao_encontrado:
+            s.status = "alerta"
+            s.titulo = f"não achei o pedido {case.order_id}"
+            s.detalhe = (f"O ERP não tem o pedido {case.order_id}. Nenhum status de entrega será informado sem o pedido; "
+                         "a Voz vai pedir o número certo" + (f" e sugerir o {sug['order_id']}." if sug else "."))
+            s.evidencias.insert(0, {"tipo": "pedido_nao_encontrado", "titulo": f"pedido {case.order_id} não existe no ERP",
+                                    "detalhe": "GET /api/erp/pedidos → 404", "ref": f"/api/erp/pedidos/{case.order_id}"})
+        elif not pedido and case.customer_id:
+            s.status = "alerta"
+            s.titulo = "cliente identificado, mas sem número de pedido"
         await narrar(case)

@@ -1,17 +1,17 @@
 {
-  "rodado_em": "2026-11-07T12:47:23",
+  "rodado_em": "2026-11-07T13:59:17",
   "base_url": "http://localhost:8012",
   "auto_aprovar": true,
-  "total": 20,
-  "acertos": 20,
+  "total": 21,
+  "acertos": 21,
   "acerto_pct": 100.0,
   "autonomos": 10,
   "escalados": 10,
-  "duracao_s": 283.9,
+  "duracao_s": 277.0,
   "llm": {
-    "chamadas": 100,
-    "usd": 0.000809,
-    "tokens": 49406
+    "usd": 0.000849,
+    "tokens": 51082,
+    "chamadas": 104
   },
   "erros": [],
   "por_persona": [
@@ -40,7 +40,7 @@
         "data_prometida": "2026-10-21",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1242039",
+      "case_id": "GX1354079",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -64,7 +64,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 39.5
+      "duracao_s": 41.4
     },
     {
       "persona": "honesto_avaria_media",
@@ -91,7 +91,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1242040",
+      "case_id": "GX1354080",
       "obtido": {
         "nivel": "B",
         "status": "resolvido",
@@ -115,7 +115,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 39.6
+      "duracao_s": 41.4
     },
     {
       "persona": "avaria_cara",
@@ -140,7 +140,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1242041",
+      "case_id": "GX1354081",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -155,7 +155,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-3F5306",
+        "aprovacao_id": "APR-261107-A8A651",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -173,7 +173,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 54.7
+      "duracao_s": 47.5
     },
     {
       "persona": "impaciente_atraso",
@@ -199,7 +199,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1243042",
+      "case_id": "GX1355082",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -223,7 +223,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 35.3
+      "duracao_s": 30.2
     },
     {
       "persona": "atraso_transnorte",
@@ -251,7 +251,7 @@
         "data_prometida": "2026-11-03",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1243043",
+      "case_id": "GX1355083",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -274,7 +274,7 @@
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 28.3
+      "duracao_s": 32.3
     },
     {
       "persona": "ansioso_no_prazo",
@@ -304,7 +304,7 @@
         "data_prometida": "2026-11-04",
         "n_trocas_12m": 1
       },
-      "case_id": "GX1243044",
+      "case_id": "GX1355084",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -327,7 +327,7 @@
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 25.2
+      "duracao_s": 23.2
     },
     {
       "persona": "reincidente",
@@ -354,7 +354,7 @@
         "data_prometida": "2026-10-23",
         "n_trocas_12m": 3
       },
-      "case_id": "GX1243045",
+      "case_id": "GX1355085",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -369,7 +369,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-F48479",
+        "aprovacao_id": "APR-261107-093E46",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -387,7 +387,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 57.6
+      "duracao_s": 45.8
     },
     {
       "persona": "fraudador_foto_reaproveitada",
@@ -414,7 +414,7 @@
         "data_prometida": "2026-10-14",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1243046",
+      "case_id": "GX1355086",
       "obtido": {
         "nivel": "D",
         "status": "rejeitado",
@@ -440,7 +440,7 @@
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 36.4
+      "duracao_s": 35.7
     },
     {
       "persona": "fraudador_imagem_ia",
@@ -469,7 +469,7 @@
         "data_prometida": "2026-10-15",
         "n_trocas_12m": 2
       },
-      "case_id": "GX1243047",
+      "case_id": "GX1355087",
       "obtido": {
         "nivel": "D",
         "status": "rejeitado",
@@ -495,7 +495,7 @@
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 39.4
+      "duracao_s": 39.8
     },
     {
       "persona": "ambivalente",
@@ -527,7 +527,7 @@
         "data_prometida": "2026-10-13",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1244048",
+      "case_id": "GX1356088",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -543,14 +543,14 @@
       "passos": [
         "maestro:ok",
         "porteiro:ok",
-        "rastreador:ok",
+        "rastreador:alerta",
         "detetive:pulado",
         "analista:ok",
         "maestro:ok",
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 21.2
+      "duracao_s": 24.2
     },
     {
       "persona": "ameaca_juridica",
@@ -572,7 +572,7 @@
         "data_prometida": "2026-10-29",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1244049",
+      "case_id": "GX1356089",
       "obtido": {
         "nivel": "D",
         "status": "humano",
@@ -620,7 +620,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 2
       },
-      "case_id": "GX1244050",
+      "case_id": "GX1356090",
       "obtido": {
         "nivel": "D",
         "status": "humano",
@@ -646,7 +646,7 @@
         "executor:pulado",
         "voz:ok"
       ],
-      "duracao_s": 27.3
+      "duracao_s": 27.2
     },
     {
       "persona": "arrependimento_barato",
@@ -671,7 +671,7 @@
         "data_prometida": "2026-10-20",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1244051",
+      "case_id": "GX1356091",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -695,7 +695,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 26.3
+      "duracao_s": 27.2
     },
     {
       "persona": "arrependimento_caro",
@@ -723,7 +723,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245052",
+      "case_id": "GX1357092",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -738,7 +738,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-85A7A0",
+        "aprovacao_id": "APR-261107-2891A7",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -756,7 +756,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 41.4
+      "duracao_s": 47.4
     },
     {
       "persona": "cobranca_dobro",
@@ -782,7 +782,7 @@
         "data_prometida": "2026-09-04",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245053",
+      "case_id": "GX1357093",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -806,7 +806,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 37.4
+      "duracao_s": 45.4
     },
     {
       "persona": "brinde_faltando",
@@ -832,7 +832,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245054",
+      "case_id": "GX1357094",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -856,7 +856,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 38.4
+      "duracao_s": 38.3
     },
     {
       "persona": "personalizacao_errada",
@@ -882,7 +882,7 @@
         "data_prometida": "2026-10-30",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245055",
+      "case_id": "GX1357095",
       "obtido": {
         "nivel": "A",
         "status": "resolvido",
@@ -906,7 +906,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 43.5
+      "duracao_s": 37.4
     },
     {
       "persona": "avaria_fora_prazo",
@@ -935,7 +935,7 @@
         "data_prometida": "2026-08-14",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245056",
+      "case_id": "GX1357096",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -950,7 +950,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-8724FA",
+        "aprovacao_id": "APR-261107-B6BED5",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -968,7 +968,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 58.6
+      "duracao_s": 51.6
     },
     {
       "persona": "reacao_adversa",
@@ -998,7 +998,7 @@
         "data_prometida": "2026-10-19",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1245057",
+      "case_id": "GX1357097",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -1013,7 +1013,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-904CA5",
+        "aprovacao_id": "APR-261107-07B4D3",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -1032,7 +1032,7 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 51.6
+      "duracao_s": 47.6
     },
     {
       "persona": "injecao_prompt",
@@ -1060,7 +1060,7 @@
         "data_prometida": "2026-10-09",
         "n_trocas_12m": 0
       },
-      "case_id": "GX1246058",
+      "case_id": "GX1358098",
       "obtido": {
         "nivel": "C",
         "status": "resolvido",
@@ -1075,7 +1075,7 @@
       "ok": true,
       "falhas": [],
       "aprovado_auto": {
-        "aprovacao_id": "APR-261107-2B1A08",
+        "aprovacao_id": "APR-261107-44FB76",
         "http": 200,
         "nivel_na_pausa": "C"
       },
@@ -1093,7 +1093,59 @@
         "executor:ok",
         "voz:ok"
       ],
-      "duracao_s": 49.4
+      "duracao_s": 48.5
+    },
+    {
+      "persona": "pedido_inexistente",
+      "descricao": "Número de pedido que não existe no ERP (GCH999999)",
+      "esperado": {
+        "nivel": [
+          "A"
+        ],
+        "status": [
+          "aguardando_cliente"
+        ],
+        "acao": [
+          "pedir_dados"
+        ],
+        "acao_proibida": [
+          "informar_status",
+          "reembolso",
+          "reenvio"
+        ]
+      },
+      "contexto": {
+        "valor": 109.9,
+        "status_entrega": "entregue",
+        "transportadora": "Expressa Já",
+        "uf": "PE",
+        "data_entrega": "2026-10-30",
+        "data_prometida": "2026-10-20",
+        "n_trocas_12m": 0
+      },
+      "case_id": "GX1358099",
+      "obtido": {
+        "nivel": "A",
+        "status": "aguardando_cliente",
+        "acao": "pedir_dados",
+        "valor": 0.0,
+        "aprovacao": null,
+        "executadas": [
+          "send_message"
+        ]
+      },
+      "ok": true,
+      "falhas": [],
+      "passos": [
+        "maestro:ok",
+        "porteiro:ok",
+        "rastreador:alerta",
+        "detetive:pulado",
+        "analista:ok",
+        "maestro:ok",
+        "voz:ok"
+      ],
+      "duracao_s": 25.3
     }
   ]
 }

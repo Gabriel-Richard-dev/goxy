@@ -3,7 +3,7 @@
 1. Concordância Goxy × pessoas: cada aprovação guarda `recomendacao`; ao decidir, `concordou`.
 2. Histórico REAL da base: como os supervisores decidiram, por faixa de valor (`acoes_executadas_sistemas.aprovado_por`,
    `trocas_reenvios.aprovado_por`). Ressalva honesta: a base só registra ações executadas, recusas não aparecem.
-3. Sugestões de limite nascem desses números. Uma sugestão só entra depois de passar nos 20 clientes sintéticos
+3. Sugestões de limite nascem desses números. Uma sugestão só entra depois de passar em todos os clientes sintéticos
    (job em background, política proposta em memória só para os casos da validação) e de alguém aplicar.
 4. Aplicar grava uma nova versão do YAML (a anterior vai para `policy/historico/`) e publica `policy.updated`.
 """
@@ -314,7 +314,7 @@ async def aplicar(sid: str, por: str) -> dict:
     if sug is None:
         raise KeyError(sid)
     if sug.get("status") != "validada":
-        raise ValueError(f"a sugestão está '{sug.get('status')}'; só uma sugestão validada (20/20) pode ser aplicada")
+        raise ValueError(f"a sugestão está '{sug.get('status')}'; só uma sugestão validada (todos os sintéticos certos) pode ser aplicada")
     path: Path = config.POLICY_PATH
     texto = path.read_text(encoding="utf-8")
     atual = yaml.safe_load(texto)
@@ -325,7 +325,7 @@ async def aplicar(sid: str, por: str) -> dict:
     shutil.copy(path, hist / f"autonomia-{anterior}.yaml")
 
     novo_txt = re.sub(r'^versao:.*$', f'versao: "{nova}"   # {nova.split("-")[-1]}: {sug["regra"]} {sug["de"]:g} → '
-                                      f'{sug["para"]:g} ({sug["id"]}, validada 20/20, aplicada por {por})',
+                                      f'{sug["para"]:g} ({sug["id"]}, validada nos sintéticos, aplicada por {por})',
                       texto, count=1, flags=re.M)
     *caminho, chave = sug["regra"].split(".")
     if caminho[:1] == ["acoes"] and len(caminho) == 2:

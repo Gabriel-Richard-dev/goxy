@@ -30,7 +30,7 @@ from core import config  # noqa: E402
 
 CASOS = json.loads((ROOT / "data" / "demo_cases.json").read_text(encoding="utf-8"))
 CHAVE_IA = config.AI_PROXY_API_KEY
-FINAIS = ("resolvido", "rejeitado", "humano", "aguardando_aprovacao", "erro")
+FINAIS = ("resolvido", "rejeitado", "humano", "aguardando_aprovacao", "aguardando_cliente", "erro")
 
 
 def _porta_livre() -> int:
@@ -208,7 +208,7 @@ def test_politica_custo_assimetrico():
     def caso(valor, score, juridico=False, fraude=False):
         return Case(id="X", anexos=[{"anexo_id": "a"}],
                     triagem={"intencao": "avaria", "risco_juridico": juridico, "confianca": 0.9},
-                    dossie={"pedido": {"valor": valor, "sku": "S"}, "cliente": {"receita_acumulada": 300}},
+                    dossie={"pedido": {"order_id": "GCHTESTE1", "valor": valor, "sku": "S"}, "cliente": {"receita_acumulada": 300}},
                     veracidade={"score": score, "fraude_objetiva": fraude})
 
     assert politica.decide(caso(60, 95))["nivel"] == "A"
@@ -436,7 +436,8 @@ def test_aprendizado_sugestao_validar_aplicar(base, tmp_path):
             if j["status"] != "rodando":
                 break
             time.sleep(0.5)
-        assert j["status"] == "concluido" and j["placar"] == {"acertos": 20, "total": 20}, j["erros"]
+        assert j["status"] == "concluido" and j["placar"]["total"] >= 20, j
+        assert j["placar"]["acertos"] == j["placar"]["total"], j["erros"]
         assert j["sugestao"]["status"] == "validada"
         assert politica.versao().endswith("-r2")             # validar não mexe no YAML
         ids_fila = {c["id"] for c in httpx.get(f"{base}/api/goxys/casos", timeout=10).json()}
@@ -455,6 +456,51 @@ def test_aprendizado_sugestao_validar_aplicar(base, tmp_path):
     finally:
         config.POLICY_PATH, apr._arquivo = original_pol, original_arq
         politica._carregar.cache_clear()
+
+
+def test_pedido_inexistente_nunca_inventa_status(base):
+    config.AI_PROXY_API_KEY = ""
+    # sem cliente: só o número errado
+    cid = httpx.post(f"{base}/api/goxys/casos", timeout=10, json={
+        "canal": "whatsapp", "mensagem": "Oi, meu pedido GCH999999 ainda não chegou, o que houve?"}).json()["case_id"]
+    c = _esperar(base, {0: cid})[0]
+    assert c["status"] == "aguardando_cliente" and c["decisao"]["acao"] == "pedir_dados" and c["decisao"]["nivel"] == "A"
+    assert c["dossie"]["pedido_nao_encontrado"] == {"numero_informado": "GCH999999"}
+    assert any(s["agent"] == "rastreador" and s["status"] == "alerta" and s["titulo"] == "não achei o pedido GCH999999"
+               for s in c["timeline"])
+    assert not any(a["ferramenta"] in ("get_tracking", "portal_tracking") for a in c["acoes"])   # nada de status sem pedido
+    assert "Não encontrei o pedido GCH999999" in c["resposta"]["texto"] and "caminho" not in c["resposta"]["texto"]
+    assert c["mensagens"][1]["texto"] == "Recebi sua mensagem! Já estou olhando e te respondo por aqui em instantes."
+    assert "GCH999999" in c["decisao"]["porque"]
+    # cliente conhecido: sugere o pedido mais recente dele; e a resposta com o número retoma o grafo
+    cli, ped = CASOS[0]["customer_id"], CASOS[0]["order_id"]
+    cid = httpx.post(f"{base}/api/goxys/casos", timeout=10, json={
+        "canal": "whatsapp", "customer_id": cli, "order_id": "GCH999999",
+        "mensagem": "meu pedido GCH999999 não chegou"}).json()["case_id"]
+    c = _esperar(base, {0: cid})[0]
+    assert c["status"] == "aguardando_cliente" and c["dossie"]["pedido_sugerido"]["order_id"]
+    sug = c["dossie"]["pedido_sugerido"]["order_id"]
+    assert f"É o pedido {sug}" in c["resposta"]["texto"]
+    r = httpx.post(f"{base}/api/goxys/casos/{cid}/cliente", json={"texto": f"isso, é o {ped}"}, timeout=10)
+    assert r.status_code == 200
+    c = _esperar(base, {0: cid}, finais=("resolvido", "rejeitado", "humano", "aguardando_aprovacao", "erro"))[0]
+    assert c["order_id"] == ped and "pedido_nao_encontrado" not in c["dossie"] and c["dossie"]["pedido"]["order_id"] == ped
+    assert c["decisao"]["acao"] != "pedir_dados"
+    assert any(s["titulo"].startswith("o cliente respondeu") for s in c["timeline"])
+    # métricas: esperar o cliente não conta como resolvido
+    m = httpx.get(f"{base}/api/goxys/metricas", timeout=30).json()
+    assert m["por_status"].get("aguardando_cliente", 0) >= 1
+
+
+def test_busca_de_pedidos_reais(base):
+    r = httpx.get(f"{base}/api/erp/pedidos", timeout=10).json()
+    assert len(r) == 20 and {c["order_id"] for c in CASOS} <= {x["order_id"] for x in r}
+    assert set(r[0]) == {"order_id", "customer_id", "cliente_nome", "produto", "sku", "valor", "status_entrega",
+                         "data_pedido", "canal_preferido"}
+    r = httpx.get(f"{base}/api/erp/pedidos", params={"q": "Copo Daily", "limite": 5}, timeout=10).json()
+    assert r and len(r) <= 5 and all("Copo Daily" in x["produto"] for x in r)
+    r = httpx.get(f"{base}/api/erp/pedidos", params={"q": CASOS[0]["order_id"]}, timeout=10).json()
+    assert r[0]["order_id"] == CASOS[0]["order_id"]
 
 
 def test_grafo_e_limpar_demo(base):

@@ -51,6 +51,9 @@ def _f(v, default=0.0) -> float:
 
 # ------------------------------------------------------------------ proposta de ação
 
+SEM_PEDIDO_OK = {"duvida", "elogio", "outros"}     # intenções que se resolvem sem um pedido
+
+
 def propor_acao(case: Case) -> dict:
     """Qual ação a regra de negócio pede para este caso (antes de decidir a autonomia)."""
     t = case.triagem or {}
@@ -67,6 +70,13 @@ def propor_acao(case: Case) -> dict:
                 "motivo": motivo, **extra}
 
     pol = carregar()
+    # Nunca inventar dado: sem pedido válido, nenhuma ação sobre o pedido (nem "informar status").
+    if intencao not in SEM_PEDIDO_OK and not pedido.get("order_id"):
+        nf = (case.dossie or {}).get("pedido_nao_encontrado")
+        if nf:
+            return r("pedir_dados", 0, f"Pedido {nf.get('numero_informado')} não encontrado no ERP: pedir o número "
+                                       "certo ao cliente (nunca supor status)")
+        return r("pedir_dados", 0, "Pedido não informado: pedir o número ao cliente antes de qualquer ação")
     if intencao == "reacao_adversa":
         return r("cosmetovigilancia", 0, "reação adversa: orientar suspensão do uso e registrar cosmetovigilância "
                                          "em até 24 h (trocar o produto não substitui o registro)")
@@ -272,6 +282,10 @@ def _decide(case: Case) -> dict:
         d["acao_sugerida"] = acao   # o que a regra pediria; fica para o analista sênior decidir
         return d
 
+    # 1b) Sem pedido válido: pede os dados ao cliente (autônomo, não movimenta nada) e espera a resposta
+    if acao == "pedir_dados":
+        return out("A", prop["motivo"])
+
     # 2) Fraude com evidência objetiva (foto reaproveitada, editor/IA) e score vermelho
     if score is not None and score < _f(gat.get("fraude_objetiva_score_max"), 40) and sinais["fraude_objetiva"]:
         return out("D", f"Veracidade {score:.0f}/100 com evidência objetiva de fraude: reclamação não procede; "
@@ -280,7 +294,8 @@ def _decide(case: Case) -> dict:
     d = _decidir_resto(case, pol, niveis, prop, acao, acfg, valor, score, risco, risco_motivos, custos,
                        limite_papel, fora_prazo, sinais, out)
     # Texto do cliente é dado, nunca instrução: tentativa de mandar no agente nunca fica em A/B
-    if sinais["injecao_no_texto"] and d["nivel"] in ("A", "B") and acao not in ("responder", "informar_status"):
+    if sinais["injecao_no_texto"] and d["nivel"] in ("A", "B") and acao not in ("responder", "informar_status",
+                                                                                  "pedir_dados", "solicitar_foto"):
         minimo = str(pol.get("injecao_minimo_nivel", "C"))
         d = out(minimo, "Texto do cliente tenta dar ordens ao agente (ignorado como instrução): "
                         f"aprovação obrigatória. Antes: {d['motivo']}")
@@ -350,6 +365,7 @@ def _decidir_resto(case, pol, niveis, prop, acao, acfg, valor, score, risco, ris
 
 
 _REGRAS = [  # motivo (template fixo desta política) → regra
+    ("pedir o número", "pedir_dados"),
     ("humano assume", "gatilho_d"), ("evidência objetiva de fraude", "fraude"), ("Texto do cliente tenta", "injecao"),
     ("registro obrigatório", "supervisor_obrigatorio"), ("não movimenta dinheiro", "sem_valor"),
     ("Arrependimento fora", "direito_fora_prazo"), ("direito do cliente", "direito"), ("sem evidência objetiva", "suspeita_sem_prova"),
@@ -371,7 +387,11 @@ def porque(case: Case, d: dict) -> str:
     tem = lambda tipo, txt="": any(e.get("tipo") == tipo and txt in e.get("titulo", "") for e in evid)  # noqa: E731
     nomes = {"reenvio": "Reenvio", "reembolso": "Reembolso", "troca": "Troca", "nova_producao": "Nova produção"}
     oque = f"{nomes.get(acao, (acao or '').replace('_', ' ').capitalize())} de {brl(valor)}"
-    if regra == "gatilho_d":
+    if regra == "pedir_dados":
+        nf = (case.dossie or {}).get("pedido_nao_encontrado")
+        f = (f"O pedido {nf['numero_informado']} não existe no sistema; antes de responder, peço o número certo ao cliente."
+             if nf else "O cliente não informou o pedido; peço o número antes de qualquer resposta.")
+    elif regra == "gatilho_d":
         q = "ameaçou processo" if sg.get("risco_juridico") else "ameaçou expor a marca"
         f = f"O cliente {q}: uma pessoa do time assume e o Goxy não age sozinho."
     elif regra == "fraude":

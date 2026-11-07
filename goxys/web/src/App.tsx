@@ -139,9 +139,9 @@ function Painel({ tela, setTela }: { tela: Tela; setTela: (t: Tela) => void }) {
 function useTema() {
   const [tema] = useState(() => {
     try { const t = localStorage.getItem('goxys-tema'); if (t === 'claro' || t === 'escuro') return t } catch { /* sem storage */ }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro'
+    return 'claro'   // padrão: modo claro; o escuro só com escolha explícita do usuário
   })
-  useEffect(() => { if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = tema === 'escuro' ? 'dark' : 'light' }, [tema])
+  useEffect(() => { document.documentElement.dataset.theme = tema === 'escuro' ? 'dark' : 'light' }, [tema])
 }
 
 function Topo({ tela, ir, onSimular, pendentes, onPendente }: { tela: Tela; ir: (t: Tela) => void; onSimular: () => void; pendentes: { case_id: string | null }[]; onPendente: (id: string | null) => void }) {

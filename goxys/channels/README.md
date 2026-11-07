@@ -47,7 +47,7 @@ Usa long polling, então não precisa de URL pública.
 display_information:
   name: Goxy
   description: Equipe de agentes de atendimento — aprovações e avisos
-  background_color: "#ff5a4d"
+  background_color: "#2659a5"
 features:
   bot_user:
     display_name: Goxy

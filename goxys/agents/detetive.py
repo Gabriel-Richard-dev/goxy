@@ -294,6 +294,11 @@ async def concluir(case: Case) -> None:
 
 
 async def _concluir(case: Case, s, intencao, pericias) -> None:
+    if not ((case.dossie or {}).get("pedido") or {}).get("order_id"):
+        case.veracidade = {"score": None, "faixa": "sem_score", "evidencias": [],
+                           "justificativa": "Sem pedido válido não há o que conferir: nada é presumido."}
+        s.status, s.titulo = "pulado", "sem pedido válido: nada a conferir"
+        return
     if intencao in INTENCOES_FOTO and not case.anexos:
         case.veracidade = {"score": None, "faixa": "sem_score", "evidencias": [],
                            "justificativa": "Reclamação sem foto: a política exige foto antes de reenviar."}

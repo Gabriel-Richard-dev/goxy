@@ -284,6 +284,12 @@ async function casoLivre(c: Case) {
 
 const roteiros = [caso1, caso2, caso3, caso4, caso5]
 
+const PEDIDOS = [
+  { order_id: 'GCH558213', customer_id: 'CH004812', cliente_nome: 'Marina Albuquerque', produto: 'Copo Térmico Vibe 473 ml', sku: 'GOC-6001', valor: 111.0, status_entrega: 'entregue', data_pedido: '2026-10-24' },
+  { order_id: 'GCH551285', customer_id: 'CH585887', cliente_nome: 'Joana Araújo', produto: 'Case Anti Impacto Slim Air Xadrez Vichy', sku: 'GOC-5004', valor: 97.8, status_entrega: 'entregue', data_pedido: '2026-10-08' },
+  { order_id: 'GCH558661', customer_id: 'CH011204', cliente_nome: 'Tainá Rocha', produto: 'Garrafa Mini 350 ml Lilás', sku: 'GOC-7003', valor: 89.9, status_entrega: 'em_transito', data_pedido: '2026-10-20' },
+  { order_id: 'GBH990004', customer_id: 'CH007731', cliente_nome: 'Camila Carvalho', produto: 'Kit 3 perfumes Lescent', sku: 'GBH-1004', valor: 689.7, status_entrega: 'entregue', data_pedido: '2026-10-25' },
+]
 const JOBS: Record<string, { id: string; t0: number }> = {}
 const APRENDIZADO = {
   total_decisoes: 38, concordancia_pct: 92, por_nivel: { A: 100, B: 95, C: 83, D: 100 },
@@ -386,6 +392,10 @@ export async function mockRequest(method: string, path: string, body?: unknown):
     if (rota === '/api/aprovacoes') return Object.values(aprovacoes).filter((a) => a.status === 'pendente')
   }
   if (method === 'GET' && rota === '/api/goxys/equipe') return EQUIPE
+  if (method === 'GET' && rota === '/api/erp/pedidos') {
+    const q = (new URLSearchParams(path.split('?')[1] ?? '').get('q') ?? '').toLowerCase()
+    return PEDIDOS.filter((p) => !q || `${p.order_id} ${p.produto} ${p.cliente_nome}`.toLowerCase().includes(q))
+  }
   if (method === 'GET' && rota === '/api/goxys/aprendizado') return APRENDIZADO
   const job = rota.match(/^\/api\/goxys\/aprendizado\/jobs\/(.+)$/)
   if (method === 'GET' && job) {

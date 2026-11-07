@@ -8,7 +8,7 @@
   "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
   "impacto": "Reenvios entre R$ 200 e R$ 300 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
   "status": "proposta",
-  "criada_em": "2026-11-07T13:04:28",
+  "criada_em": "2026-11-07T13:46:13",
   "politica_base": "2026.11.07-r2"
  },
  "S-troca-200-300": {
@@ -20,7 +20,7 @@
   "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
   "impacto": "Trocas entre R$ 200 e R$ 300 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
   "status": "proposta",
-  "criada_em": "2026-11-07T13:04:28",
+  "criada_em": "2026-11-07T13:46:13",
   "politica_base": "2026.11.07-r2"
  },
  "S-reembolso-100-150": {
@@ -32,7 +32,7 @@
   "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
   "impacto": "Reembolsos entre R$ 100 e R$ 150 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
   "status": "proposta",
-  "criada_em": "2026-11-07T13:04:28",
+  "criada_em": "2026-11-07T13:46:13",
   "politica_base": "2026.11.07-r2"
  }
 }

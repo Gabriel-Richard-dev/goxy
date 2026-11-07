@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { Compositor } from './Compositor'
 import type { Case, Dict, Mascote } from '../types'
 import { api } from '../api'
 import { cx, STATUS, titulo } from '../lib'
@@ -21,7 +23,6 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
 }) {
   const [msg, setMsg] = useState<{ ok: boolean; t: string } | null>(null)
   const [ocupado, setOcupado] = useState<string | null>(null)
-  const [texto, setTexto] = useState('')
   const [fila, setFila] = useState<number | null>(null)
   const [foco, setFoco] = useState<string | null>(null)
   const [confirmaLimpar, setConfirmaLimpar] = useState(false)
@@ -29,7 +30,7 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    ref.current?.focus()
+    if (!ref.current?.contains(document.activeElement)) ref.current?.focus()
     api.get<Dict>('/api/goxys/analista').then((a) => setFila(a?.resumo?.fila_aberta ?? null)).catch(() => {})
     const esc = (e: KeyboardEvent) => e.key === 'Escape' && onFechar()
     window.addEventListener('keydown', esc)
@@ -49,7 +50,7 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
   const casoFoco = useCasoExibido((foco && cases[foco]) || (ultimo ? cases[ultimo] : null) || null)
   const rodando = casoFoco ? [...casoFoco.timeline].reverse().find((s) => s.status === 'rodando') : undefined
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-40 flex items-stretch justify-center p-3 sm:p-6">
       <button aria-label="Fechar" className="absolute inset-0 bg-black/50" onClick={onFechar} />
       <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Simular contato"
@@ -58,32 +59,37 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
           <div className="flex items-start gap-3">
             <div className="flex-1">
               <h2 className="text-[26px] font-extrabold tracking-[-0.01em]">Simular contato</h2>
-              <p className="text-[15px] text-suave">Escolha uma cena e veja o time trabalhar ao lado.</p>
+              <p className="text-[15px] text-suave">Escreva como um cliente ou rode uma das cenas prontas.</p>
             </div>
             <button onClick={onFechar} className="flex h-10 w-10 items-center justify-center rounded-full bg-sup2 hover:bg-borda" aria-label="Fechar">
               <svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="m4 4 8 8M12 4l-8 8" /></svg>
             </button>
           </div>
 
-          <button disabled={!!ocupado} onClick={() => rodar('todos', '/api/goxys/simular/todos', 'Os 5 casos estão entrando, um depois do outro.')}
-            className="mt-5 flex w-full items-center gap-4 rounded-col bg-marca px-6 py-4 text-left text-white transition hover:brightness-110 disabled:opacity-60">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>
-            <span><span className="block text-[18px] font-bold">{ocupado === 'todos' ? 'Disparando…' : 'Rodar a demo completa'}</span><span className="text-[14px] opacity-90">Os 5 casos em sequência, do reenvio automático à ameaça de processo</span></span>
-          </button>
+          <div className="mt-5"><Compositor onEnviado={(id) => { if (id) onVerCaso(id); else setMsg({ ok: true, t: 'Contato enviado ao time.' }) }} /></div>
+
+          <div className="mt-6 flex items-center justify-between gap-3">
+            <h3 className="text-[15px] font-semibold">Ou rode uma cena pronta</h3>
+            <button disabled={!!ocupado} onClick={() => rodar('todos', '/api/goxys/simular/todos', 'Os 5 casos estão entrando, um depois do outro.')}
+              className="inline-flex h-9 items-center gap-2 rounded-full px-4 text-[14px] font-semibold text-azul ring-1 ring-borda hover:ring-azul disabled:opacity-60">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5v14l11-7z" /></svg>
+              {ocupado === 'todos' ? 'Disparando…' : 'Rodar a demo completa'}
+            </button>
+          </div>
 
           {msg && <p role="status" className={cx('mt-3 rounded-card px-4 py-2.5 text-[14px] font-medium', msg.ok ? 'bg-ok-suave text-ok' : 'bg-critico-suave text-critico')}>{msg.t}</p>}
 
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-2 space-y-1.5">
             {CENAS.map((c) => (
               <li key={c.n}>
                 <button disabled={!!ocupado} onClick={() => rodar(`c${c.n}`, `/api/goxys/simular/${c.n}`, `Cena ${c.n} no ar.`)}
-                  className="group flex w-full items-center gap-4 rounded-col bg-sup p-3 pr-5 text-left transition hover:ring-2 hover:ring-estrutura disabled:opacity-60">
-                  <MascoteEstado estado={c.estado} mascote={mascote} size={76} />
+                  className="group flex w-full items-center gap-3 rounded-card bg-sup p-2 pr-4 text-left hover:ring-1 hover:ring-azul disabled:opacity-60">
+                  <MascoteEstado estado={c.estado} mascote={mascote} size={44} fundo={false} />
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[16px] font-medium italic leading-snug">"{c.fala}"</span>
-                    <span className="mt-1 flex items-center gap-2 text-[14px] text-suave"><NivelBadge nivel={c.nivel} />{c.vai}</span>
+                    <span className="block truncate text-[14px] italic leading-snug">"{c.fala}"</span>
+                    <span className="mt-0.5 flex items-center gap-2 truncate text-[12.5px] text-suave"><NivelBadge nivel={c.nivel} />{c.vai}</span>
                   </span>
-                  <span className="shrink-0 rounded-full bg-sup2 px-4 py-2 text-[14px] font-semibold text-estrutura group-hover:bg-estrutura group-hover:text-white">
+                  <span className="shrink-0 text-[13.5px] font-semibold text-estrutura">
                     {ocupado === `c${c.n}` ? 'Enviando…' : 'Simular'}
                   </span>
                 </button>
@@ -91,19 +97,6 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
             ))}
           </ul>
 
-          <form className="mt-5 flex items-end gap-2 rounded-col bg-sup p-2 pl-5" onSubmit={async (e) => {
-            e.preventDefault()
-            if (!texto.trim()) return
-            if (await rodar('livre', '/api/goxys/casos', 'Mensagem enviada ao time.', { canal: 'painel', mensagem: texto.trim() })) setTexto('')
-          }}>
-            <label className="sr-only" htmlFor="livre">Mensagem do cliente</label>
-            <textarea id="livre" rows={1} value={texto} onChange={(e) => setTexto(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); (e.currentTarget.form as HTMLFormElement).requestSubmit() } }}
-              placeholder="Escreva como o cliente…" className="max-h-40 min-h-[44px] flex-1 resize-none bg-transparent py-2.5 text-[16px] outline-none placeholder:text-suave" />
-            <button type="submit" disabled={!texto.trim() || !!ocupado} aria-label="Enviar" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-estrutura text-white disabled:opacity-40">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M2 8h11M9 4l4 4-4 4" /></svg>
-            </button>
-          </form>
 
           <div className="mt-3">
             {!ra.aberto ? (
@@ -170,7 +163,8 @@ export function Simular({ mascote, cases, ultimo, onFechar, onVerCaso }: {
           )}
         </aside>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 

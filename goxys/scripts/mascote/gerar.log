@@ -645,3 +645,122 @@
 [2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 79
 [2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 53
 [2026-11-07 13:37:30]   variante mensageiro v3: +60s passo 1/12
+[2026-11-07 13:39:47]   variante mensageiro v3: +197s passo 12/12
+[2026-11-07 13:39:52]   variante mensageiro v3: +202s nó 54
+[2026-11-07 13:39:52]   variante mensageiro v3: +203s nó 29
+[2026-11-07 13:39:55] variante mensageiro v3: concluído em 206s
+[2026-11-07 13:39:56] variante mensageiro v3: borda verde 100% -> mensageiro_v3.png
+[2026-11-07 13:40:01]   upscale analista: +0s nó 1
+[2026-11-07 13:40:01]   upscale analista: +0s nó 2
+[2026-11-07 13:40:01]   upscale analista: +0s nó 3
+[2026-11-07 13:40:03] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:40:03]   upscale analista: +2s passo 1/9
+[2026-11-07 13:40:11]   upscale analista: +10s passo 9/9
+[2026-11-07 13:40:11]   upscale analista: +10s nó 4
+[2026-11-07 13:40:12]   upscale analista: +11s nó 29
+[2026-11-07 13:40:16] upscale analista: concluído em 15s
+[2026-11-07 13:40:16]   upscale investigando: +0s nó 1
+[2026-11-07 13:40:16]   upscale investigando: +0s nó 3
+[2026-11-07 13:40:18] idle-mensageiro.webm: laço de respiração (sem GPU), 139 KB
+[2026-11-07 13:40:18] escolhido mensageiro = v3 -> assets/goxys/mensageiro.png
+[2026-11-07 13:40:19]   upscale investigando: +2s passo 1/9
+[2026-11-07 13:40:26]   upscale investigando: +10s passo 9/9
+[2026-11-07 13:40:26]   upscale investigando: +10s nó 4
+[2026-11-07 13:40:27]   upscale investigando: +11s nó 29
+[2026-11-07 13:40:31] upscale investigando: concluído em 15s
+[2026-11-07 13:40:32]   upscale fraude: +0s nó 1
+[2026-11-07 13:40:32]   upscale fraude: +0s nó 3
+[2026-11-07 13:40:34]   upscale fraude: +2s passo 1/9
+[2026-11-07 13:40:42]   upscale fraude: +10s passo 9/9
+[2026-11-07 13:40:42]   upscale fraude: +10s nó 4
+[2026-11-07 13:40:42]   upscale fraude: +11s nó 29
+[2026-11-07 13:40:47] upscale fraude: concluído em 15s
+[2026-11-07 13:40:48]   upscale esperando: +0s nó 1
+[2026-11-07 13:40:48]   upscale esperando: +0s nó 2
+[2026-11-07 13:40:48]   upscale esperando: +1s nó 3
+[2026-11-07 13:40:50]   upscale esperando: +3s passo 1/9
+[2026-11-07 13:40:58]   upscale esperando: +10s passo 9/9
+[2026-11-07 13:40:58]   upscale esperando: +10s nó 4
+[2026-11-07 13:40:58]   upscale esperando: +11s nó 29
+[2026-11-07 13:41:02] upscale esperando: concluído em 15s
+[2026-11-07 13:41:03]   upscale resolvido: +0s nó 1
+[2026-11-07 13:41:03]   upscale resolvido: +0s nó 3
+[2026-11-07 13:41:05]   upscale resolvido: +2s passo 1/9
+[2026-11-07 13:41:13]   upscale resolvido: +10s passo 9/9
+[2026-11-07 13:41:13]   upscale resolvido: +10s nó 4
+[2026-11-07 13:41:13]   upscale resolvido: +11s nó 29
+[2026-11-07 13:41:18] upscale resolvido: concluído em 15s
+[2026-11-07 13:41:19]   upscale humano: +0s nó 1
+[2026-11-07 13:41:19]   upscale humano: +0s nó 3
+[2026-11-07 13:41:21]   upscale humano: +2s passo 1/9
+[2026-11-07 13:41:28]   upscale humano: +10s passo 9/9
+[2026-11-07 13:41:29]   upscale humano: +10s nó 4
+[2026-11-07 13:41:29]   upscale humano: +11s nó 29
+[2026-11-07 13:41:34] upscale humano: concluído em 15s
+[2026-11-07 13:41:34]   upscale fraude-k2: +0s nó 1
+[2026-11-07 13:41:34]   upscale fraude-k2: +0s nó 3
+[2026-11-07 13:41:36]   upscale fraude-k2: +2s passo 1/9
+[2026-11-07 13:41:44]   upscale fraude-k2: +10s passo 9/9
+[2026-11-07 13:41:44]   upscale fraude-k2: +10s nó 4
+[2026-11-07 13:41:45]   upscale fraude-k2: +11s nó 29
+[2026-11-07 13:41:49] upscale fraude-k2: concluído em 15s
+[2026-11-07 13:41:50]   upscale fraude-k3: +0s nó 1
+[2026-11-07 13:41:50]   upscale fraude-k3: +0s nó 2
+[2026-11-07 13:41:50]   upscale fraude-k3: +1s nó 3
+[2026-11-07 13:41:52]   upscale fraude-k3: +3s passo 1/9
+[2026-11-07 13:42:00]   upscale fraude-k3: +10s passo 9/9
+[2026-11-07 13:42:00]   upscale fraude-k3: +10s nó 4
+[2026-11-07 13:42:01]   upscale fraude-k3: +11s nó 29
+[2026-11-07 13:42:05] upscale fraude-k3: concluído em 15s
+[2026-11-07 13:42:06] upscale: 13 imagens em assets/goxys/_fonte/hd
+[2026-11-07 13:42:15]   upscale mensageiro: +0s nó 1
+[2026-11-07 13:42:15]   upscale mensageiro: +0s nó 2
+[2026-11-07 13:42:16]   upscale mensageiro: +0s nó 3
+[2026-11-07 13:42:18]   upscale mensageiro: +2s passo 1/9
+[2026-11-07 13:42:25]   upscale mensageiro: +10s passo 9/9
+[2026-11-07 13:42:26]   upscale mensageiro: +10s nó 4
+[2026-11-07 13:42:26]   upscale mensageiro: +11s nó 29
+[2026-11-07 13:42:30] upscale mensageiro: concluído em 15s
+[2026-11-07 13:42:31] upscale: 1 imagens em assets/goxys/_fonte/hd
+[2026-11-07 13:44:13] estado-investigando.webm: laço de respiração (sem GPU), 95 KB
+[2026-11-07 13:44:49] estado-fraude.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 151 KB
+[2026-11-07 13:45:02] estado-investigando.webm: laço de respiração (sem GPU), 95 KB
+[2026-11-07 13:45:13] estado-esperando.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:45:29] estado-fraude.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 151 KB
+[2026-11-07 13:45:34] estado-resolvido.webm: laço de respiração (sem GPU), 77 KB
+[2026-11-07 13:45:54] estado-esperando.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:46:00] estado-humano.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:46:11] idle-maestro.webm: laço de respiração (sem GPU), 94 KB
+[2026-11-07 13:46:21] idle-porteiro.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:46:22] estado-resolvido.webm: laço de respiração (sem GPU), 77 KB
+[2026-11-07 13:46:30] idle-rastreador.webm: laço de respiração (sem GPU), 80 KB
+[2026-11-07 13:46:40] idle-detetive.webm: laço de respiração (sem GPU), 85 KB
+[2026-11-07 13:46:48] estado-humano.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:46:50] idle-executor.webm: laço de respiração (sem GPU), 106 KB
+[2026-11-07 13:46:58] idle-maestro.webm: laço de respiração (sem GPU), 94 KB
+[2026-11-07 13:47:01] idle-voz.webm: laço de respiração (sem GPU), 101 KB
+[2026-11-07 13:47:07] idle-porteiro.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:47:10] idle-mensageiro.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:47:17] idle-rastreador.webm: laço de respiração (sem GPU), 80 KB
+[2026-11-07 13:47:20] idle-analista.webm: laço de respiração (sem GPU), 84 KB
+[2026-11-07 13:47:20] reexportação 1024/640 concluída
+[2026-11-07 13:47:26] idle-detetive.webm: laço de respiração (sem GPU), 85 KB
+[2026-11-07 13:47:32] idle-executor.webm: laço de respiração (sem GPU), 106 KB
+[2026-11-07 13:47:39] idle-voz.webm: laço de respiração (sem GPU), 101 KB
+[2026-11-07 13:47:45] idle-mensageiro.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:47:52] idle-analista.webm: laço de respiração (sem GPU), 84 KB
+[2026-11-07 13:47:52] reexportação 1024/640 concluída
+[2026-11-07 13:50:05] estado-investigando.webm: laço de respiração (sem GPU), 95 KB
+[2026-11-07 13:50:28] estado-fraude.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 151 KB
+[2026-11-07 13:50:51] estado-esperando.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:51:12] estado-resolvido.webm: laço de respiração (sem GPU), 77 KB
+[2026-11-07 13:51:33] estado-humano.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:51:41] idle-maestro.webm: laço de respiração (sem GPU), 94 KB
+[2026-11-07 13:51:48] idle-porteiro.webm: laço de respiração (sem GPU), 88 KB
+[2026-11-07 13:51:59] idle-rastreador.webm: laço de respiração (sem GPU), 80 KB
+[2026-11-07 13:52:06] idle-detetive.webm: laço de respiração (sem GPU), 85 KB
+[2026-11-07 13:52:13] idle-executor.webm: laço de respiração (sem GPU), 106 KB
+[2026-11-07 13:52:20] idle-voz.webm: laço de respiração (sem GPU), 101 KB
+[2026-11-07 13:52:27] idle-mensageiro.webm: laço de respiração (sem GPU), 90 KB
+[2026-11-07 13:52:36] idle-analista.webm: laço de respiração (sem GPU), 84 KB
+[2026-11-07 13:52:36] reexportação 1024/640 concluída

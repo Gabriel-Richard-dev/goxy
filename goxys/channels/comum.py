@@ -71,13 +71,57 @@ def telegram_chat_do_caso(case_id: str | None) -> str | None:
 
 
 def caso_com_pessoa_do_chat(chat_id) -> str | None:
-    """Caso aberto deste chat do Telegram que está com uma pessoa (responsavel), se houver."""
+    """Caso aberto deste chat do Telegram que continua a conversa: está com uma pessoa (responsavel) ou
+    esperando a resposta do cliente (`aguardando_cliente`: número do pedido, foto)."""
     try:
         from core.state import store
         for c in store.all():
-            if (str(c.telegram_chat_id) == str(chat_id) and c.responsavel
+            if (str(c.telegram_chat_id) == str(chat_id) and (c.responsavel or c.status == "aguardando_cliente")
                     and c.status not in ("resolvido", "rejeitado", "erro")):
                 return c.id
     except Exception:
         pass
     return None
+
+
+TXT_ENCERRADO = "Esse pedido não existe mais — a demo foi reiniciada."
+
+
+def explicar_decisao(st: int, body: Any) -> dict:
+    """Traduz a resposta de POST /api/aprovacoes/{id}/decisao para o canal.
+
+    `tipo`: ok | encerrado (404) | decidido (409) | bloqueado (403 segregação/alçada) | erro.
+    `toast`: frase curta para o usuário; `manter_botoes`: se a mensagem continua decidível;
+    `decidido`: {decisao, aprovador, canal, ajuste} quando já havia decisão (para editar a mensagem).
+    """
+    b = body if isinstance(body, dict) else {}
+    if st < 400:
+        return {"tipo": "ok", "toast": "Decisão registrada. O Goxy retoma o caso.", "manter_botoes": False,
+                "decidido": None}
+    if st == 404:
+        return {"tipo": "encerrado", "toast": TXT_ENCERRADO, "manter_botoes": False, "decidido": None}
+    if st == 409:
+        a = b.get("aprovacao") or {}
+        quem, via = a.get("aprovador") or "outra pessoa", a.get("canal") or "outro canal"
+        dec = {"aprovacao_id": a.get("aprovacao_id"), "decisao": a.get("decisao"), "aprovador": a.get("aprovador"),
+               "canal": a.get("canal"), "ajuste": a.get("ajuste")}
+        return {"tipo": "decidido", "toast": f"Já decidido por {quem} via {via}", "manter_botoes": False,
+                "decidido": dec, "aprovacao": a}
+    if st == 403:
+        return {"tipo": "bloqueado", "toast": b.get("mensagem") or "Você não pode decidir este pedido.",
+                "manter_botoes": True, "decidido": None, "erro": b.get("erro")}
+    return {"tipo": "erro", "toast": f"Não consegui registrar agora ({st}). Tente de novo.", "manter_botoes": True,
+            "decidido": None}
+
+
+def nome_telegram(user) -> str:
+    """first_name + @username: identifica a pessoa sem colidir com nomes da equipe da base (alçada/segregação)."""
+    if not user:
+        return "telegram"
+    first = (getattr(user, "first_name", None) or "").strip()
+    username = getattr(user, "username", None)
+    if first and username:
+        return f"{first} @{username}"
+    if username:
+        return f"@{username}"
+    return f"{first} (telegram {user.id})" if first else f"telegram {user.id}"

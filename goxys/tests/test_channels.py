@@ -175,3 +175,94 @@ def test_insights_cache(ins):
 def test_telegram_chat_id_dica():
     t = fmt.telegram_chat_id_dica(-100123)
     assert "<code>-100123</code>" in t and "TELEGRAM_APPROVERS_CHAT_ID" in t
+
+
+# ------------------------------------------------------------------ botões antigos / demo reiniciada
+
+from channels import comum  # noqa: E402
+
+
+def test_explicar_decisao():
+    assert comum.explicar_decisao(200, {})["tipo"] == "ok"
+    r = comum.explicar_decisao(404, {"erro": "aprovacao_nao_encontrada"})
+    assert r["tipo"] == "encerrado" and "demo foi reiniciada" in r["toast"] and not r["manter_botoes"]
+    r = comum.explicar_decisao(409, {"erro": "ja_decidida", "aprovacao": {"aprovacao_id": "A1", "decisao": "aprovar",
+                                                                         "aprovador": "Ana @ana", "canal": "slack"}})
+    assert r["tipo"] == "decidido" and r["toast"] == "Já decidido por Ana @ana via slack" and r["decidido"]["decisao"] == "aprovar"
+    r = comum.explicar_decisao(403, {"erro": "alcada", "mensagem": "Reembolso de R$ 689,70 passa da sua alçada"})
+    assert r["tipo"] == "bloqueado" and r["toast"].startswith("Reembolso") and r["manter_botoes"]
+
+
+def test_nome_telegram_nao_colide_com_a_equipe():
+    from types import SimpleNamespace as U
+    assert comum.nome_telegram(U(first_name="Camila", username="cami", id=1)) == "Camila @cami"
+    assert comum.nome_telegram(U(first_name=None, username="cami", id=1)) == "@cami"
+    assert comum.nome_telegram(U(first_name="Camila", username=None, id=7)) == "Camila (telegram 7)"
+
+
+class _Bot:
+    def __init__(self):
+        self.edicoes = []
+
+    async def edit_message_text(self, texto, chat_id=None, message_id=None, parse_mode=None, reply_markup=None):
+        self.edicoes.append({"texto": texto, "chat_id": chat_id, "message_id": message_id, "teclado": reply_markup})
+
+
+class _Query:
+    def __init__(self, data, user):
+        from types import SimpleNamespace as N
+        self.data, self.from_user = data, user
+        self.message = N(chat=N(id=-100), message_id=55)
+        self.respostas = []
+
+    async def answer(self, texto=None, show_alert=False):
+        self.respostas.append(texto)
+
+
+def _cb(aid):
+    return next(c for linha in fmt.telegram_aprovacao_botoes(aid) for _, c in linha if fmt.parse_callback(c)[0] == "aprovar")
+
+
+@pytest.mark.parametrize("st,body,tipo", [
+    (404, {"erro": "aprovacao_nao_encontrada"}, "encerrado"),
+    (409, {"erro": "ja_decidida", "aprovacao": {"aprovacao_id": "APR1", "decisao": "negar", "aprovador": "Bia", "canal": "painel"}},
+     "decidido"),
+    (403, {"erro": "segregacao", "mensagem": "Você pediu essa ação; outra pessoa precisa aprovar."}, "bloqueado"),
+])
+def test_telegram_botao_antigo(monkeypatch, st, body, tipo):
+    import asyncio
+    from types import SimpleNamespace as N
+    from channels import telegram as tg
+    bot = _Bot()
+    monkeypatch.setattr(tg, "_app", N(bot=bot))
+    vistos = {}
+
+    async def decidir(aid, decisao, aprovador, canal, ajuste=None):
+        vistos["aprovador"] = aprovador
+        return st, body
+    monkeypatch.setattr(comum, "decidir", decidir)
+    tg._postadas["APR1"] = (-100, 55)
+    q = _Query(_cb("APR1"), N(first_name="Gabriel", username="gabriel", id=9))
+    asyncio.run(tg._callback(N(callback_query=q), None))
+    assert vistos["aprovador"] == "Gabriel @gabriel"
+    assert q.respostas == [comum.explicar_decisao(st, body)["toast"]]
+    if tipo == "encerrado":
+        assert "Pedido encerrado" in bot.edicoes[0]["texto"] and bot.edicoes[0]["teclado"] is None
+        assert "APR1" not in tg._postadas
+    elif tipo == "decidido":
+        assert "Bia" in bot.edicoes[0]["texto"] and bot.edicoes[0]["teclado"] is None
+    else:
+        assert bot.edicoes == [] and "APR1" in tg._postadas          # botões continuam
+    tg._postadas.clear()
+
+
+def test_telegram_demo_reset_encerra_as_mensagens(monkeypatch):
+    import asyncio
+    from types import SimpleNamespace as N
+    from channels import telegram as tg
+    bot = _Bot()
+    monkeypatch.setattr(tg, "_app", N(bot=bot))
+    tg._postadas.update({"A1": (-100, 1), "A2": (-100, 2)})
+    asyncio.run(tg._on_evento({"type": "demo.reset", "data": {}, "case_id": None}))
+    assert len(bot.edicoes) == 2 and all("Demo reiniciada" in e["texto"] and e["teclado"] is None for e in bot.edicoes)
+    assert tg._postadas == {}

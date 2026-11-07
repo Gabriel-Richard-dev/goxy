@@ -13,6 +13,9 @@ from core.state import Case, now
 
 from .base import brl, passo
 
+EUFORIA = re.compile(r"comemor|celebr|\boba\b|\beba\b|uhu+|que not[ií]cia boa|maravilh|incr[ií]vel|"
+                     r"fant[aá]stic|perfeito!|demais!|[!]{2,}", re.I)
+RX_IDS = re.compile(r"\b(?:G[CB]H\d{4,}(?:-R\d+)?|[A-Z]{2,4}\d{6,}|[A-Z]{3}-\d{6}-[0-9A-F]{6})\b")
 PROIBIDO = re.compile(r"fraud|golpe|falsa|falsific|mentir|mentiu|suspeit|IA gerou|manipulad", re.I)
 
 
@@ -35,8 +38,21 @@ def template(case: Case, situacao: str) -> str:
     pedido = (case.dossie or {}).get("pedido") or {}
     ped = case.order_id or "seu pedido"
     ola = _ola(case)
-    if situacao == "pedir_pedido":
-        return f"{ola} Quero resolver isso pra você. Me manda o número do pedido (começa com GCH ou GBH)?"
+    if situacao in ("pedir_pedido", "pedir_dados"):
+        d = case.dossie or {}
+        nf = (d.get("pedido_nao_encontrado") or {}).get("numero_informado")
+        sug = d.get("pedido_sugerido") or {}
+        reacao = ("Por segurança, suspenda o uso do produto agora e, se os sintomas piorarem, procure atendimento médico. "
+                  if (case.triagem or {}).get("intencao") == "reacao_adversa" else "")
+        if nf:
+            txt = (f"{ola} {reacao}Não encontrei o pedido {nf} aqui. Pode conferir o número? Ele está no e-mail de "
+                   "confirmação da compra e começa com GCH ou GBH.")
+        else:
+            txt = (f"{ola} {reacao}Quero te ajudar com isso. Me passa o número do pedido? Ele está no e-mail de "
+                   "confirmação da compra e começa com GCH ou GBH.")
+        if sug.get("order_id") and sug.get("order_id") != nf:
+            txt += f" É o pedido {sug['order_id']}" + (f", do {sug['produto']}" if sug.get("produto") else "") + "?"
+        return txt
     if situacao == "pedir_foto":
         return (f"{ola} Sinto muito pelo problema com o pedido {ped}. Me manda uma foto do produto e da embalagem? "
                 "Assim que chegar, eu já resolvo por aqui.")
@@ -116,18 +132,21 @@ async def _redigir(case: Case, situacao: str, base: str) -> tuple[str, str]:
                 "Você é a Voz do atendimento Gocase. Reescreva o rascunho no tom da marca: curto (até 3 frases), "
                 "caloroso, em 2ª pessoa (você), verbo na frente, sem jargão. Mantenha TODOS os fatos do rascunho "
                 "(números de pedido, protocolo, valores, prazos) e não invente nenhum outro. Nunca mencione fraude "
-                "ou suspeita, nunca repita CPF, cartão ou telefone. Não presuma o gênero do cliente: use linguagem neutra (em vez de \"fique tranquila\" ou \"tranquilo\", escreva \"não se preocupe\"). Responda só com a mensagem."},
+                "ou suspeita, nunca repita CPF, cartão ou telefone. Tom Gocase sem exagero: nada de 'pode comemorar', 'oba', euforia ou exclamações em excesso; nunca afirme status de pedido que não esteja no rascunho. Não presuma o gênero do cliente: use linguagem neutra (em vez de \"fique tranquila\" ou \"tranquilo\", escreva \"não se preocupe\"). Responda só com a mensagem."},
             {"role": "user", "content": str(fatos)},
         ], case=case, agent="voz", max_tokens=2000, temperature=0.4)
         txt = (txt or "").strip().strip('"')
-        if not txt or len(txt) > 700 or PROIBIDO.search(txt):
+        if not txt or len(txt) > 700 or PROIBIDO.search(txt) or EUFORIA.search(txt):
+            return base, "template"
+        # nunca inventar nem perder dado: os números de pedido/protocolo do rascunho, e só eles
+        if set(RX_IDS.findall(txt)) != set(RX_IDS.findall(base)):
             return base, "template"
         return txt, "llm"
     except Exception:
         return base, "template"
 
 
-CONFIRMACAO = "Oi! Recebi sua mensagem e já estou cuidando do seu pedido. Te respondo por aqui em instantes."
+CONFIRMACAO = "Recebi sua mensagem! Já estou olhando e te respondo por aqui em instantes."
 
 
 async def confirmar(case: Case) -> None:
@@ -210,6 +229,9 @@ async def run(case: Case, situacao: str = "resolvido") -> dict:
                     "humano": f"avisou que um especialista assume ({canal})",
                     "pedir_foto": f"pediu foto ao cliente ({canal})",
                     "pedir_pedido": f"pediu o número do pedido ({canal})",
+                    "pedir_dados": (f"não achei o pedido {(case.dossie or {}).get('pedido_nao_encontrado', {}).get('numero_informado')}: "
+                                    f"pediu o número certo ({canal})" if (case.dossie or {}).get("pedido_nao_encontrado")
+                                    else f"pediu o número do pedido ({canal})"),
                     "negado": f"respondeu com cuidado, sem acusar ({canal})",
                     "desfeito": f"avisou o cliente que a ação foi desfeita ({canal})"}.get(situacao, f"respondeu no {canal}")
         s.detalhe = texto

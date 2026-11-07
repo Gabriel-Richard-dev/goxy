@@ -150,6 +150,64 @@ def _pedido(order_id: str) -> Optional[dict]:
 erp = APIRouter(prefix="/api/erp", tags=["ERP"])
 
 
+_BUSCA_COLS = ("p.order_id, p.customer_id, c.nome AS cliente_nome, p.descricao_produto AS produto, p.sku, p.valor, "
+               "p.status_entrega, p.data_pedido, c.canal_preferido, p.marca, p.cidade_entrega")
+_PRIORIDADE = "CASE p.status_entrega WHEN 'entregue' THEN 0 WHEN 'em_transito' THEN 1 ELSE 2 END"
+
+
+def _fmt_busca(r: dict) -> dict:
+    r = dict(r)
+    r["produto"] = (r.get("produto") or "").split(" + ")[0]
+    return {k: r.get(k) for k in ("order_id", "customer_id", "cliente_nome", "produto", "sku", "valor", "status_entrega",
+                                  "data_pedido", "canal_preferido")}
+
+
+@erp.get("/pedidos")
+def buscar_pedidos(q: str = "", limite: int = Query(20, ge=1, le=100)):
+    """Busca pedidos REAIS (simulador): order_id, nome do cliente, produto ou cidade. Prioriza entregues e em trânsito
+    recentes. Sem `q`: pedidos variados e recentes, começando pelos 5 da demo."""
+    hoje = NOW_ENV.strftime("%Y-%m-%d")
+    base = (f"SELECT {_BUSCA_COLS} FROM pedidos p LEFT JOIN clientes c ON c.customer_id = p.customer_id "
+            "WHERE p.data_pedido <= ?")
+    q = (q or "").strip()
+    if q:
+        like = f"%{q}%"
+        rows = _q(base + " AND (p.order_id LIKE ? OR c.nome LIKE ? OR p.descricao_produto LIKE ? OR p.cidade_entrega LIKE ? "
+                  "OR p.order_id IN (SELECT order_id FROM itens_pedido WHERE descricao LIKE ?)) "
+                  f"ORDER BY (p.order_id = ?) DESC, {_PRIORIDADE}, p.data_pedido DESC LIMIT ?",
+                  (hoje, like, like, like, like, like, q.upper(), limite))
+        return [_fmt_busca(r) for r in rows]
+    out: list[dict] = []
+    vistos: set[str] = set()
+    demo = config.DATA_DIR / "demo_cases.json"
+    if demo.exists():
+        try:
+            ids = [d.get("order_id") for d in json.loads(demo.read_text(encoding="utf-8")) if d.get("order_id")]
+        except ValueError:
+            ids = []
+        for oid in ids:
+            r = _q1(f"SELECT {_BUSCA_COLS} FROM pedidos p LEFT JOIN clientes c ON c.customer_id = p.customer_id "
+                    "WHERE p.order_id=?", (oid,))
+            if r and r["order_id"] not in vistos:
+                out.append(_fmt_busca(r))
+                vistos.add(r["order_id"])
+    recentes = _q(base + f" AND p.data_pedido >= ? ORDER BY {_PRIORIDADE}, p.data_pedido DESC LIMIT 600",
+                  (hoje, (NOW_ENV - timedelta(days=45)).strftime("%Y-%m-%d")))
+    grupos: dict[tuple, list[dict]] = {}
+    for r in recentes:                       # variedade: rodízio por marca × status
+        grupos.setdefault((r.get("marca"), r.get("status_entrega")), []).append(r)
+    filas = list(grupos.values())
+    while len(out) < limite and any(filas):
+        for fila in filas:
+            while fila and fila[0]["order_id"] in vistos:
+                fila.pop(0)
+            if fila and len(out) < limite:
+                r = fila.pop(0)
+                out.append(_fmt_busca(r))
+                vistos.add(r["order_id"])
+    return out[:limite]
+
+
 @erp.get("/pedidos/{order_id}")
 def get_pedido(order_id: str):
     p = _pedido(order_id)

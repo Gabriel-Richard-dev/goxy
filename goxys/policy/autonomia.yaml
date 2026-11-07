@@ -36,6 +36,7 @@ acoes:
   informar_status:    {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
   responder:          {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
   solicitar_foto:     {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
+  pedir_dados:        {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}   # pedido não informado/não encontrado
   negar:              {tipo: decisao,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
   # reação adversa: registro de cosmetovigilância em até 24 h é do supervisor/responsável técnica → sempre C
   cosmetovigilancia:  {tipo: escrita,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true, exige_supervisor: true, prazo_horas: 24}

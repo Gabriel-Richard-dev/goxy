@@ -36,12 +36,36 @@ def _painel(case_id: str | None) -> str | None:
 
 
 async def _nome_usuario(client, user_id: str) -> str:
+    """Nome + @handle do Slack: identifica a pessoa sem colidir com nomes da equipe da base (alçada/segregação)."""
     try:
         r = await client.users_info(user=user_id)
         u = r["user"]
-        return u.get("real_name") or u.get("name") or user_id
+        real, handle = u.get("real_name"), u.get("name")
+        if real and handle:
+            return f"{real} @{handle}"
+        return real or (f"@{handle}" if handle else user_id)
     except Exception:
         return user_id
+
+
+ENCERRADO_BLOCKS = [{"type": "section", "text": {"type": "mrkdwn",
+                                                 "text": ":no_entry: *Pedido encerrado* — " + comum.TXT_ENCERRADO}}]
+
+
+async def _aplicar_resultado(client, aid: str, r: dict, channel: str, ts: str) -> None:
+    """404 → "Pedido encerrado"; 409 → resultado de quem decidiu; 403/erro → mantém os botões."""
+    try:
+        if r["tipo"] == "encerrado":
+            _postadas.pop(aid, None)
+            await client.chat_update(channel=channel, ts=ts, text="Pedido encerrado", blocks=ENCERRADO_BLOCKS)
+        elif r["tipo"] == "decidido":
+            _postadas.pop(aid, None)
+            info = comum.APROVACOES.get(aid, {})
+            pedido = info.get("pedido") or r.get("aprovacao") or {"aprovacao_id": aid}
+            await client.chat_update(channel=channel, ts=ts, text=fmt.decisao_resumo(r["decidido"]),
+                                     blocks=fmt.slack_decisao_blocks(pedido, r["decidido"], info.get("case_id")))
+    except Exception:
+        log.exception("não consegui atualizar a mensagem da aprovação %s", aid)
 
 
 def _registrar(app: AsyncApp) -> None:
@@ -49,11 +73,14 @@ def _registrar(app: AsyncApp) -> None:
         await ack()
         aid = body["actions"][0]["value"]
         quem = await _nome_usuario(client, body["user"]["id"])
-        st, _ = await comum.decidir(aid, decisao, quem, "slack")
-        if st >= 400:
-            msg = "Essa aprovação já foi decidida." if st == 409 else f"Não consegui registrar ({st})."
-            await client.chat_postEphemeral(channel=body["channel"]["id"], user=body["user"]["id"], text=msg)
-        _postadas.setdefault(aid, (body["channel"]["id"], body["message"]["ts"]))
+        st, resp = await comum.decidir(aid, decisao, quem, "slack")
+        r = comum.explicar_decisao(st, resp)
+        ch, ts = body["channel"]["id"], body["message"]["ts"]
+        if r["tipo"] != "ok":
+            await client.chat_postEphemeral(channel=ch, user=body["user"]["id"], text=r["toast"])
+            await _aplicar_resultado(client, aid, r, ch, ts)
+        else:
+            _postadas.setdefault(aid, (ch, ts))
 
     @app.action("gx_aprovar")
     async def aprovar(ack, body, client):
@@ -80,10 +107,12 @@ def _registrar(app: AsyncApp) -> None:
             return
         await ack()
         quem = await _nome_usuario(client, body["user"]["id"])
-        st, _ = await comum.decidir(aid, "ajustar", quem, "slack", ajuste)
-        if st >= 400:
-            await client.chat_postMessage(channel=body["user"]["id"],
-                                          text="Essa aprovação já foi decidida." if st == 409 else f"Ajuste não registrado ({st}).")
+        st, resp = await comum.decidir(aid, "ajustar", quem, "slack", ajuste)
+        r = comum.explicar_decisao(st, resp)
+        if r["tipo"] != "ok":
+            await client.chat_postMessage(channel=body["user"]["id"], text=r["toast"])
+            if aid in _postadas:
+                await _aplicar_resultado(client, aid, r, *_postadas[aid])
 
     @app.action("gx_desfazer")
     async def desfazer(ack, body, client, respond):
@@ -144,6 +173,18 @@ async def _on_evento(evt: dict) -> None:
         r = await cli.chat_postMessage(channel=canal, text=fmt.slack_texto_fallback(d),
                                        blocks=fmt.slack_aprovacao_blocks(d, evt.get("case_id"), _painel(evt.get("case_id"))))
         _postadas[aid] = (r["channel"], r["ts"])
+    elif t == "demo.reset":
+        postadas = list(_postadas.items())
+        _postadas.clear()
+        _nivel_b.clear()
+        comum.APROVACOES.clear()
+        blocks = [{"type": "section", "text": {"type": "mrkdwn",
+                                               "text": ":arrows_counterclockwise: *Demo reiniciada* — este pedido de aprovação foi encerrado."}}]
+        for _aid, (ch, ts) in postadas:
+            try:
+                await cli.chat_update(channel=ch, ts=ts, text="Demo reiniciada", blocks=blocks)
+            except Exception:
+                log.info("não editei a mensagem %s no Slack", ts)
     elif t in ("approval.decided", "approval.escalated"):
         aid = str(d.get("aprovacao_id") or "")
         if aid not in _postadas:

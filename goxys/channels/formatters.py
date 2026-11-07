@@ -78,7 +78,7 @@ def _expira(data: dict) -> str:
 # ------------------------------------------------------------------ Telegram (HTML)
 
 def telegram_confirmacao() -> str:
-    return "Recebi! Já estou olhando seu pedido."
+    return "Recebi sua mensagem! Já estou olhando e te respondo por aqui em instantes."
 
 
 def telegram_boas_vindas() -> str:

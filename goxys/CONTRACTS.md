@@ -121,6 +121,7 @@ rastreio devolve `dias_uteis_atraso` (`dias_atraso` = dias corridos) e `chamados
 
 | Método e rota | Corpo / query | Resposta |
 | --- | --- | --- |
+| GET `/api/erp/pedidos?q=&limite=20` | | busca pedidos REAIS (simulador) por order_id, nome do cliente, produto (também em `itens_pedido`) ou cidade, só pedidos até o "agora", priorizando entregues e em trânsito recentes: `[{order_id, customer_id, cliente_nome, produto, sku, valor, status_entrega, data_pedido, canal_preferido}]`. `q` vazio: 20 pedidos variados (rodízio marca × status) e recentes, começando pelos 5 da demo |
 | GET `/api/erp/pedidos/{order_id}` | | pedido (colunas de `pedidos`) + `itens` (itens_pedido) + `pagamentos` (pagamentos_gateway). 404 se não existe |
 | GET `/api/erp/clientes/{customer_id}` | | cliente (colunas de `clientes`, sem CPF completo: mascarar) + `flag_risco` (bool) + `qtd_reclamacoes_90d` |
 | GET `/api/erp/clientes/{customer_id}/historico` | | `{pedidos:[], conversas:[], trocas:[], estornos:[], anexos:[], reclame_aqui:[]}` |
@@ -181,7 +182,7 @@ politica ─ A/B ▶ executor ▶ voz │ C/D ▶ revisor ─ C ▶ pedir_aprova
          │ aprovado/negado na devolução ▶ executor | negar               └ D ▶ humano (congela, chamado) ▶ voz
 ```
 
-- Estado do grafo: `{case_id, entrada: "inicio"|"politica", sinal_humano?}`. O `Case` vive no `CaseStore`; cada passo
+- Estado do grafo: `{case_id, entrada: "inicio"|"politica"|"investigar", sinal_humano?}` ("investigar" = o cliente respondeu: refaz o fan-out rastreador ‖ detetive_prep ‖ analista). O `Case` vive no `CaseStore`; cada passo
   salva o snapshot em `goxys_cases`. No `startup()` os casos são recarregados de lá.
 - Checkpointer `AsyncSqliteSaver` em `data/checkpoints.db` (env `GOXYS_CHECKPOINTS`), `thread_id = case_id`; uma
   devolução humana abre `case_id~n`. `case.grafo = {thread_id, execucoes, entrada}`; `case.aprovacao.thread_id`.
@@ -223,15 +224,25 @@ de erro assimétrico (SPEC §14 ideia 2). Revisor maker-checker nos níveis C/D 
 | GET `/api/goxys/equipe` | `[{colaborador_id, nome, cargo, nivel, canais_atendidos:[str], supervisor_id, status}]` (só ativos, de `equipe_atendimento`) |
 | POST `/api/goxys/casos/{id}/passar` | `{para: colaborador_id, nota?}` → `case.responsavel = {colaborador_id, nome, cargo, desde, nota}`, status `humano`, mascote `humano`, ações do Goxy congeladas (aprovação pendente continua válida), `case.resumo_passagem` (str, 3 linhas: "Cliente quer: …" / "Goxy achou: …" / "Falta decidir: …"), passo "Maestro passou o caso para <nome>", evento `case.handoff` → `{case_id, status, responsavel, resumo_passagem}`. 422 colaborador inválido |
 | POST `/api/goxys/casos/{id}/mensagens` | `{texto, autor: colaborador_id}` → envia ao cliente pelo canal de origem (`/api/mensagens`; Telegram via `telegram_chat_id`), acrescenta `{autor:"agente", nome, colaborador_id, texto, ts, canal, message_id}` em `case.mensagens`; `message.sent` |
-| POST `/api/goxys/casos/{id}/cliente` | `{texto, anexos?}` → mensagem nova do cliente num caso aberto (o Telegram usa quando o caso está com `responsavel`); `{autor:"cliente", texto, ts}` em `case.mensagens`; evento `message.received` |
+| POST `/api/goxys/casos/{id}/cliente` | `{texto, anexos?}` → mensagem nova do cliente num caso aberto: `{autor:"cliente", texto, ts}` em `case.mensagens`, evento `message.received`. O Telegram manda para cá quando o caso do chat está com `responsavel` ou em `aguardando_cliente`. Em `aguardando_cliente`, um número de pedido (GCH…/GBH…) no texto — ou a foto que foi pedida — retoma o grafo pela investigação (`entrada: "investigar"`, passo "o cliente respondeu: retomando a investigação") |
 | POST `/api/goxys/casos/{id}/sugerir-resposta` | → `{texto}`: rascunho da Voz para a pessoa (não envia) |
 | POST `/api/goxys/casos/{id}/devolver` | `{nota?, instrucao: "seguir"\|"encerrar"}` → limpa `responsavel`, passo "<nome> devolveu o caso", evento `case.returned`. "seguir": o grafo retoma a partir da política com a nota como sinal humano ("pode fazer o reembolso" → aprovação humana registrada em `/api/aprovacoes`, `case.aprovacao.via = "devolucao"`; "não procede" → negativa). "encerrar": status `resolvido`. 409 se o caso não está com uma pessoa |
 | POST `/api/goxys/demo/sla` | `{segundos}` → muda o SLA das aprovações em tempo de execução (demo) e rearma as pendentes → `{sla_s, aprovacoes_rearmadas}`. Ao estourar: `approval.escalated {aprovacao_id, para:{colaborador_id, nome}, novo_prazo}`, `aprovacao.escalada_para = {colaborador_id, nome, em, novo_prazo}` (outro supervisor, nunca o sugerido nem quem pediu), passo "Mensageiro escalou para <nome>", uma única mensagem ao cliente (`situacao: "sla"`, "seu caso está com um supervisor; resposta até HH:MM"). A aprovação continua decidível |
 | GET `/api/goxys/aprendizado` | `{total_decisoes, concordancia_pct, por_nivel:{C:{total, concordou, concordancia_pct}}, divergencias:[{case_id, aprovacao_id, recomendado, decidido:{decisao, ajuste}, aprovador, nota}], sugestoes:[Sugestao], historico_real:[{acao, faixa:[de, ate], executadas, com_aprovacao, supervisores, fonte}], politica_versao}`. Concordância = aprovações humanas da sessão (aprovador automático dos sintéticos fica fora); nível B desfeito também é divergência. `historico_real` vem de `acoes_executadas_sistemas.aprovado_por` (+ total de `trocas_reenvios.aprovado_por`) |
-| POST `/api/goxys/aprendizado/sugestoes/{id}/validar` | dispara job em background: os 20 clientes sintéticos com a política proposta, em memória e só nos casos da validação (header interno `X-Goxy-Politica`; esses casos ficam fora da fila e das métricas e são apagados no fim). Não toca no YAML → `Job` |
-| GET `/api/goxys/aprendizado/jobs/{job}` | `Job = {job_id, sugestao_id, status: rodando\|concluido\|falhou, feitos, total, placar:{acertos,total}, erros:[{persona, falhas, obtido}], politica_versao, sugestao}`. A sugestão vira `validada` só com 20/20; senão `reprovada` (erros em `sugestao.validacao`) |
+| POST `/api/goxys/aprendizado/sugestoes/{id}/validar` | dispara job em background: todos os clientes sintéticos (hoje 21) com a política proposta, em memória e só nos casos da validação (header interno `X-Goxy-Politica`; esses casos ficam fora da fila e das métricas e são apagados no fim). Não toca no YAML → `Job` |
+| GET `/api/goxys/aprendizado/jobs/{job}` | `Job = {job_id, sugestao_id, status: rodando\|concluido\|falhou, feitos, total, placar:{acertos,total}, erros:[{persona, falhas, obtido}], politica_versao, sugestao}`. A sugestão vira `validada` só com todos os sintéticos certos (hoje 21/21); senão `reprovada` (erros em `sugestao.validacao`) |
 | POST `/api/goxys/aprendizado/sugestoes/{id}/aplicar` | `{por}` → só se `validada` (senão 409 `nao_validada`): grava a nova versão do YAML (`-rN+1`, comentários preservados), guarda a anterior em `policy/historico/autonomia-<versao>.yaml`, recarrega a política, publica `policy.updated`; decisões seguintes registram a versão nova |
 | POST `/api/goxys/demo/limpar` | apaga todos os casos (memória, `goxys_cases`, checkpoints), as escritas `sim_*` dos pedidos de demo e as aprovações pendentes; limpa o histórico do barramento e publica `demo.reset`. Não reconstrói o banco |
+
+**Nunca inventar dado (pedido).** `get_order` 404 → `dossie.pedido_nao_encontrado = {numero_informado}`, passo do Rastreador
+"não achei o pedido X" (alerta), sem rastreio; sem número → `dossie.pedido_nao_informado`. Com o cliente conhecido,
+`dossie.pedido_sugerido = {order_id, produto, data_pedido, status_entrega}` (o mais recente dele). Sem pedido válido, para
+qualquer intenção que dependa dele (tudo menos dúvida/elogio/outros), a política decide `acao: "pedir_dados"` (nível A;
+jurídico/imprensa continuam D) e o caso fica em **`status: "aguardando_cliente"`** (não conta como resolvido; foto pedida
+também cai aqui). A Voz: "Não encontrei o pedido X aqui. Pode conferir o número? Ele está no e-mail de confirmação da compra
+e começa com GCH ou GBH." (+ "É o pedido Y, do Z?" quando há sugestão). Confirmação imediata neutra: "Recebi sua mensagem!
+Já estou olhando e te respondo por aqui em instantes." A reescrita por IA é descartada se trouxer euforia ("pode comemorar")
+ou se mudar o conjunto de números de pedido/protocolo do rascunho.
 
 `case.mensagens` traz a conversa completa, em ordem: `{autor: "cliente"|"goxys"|"agente", nome?, texto, ts, canal,
 tipo?: "confirmacao", situacao?, message_id?}` (mensagem inicial, confirmação imediata, respostas da Voz, mensagens

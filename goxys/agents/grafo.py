@@ -49,7 +49,7 @@ CHECKPOINTS = Path(os.getenv("GOXYS_CHECKPOINTS", str(config.DATA_DIR / "checkpo
 
 class Estado(TypedDict, total=False):
     case_id: str
-    entrada: str                      # "inicio" | "politica"
+    entrada: str                      # "inicio" | "politica" (devolução humana) | "investigar" (cliente respondeu)
     sinal_humano: Optional[dict]      # nota da pessoa que devolveu o caso, interpretada
 
 
@@ -338,8 +338,13 @@ def rota_porteiro(state: Estado):
     return ["rastreador", "detetive_prep", "analista"]
 
 
-def rota_inicio(state: Estado) -> str:
-    return "politica" if state.get("entrada") == "politica" else "inicio"
+def rota_inicio(state: Estado):
+    e = state.get("entrada")
+    if e == "politica":
+        return "politica"
+    if e == "investigar":                       # o cliente respondeu (número do pedido, foto): refaz a investigação
+        return ["rastreador", "detetive_prep", "analista"]
+    return "inicio"
 
 
 def rota_politica(state: Estado) -> str:
@@ -351,7 +356,7 @@ def rota_politica(state: Estado) -> str:
         return "negar"
     if dec.get("aprovado_por_humano"):
         return "executor"
-    if dec.get("acao") == "solicitar_foto":
+    if dec.get("acao") in ("solicitar_foto", "pedir_dados"):
         return "voz"
     if dec["nivel"] in ("C", "D"):
         return "revisor"
@@ -548,13 +553,14 @@ async def no_voz(state: Estado) -> dict:
     acao, nivel = dec.get("acao"), dec.get("nivel")
     if not dec:                                       # sem pedido nem cliente
         await voz.run(case, "pedir_pedido")
-        await _fechar(case, "em_andamento", "parado", "aguardando o número do pedido")
+        await _fechar(case, "aguardando_cliente", "parado", "aguardando o número do pedido")
         return {}
-    if acao == "solicitar_foto":
+    if acao in ("solicitar_foto", "pedir_dados"):    # espera o cliente; a resposta dele retoma o grafo
         _marcar(case, "acao", "ok", ramo="voz")
-        await voz.run(case, "pedir_foto")
+        await voz.run(case, "pedir_foto" if acao == "solicitar_foto" else "pedir_dados")
         _marcar(case, "voz", "ok")
-        await _fechar(case, "em_andamento", "parado", "aguardando foto do cliente")
+        await _fechar(case, "aguardando_cliente", "parado",
+                      "aguardando foto do cliente" if acao == "solicitar_foto" else "aguardando o número do pedido")
         return {}
     if dec.get("negado") or dec.get("negado_por_humano"):
         if dec.get("negado_por_humano"):
@@ -603,7 +609,7 @@ def construir(checkpointer=None):
     g.add_node("humano", no_humano)
     g.add_node("voz", no_voz)
 
-    g.add_conditional_edges(START, rota_inicio, {"inicio": "inicio", "politica": "politica"})
+    g.add_conditional_edges(START, rota_inicio, ["inicio", "politica", "rastreador", "detetive_prep", "analista"])
     g.add_edge("inicio", "porteiro")
     g.add_conditional_edges("porteiro", rota_porteiro, ["rastreador", "detetive_prep", "analista", "voz", END])
     g.add_edge(["rastreador", "detetive_prep"], "detetive")     # o Detetive pontua com o dossiê pronto

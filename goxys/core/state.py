@@ -17,7 +17,7 @@ from pydantic import BaseModel, Field
 from .bus import bus
 from .config import DB_PATH
 
-CaseStatus = Literal["novo", "em_andamento", "aguardando_aprovacao", "resolvido",
+CaseStatus = Literal["novo", "em_andamento", "aguardando_aprovacao", "aguardando_cliente", "resolvido",
                      "rejeitado", "humano", "erro"]
 StepStatus = Literal["pendente", "rodando", "ok", "alerta", "falhou", "pulado"]
 MascotState = Literal["parado", "investigando", "fraude", "esperando", "resolvido", "humano"]

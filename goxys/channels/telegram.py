@@ -8,6 +8,7 @@ POST /api/aprovacoes/{id}/decisao (canal "telegram"); `approval.decided`/`approv
 from __future__ import annotations
 
 import asyncio
+import html
 import json
 import logging
 from datetime import datetime
@@ -49,9 +50,30 @@ def _aprovadores() -> int | None:
 
 
 def _nome(user) -> str:
-    if not user:
-        return "telegram"
-    return user.full_name or (f"@{user.username}" if user.username else str(user.id))
+    return comum.nome_telegram(user)
+
+
+async def _editar(chat_id: int, message_id: int, texto: str, teclado=None) -> None:
+    """Edita a mensagem de aprovação sem nunca derrubar o canal (mensagem apagada, texto igual etc.)."""
+    if _app is None:
+        return
+    try:
+        await _app.bot.edit_message_text(texto, chat_id=chat_id, message_id=message_id, parse_mode=ParseMode.HTML,
+                                         reply_markup=teclado)
+    except TelegramError as e:
+        log.info("não editei a mensagem %s: %s", message_id, e)
+
+
+async def _aplicar_resultado(aid: str, r: dict, chat_id: int, message_id: int) -> None:
+    """404 → "Pedido encerrado"; 409 → resultado de quem decidiu; 403/erro → mantém os botões."""
+    if r["tipo"] == "encerrado":
+        _postadas.pop(aid, None)
+        await _editar(chat_id, message_id, "⛔ <b>Pedido encerrado</b>\n" + html.escape(comum.TXT_ENCERRADO))
+    elif r["tipo"] == "decidido":
+        _postadas.pop(aid, None)
+        info = comum.APROVACOES.get(aid, {})
+        pedido = info.get("pedido") or r.get("aprovacao") or {"aprovacao_id": aid}
+        await _editar(chat_id, message_id, fmt.telegram_decisao_texto(pedido, r["decidido"], info.get("case_id")))
 
 
 # ------------------------------------------------------------------ entrada do cliente
@@ -195,13 +217,12 @@ async def _callback(update: Update, ctx: ContextTypes.DEFAULT_TYPE) -> None:
         _prompts_ajuste[m.message_id] = aid
         return
     st, body = await comum.decidir(aid, decisao, _nome(q.from_user), "telegram")
-    if st == 409:
-        await q.answer("Essa aprovação já foi decidida.", show_alert=True)
-    elif st >= 400:
-        await q.answer(f"Não consegui registrar ({st}).", show_alert=True)
-    else:
-        await q.answer("Decisão registrada. O Goxy retoma o caso.")
-    _postadas.setdefault(aid, (q.message.chat.id, q.message.message_id))
+    r = comum.explicar_decisao(st, body)
+    await q.answer(r["toast"][:200])
+    if r["tipo"] in ("encerrado", "decidido"):
+        await _aplicar_resultado(aid, r, q.message.chat.id, q.message.message_id)
+    elif r["tipo"] == "ok":
+        _postadas.setdefault(aid, (q.message.chat.id, q.message.message_id))
 
 
 async def _resposta_aprovador(update: Update) -> None:
@@ -211,13 +232,14 @@ async def _resposta_aprovador(update: Update) -> None:
         return
     aid = _prompts_ajuste.pop(rep.message_id)
     ajuste = fmt.parse_ajuste(msg.text)
-    st, _ = await comum.decidir(aid, "ajustar", _nome(msg.from_user), "telegram", ajuste or {"nota": msg.text})
-    if st == 409:
-        await msg.reply_text("Essa aprovação já tinha sido decidida.")
-    elif st >= 400:
-        await msg.reply_text(f"Não consegui registrar o ajuste ({st}).")
-    else:
-        await msg.reply_text("Ajuste registrado. ✏️")
+    st, body = await comum.decidir(aid, "ajustar", _nome(msg.from_user), "telegram", ajuste or {"nota": msg.text})
+    r = comum.explicar_decisao(st, body)
+    await msg.reply_text("Ajuste registrado. ✏️" if r["tipo"] == "ok" else r["toast"])
+    if r["tipo"] in ("encerrado", "decidido") and aid in _postadas:
+        chat, mid = _postadas[aid]
+        await _aplicar_resultado(aid, r, chat, mid)
+    elif r["tipo"] == "bloqueado":
+        _prompts_ajuste[rep.message_id] = aid       # pode tentar de novo (ou outra pessoa decide)
 
 
 async def _on_evento(evt: dict) -> None:
@@ -241,6 +263,13 @@ async def _on_evento(evt: dict) -> None:
                                    parse_mode=ParseMode.HTML, reply_markup=_teclado(aid))
         _postadas[aid] = (m.chat.id, m.message_id)
         info["telegram"] = _postadas[aid]
+    elif t == "demo.reset":
+        postadas = list(_postadas.items())
+        _postadas.clear()
+        _prompts_ajuste.clear()
+        comum.APROVACOES.clear()
+        for _aid, (chat, mid) in postadas:
+            await _editar(chat, mid, "🔄 <b>Demo reiniciada</b>\nEste pedido de aprovação foi encerrado.")
     elif t in ("approval.decided", "approval.escalated"):
         aid = str(d.get("aprovacao_id") or "")
         if aid not in _postadas:

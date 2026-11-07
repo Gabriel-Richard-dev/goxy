@@ -206,7 +206,27 @@ async def mensagem_cliente(case_id: str, texto: str, anexos: list[dict] | None =
     await store.save(case)
     await bus.publish("message.received", {"canal": case.canal, "texto": msg["texto"], "autor": "cliente",
                                            "customer_id": case.customer_id}, case_id=case.id, agent="cliente")
+    await _retomar_se_esperava(case, msg["texto"], bool(anexos))
     return msg
+
+
+async def _retomar_se_esperava(case: Case, texto: str, chegou_foto: bool) -> None:
+    """Caso em `aguardando_cliente`: o número do pedido (ou a foto pedida) retoma o grafo pela investigação."""
+    from .porteiro import RX_ORDER
+    if case.status != "aguardando_cliente" or case.responsavel:
+        return
+    m = re.search(RX_ORDER, (texto or "").upper())
+    esperava_foto = (case.decisao or {}).get("acao") == "solicitar_foto"
+    if not m and not (chegou_foto and esperava_foto):
+        return
+    if m:
+        case.order_id = m.group(0)
+        case.dossie.pop("pedido_nao_encontrado", None)
+    case.status, case.encerrado_em = "em_andamento", None
+    await mascote(case, "investigando")
+    async with passo(case, "maestro", "o cliente respondeu: retomando a investigação", novo=True, atraso=False) as s:
+        s.detalhe = (f"Pedido informado: {case.order_id}." if m else "Foto recebida.")
+    grafo._bg(grafo.iniciar(case.id, entrada="investigar"))
 
 
 async def sugerir_resposta(case_id: str) -> str:
