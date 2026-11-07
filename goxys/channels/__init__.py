@@ -1,4 +1,4 @@
-"""Canais do Goxy (Telegram para o cliente e aprovadores, Slack para o time).
+"""Canais do Goxy (WhatsApp e Telegram para o cliente, Telegram e Slack para aprovadores e o time).
 
 Cada canal só liga se o token existir; sem token (ou se a conexão falhar) loga e segue: o painel é o plano B.
 """
@@ -11,12 +11,17 @@ from core import config
 
 log = logging.getLogger("goxys.channels")
 
+from . import whatsapp as _whatsapp
+
 ATIVOS: dict[str, object] = {}
 TIMEOUT_S = 20
+# Rotas HTTP dos canais (webhooks); o app.py monta. O webhook responde 503 se o canal estiver desligado.
+routers = [_whatsapp.router]
 
 
 def status() -> dict:
-    return {"telegram": "telegram" in ATIVOS, "slack": "slack" in ATIVOS, "reclame_aqui": "reclame_aqui" in ATIVOS}
+    return {"telegram": "telegram" in ATIVOS, "slack": "slack" in ATIVOS, "reclame_aqui": "reclame_aqui" in ATIVOS,
+            "whatsapp": "whatsapp" in ATIVOS}
 
 
 async def _ligar(nome: str, tem_token: bool, importar) -> None:
@@ -52,6 +57,7 @@ async def start() -> None:
         _ligar("reclame_aqui", True, _ra),  # sem token: fala com a API do Reclame Aqui (simulada)
         _ligar("telegram", bool(config.TELEGRAM_BOT_TOKEN), _tg),
         _ligar("slack", bool(config.SLACK_BOT_TOKEN and config.SLACK_APP_TOKEN), _sl),
+        _ligar("whatsapp", _whatsapp.configurado(), lambda: _whatsapp),
     )
 
 

@@ -60,6 +60,9 @@ if mock_api:
         app.include_router(r)
 if goxys_api:
     app.include_router(goxys_api.router)
+if channels:
+    for r in getattr(channels, "routers", []):      # webhooks dos canais (ex.: /api/canais/whatsapp)
+        app.include_router(r)
 
 config.ASSETS_DIR.mkdir(exist_ok=True)
 app.mount("/assets-goxys", StaticFiles(directory=config.ASSETS_DIR), name="mascote")

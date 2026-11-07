@@ -77,6 +77,7 @@ class Case(BaseModel):
     mensagens: list[dict] = Field(default_factory=list)   # [{autor, texto, ts}]
     anexos: list[Anexo] = Field(default_factory=list)
     telegram_chat_id: Optional[str] = None
+    whatsapp_from: Optional[str] = None   # "whatsapp:+55..." do cliente (canal WhatsApp/Twilio)
     status: CaseStatus = "novo"
     mascot_state: MascotState = "parado"
     criado_em: str = Field(default_factory=now)

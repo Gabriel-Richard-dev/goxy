@@ -75,6 +75,7 @@ export function IconeCanal({ canal, size = 16 }: { canal: string; size?: number 
     case 'whatsapp': return <svg {...p}><path d="M2.5 13.5 3.4 11A5.6 5.6 0 1 1 5 12.6z" /></svg>
     case 'email': return <svg {...p}><rect x="2" y="3.5" width="12" height="9" rx="2" /><path d="m2.5 4.5 5.5 4 5.5-4" /></svg>
     case 'telegram': return <svg {...p}><path d="M14 2.5 1.8 7.3l4.2 1.5L12 4.5 7.5 9.6l4.3 3.4z" /></svg>
+    case 'slack': return <svg {...p}><path d="M6.2 2.5v11M9.8 2.5v11M2.5 6.2h11M2.5 9.8h11" /></svg>
     case 'reclame_aqui': return <svg {...p}><path d="M2.5 6v4h2.5l4.5 3V3L5 6z" /><path d="M12 6.5a2.5 2.5 0 0 1 0 3" /></svg>
     default: return <svg {...p}><rect x="2" y="2.5" width="12" height="9" rx="2" /><path d="M6 14h4" /></svg>
   }

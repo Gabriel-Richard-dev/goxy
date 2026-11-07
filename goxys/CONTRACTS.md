@@ -289,7 +289,24 @@ Formato: `{id, type, ts, case_id, agent, data}`.
 | `aprendizado.job` | `{job_id, sugestao_id, status, feitos, total, placar, erros}` |
 
 Canais escutam via `bus.subscribe_listener`: `approval.requested` → posta com botões no Slack/Telegram;
-`message.sent` com `telegram_chat_id` → envia ao cliente no Telegram; `approval.decided` → edita a mensagem.
+`message.sent` com `telegram_chat_id` → envia ao cliente no Telegram; `message.sent` com `canal: "whatsapp"` de um caso
+com `whatsapp_from` → envia pela REST da Twilio; `approval.decided` → edita a mensagem. Erro de envio num canal →
+`channel.error {canal, status_http?, codigo?, erro}` (nunca derruba o fluxo).
+
+**WhatsApp (Twilio, `channels/whatsapp.py`).** Webhook POST `/api/canais/whatsapp` (form-urlencoded da Twilio: `From`,
+`Body`, `NumMedia`, `MediaUrl{i}`, `MediaContentType{i}`, `ProfileName`, `WaId`, `MessageSid`). Valida `X-Twilio-Signature`
+(HMAC-SHA1 de `GOXYS_PUBLIC_URL` + path + parâmetros ordenados, com `TWILIO_AUTH_TOKEN`) → 403 se inválida; 503 se o canal
+está desligado; senão `<Response/>` imediato e processamento em background:
+- número sem caso aberto → POST `/api/goxys/casos` `{canal:"whatsapp", mensagem, whatsapp_from:"whatsapp:+55…",
+  conversation_id:"WA-<WaId>-<sid>", cliente_nome:<ProfileName>, order_id?, customer_id?, anexos?}` (sem `confirmacao`:
+  a confirmação imediata sai pela REST como as demais);
+- número com caso aberto (`novo|em_andamento|aguardando_cliente|aguardando_aprovacao|humano`) → POST
+  `/api/goxys/casos/{id}/cliente` (um número de pedido retoma `aguardando_cliente`);
+- imagem → baixada com basic auth para `assets/uploads/wa_<sid>_<i>.<ext>` e anexada como `{anexo_id:"WA-…", tipo:
+  "foto_produto", url}` (sem `descricao_visual`).
+Saída: POST `https://api.twilio.com/2010-04-01/Accounts/{SID}/Messages.json` `{From, To, Body}` com basic auth
+`TWILIO_API_KEY_SID:TWILIO_API_KEY_SECRET` (ou `ACCOUNT_SID:AUTH_TOKEN` sem API Key). `Case.whatsapp_from` guarda o número.
+`/api/goxys/saude` traz `whatsapp: bool`.
 
 ## 7. Mascote
 

@@ -37,6 +37,13 @@ TELEGRAM_APPROVERS_CHAT_ID = os.getenv("TELEGRAM_APPROVERS_CHAT_ID", "")
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN", "")
 SLACK_APP_TOKEN = os.getenv("SLACK_APP_TOKEN", "")          # xapp-... (Socket Mode)
 SLACK_APPROVALS_CHANNEL = os.getenv("SLACK_APPROVALS_CHANNEL", "")
+# WhatsApp do cliente via Twilio (sandbox). REST com API Key (SK…) se houver; senão Account SID + Auth Token.
+# A assinatura dos webhooks (X-Twilio-Signature) é sempre validada com o Auth Token.
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
+TWILIO_WHATSAPP_FROM = os.getenv("TWILIO_WHATSAPP_FROM", "")      # whatsapp:+14155238886 (sandbox)
+TWILIO_API_KEY_SID = os.getenv("TWILIO_API_KEY_SID", "")
+TWILIO_API_KEY_SECRET = os.getenv("TWILIO_API_KEY_SECRET", "")
 
 # Ritmo da demo: atraso artificial entre passos para a linha do tempo "acender" visivelmente
 DEMO_STEP_DELAY_S = float(os.getenv("GOXYS_STEP_DELAY", "0.8"))

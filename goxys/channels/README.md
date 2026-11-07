@@ -1,6 +1,6 @@
 # Canais do Goxy
 
-Telegram (cliente e aprovadores) e Slack (time interno). Os dois são opcionais: sem token o canal
+WhatsApp via Twilio (cliente), Telegram (cliente e aprovadores) e Slack (time interno). Todos são opcionais: sem token o canal
 fica desligado, o app sobe normalmente e o painel faz o papel de fila de aprovação. As aprovações de
 qualquer canal passam pela mesma rota (`POST /api/aprovacoes/{id}/decisao`). Quando alguém decide em
 um canal, a mensagem é atualizada nos outros também.
@@ -13,8 +13,33 @@ TELEGRAM_APPROVERS_CHAT_ID=-100123...   # grupo dos aprovadores (opcional)
 SLACK_BOT_TOKEN=xoxb-...                # OAuth & Permissions → Bot User OAuth Token
 SLACK_APP_TOKEN=xapp-...                # Basic Information → App-Level Token (connections:write)
 SLACK_APPROVALS_CHANNEL=C0123456789     # id do canal (ou #goxys-aprovacoes)
-GOXYS_PUBLIC_URL=http://localhost:8000  # link "abrir no painel" nas mensagens
+GOXYS_PUBLIC_URL=http://localhost:8000  # link "abrir no painel"; em produção https://goxy.gabrielrichard.dev
+                                        # (o WhatsApp valida a assinatura da Twilio com este URL)
+TWILIO_ACCOUNT_SID=AC...                # Console → Account Info
+TWILIO_AUTH_TOKEN=...                   # só para validar X-Twilio-Signature dos webhooks
+TWILIO_WHATSAPP_FROM=whatsapp:+14155238886   # número do sandbox
+TWILIO_API_KEY_SID=SK...                # (opcional) API Key para a REST; sem ela usa SID + Auth Token
+TWILIO_API_KEY_SECRET=...
 ```
+
+## WhatsApp via Twilio (sandbox, 5 minutos)
+
+O WhatsApp é o canal do **cliente**; aprovações continuam no Slack, no Telegram e no painel.
+
+1. No celular de quem vai testar, mande `join <código-do-sandbox>` para **+1 415 523 8886** (o código aparece no Console).
+   Sem isso a Twilio recusa o envio (erro 63015) e o Goxy registra `channel.error`.
+2. Twilio Console → **Messaging → Try it out → Send a WhatsApp message → Sandbox settings** →
+   **When a message comes in** = `https://goxy.gabrielrichard.dev/api/canais/whatsapp`, método **POST** → Save.
+3. Confira `GOXYS_PUBLIC_URL=https://goxy.gabrielrichard.dev` no `.env` do servidor e reinicie: o log mostra
+   `canal WhatsApp ligado (Twilio, de whatsapp:+14155238886, REST via API Key; webhook …/api/canais/whatsapp)`.
+4. Mande "Oi, meu copo chegou rachado, pedido GCH559588" do celular: o caso abre com `canal: "whatsapp"`, a confirmação
+   e a resposta da Voz chegam no WhatsApp. Foto mandada no WhatsApp vira anexo (`/assets-goxys/uploads/wa_…`).
+
+Como funciona: a Twilio faz POST form-urlencoded no webhook; o Goxy valida `X-Twilio-Signature` (HMAC-SHA1 do URL público +
+parâmetros, com o Auth Token; inválida → 403), responde `<Response/>` na hora e processa em background. Número sem caso
+aberto → caso novo; número com caso aberto (em andamento, esperando o cliente, aprovação ou pessoa) → a mensagem entra
+nesse caso, e o número do pedido retoma um caso em `aguardando_cliente`. As respostas saem pela REST
+(`Messages.json`) quando há `message.sent` do caso. Erros de envio só geram log + evento `channel.error`.
 
 ## Telegram (5 minutos)
 
@@ -84,4 +109,5 @@ O que acontece:
 ## Diagnóstico
 
 Na subida, o log mostra `canal telegram ligado: @bot` ou `canal X desligado (motivo)`. `GET /api/goxys/saude` diz quais canais estão ativos
-(`channels.status()`).
+(`channels.status()`), inclusive `whatsapp`. No WhatsApp: 403 no webhook = `GOXYS_PUBLIC_URL` diferente do URL configurado
+na Twilio (ou Auth Token errado); `channel.error` com código 63015 = o número ainda não mandou o `join` do sandbox.

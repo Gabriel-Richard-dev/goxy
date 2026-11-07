@@ -403,14 +403,14 @@ function Gancho() {
 
 
 /* Feixes do herói: canais -> Goxy -> sistemas */
-const CANAIS = ['whatsapp', 'email', 'reclame_aqui', 'telegram'] as const
+const CANAIS = ['whatsapp', 'email', 'reclame_aqui', 'slack'] as const
 const SISTEMAS: [string, JSX.Element][] = [
   ['ERP', <path key="e" d="M3 4h10v8H3zM3 7h10M6 4v8" />],
   ['Financeiro', <path key="f" d="M8 2v12M11 5H6.5a1.8 1.8 0 0 0 0 3.6h3a1.8 1.8 0 0 1 0 3.6H5" />],
   ['Logística', <path key="l" d="M1.5 4h8v6h-8zM9.5 6.5h3l2 2V10h-5M4 12.5a1 1 0 1 0 0-.1M12 12.5a1 1 0 1 0 0-.1" />],
   ['Transportadora', <path key="t" d="M8 14s5-4.5 5-8A5 5 0 0 0 3 6c0 3.5 5 8 5 8ZM8 7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />],
 ]
-const NOME_CANAL_HEROI: Record<string, string> = { whatsapp: 'WhatsApp', email: 'E-mail', reclame_aqui: 'Reclame Aqui', telegram: 'Telegram' }
+const NOME_CANAL_HEROI: Record<string, string> = { whatsapp: 'WhatsApp', email: 'E-mail', reclame_aqui: 'Reclame Aqui', telegram: 'Telegram', slack: 'Slack' }
 
 /** Barra compacta e sólida que só aparece depois da primeira dobra. */
 function BarraCompacta({ appHref }: { appHref: string }) {

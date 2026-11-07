@@ -56,6 +56,8 @@ class NovoCaso(BaseModel):
     telegram_chat_id: Optional[str] = None
     processar: bool = True
     confirmacao: Optional[str] = None      # texto da confirmação que o canal já mandou (ex.: bot do Telegram)
+    whatsapp_from: Optional[str] = None    # "whatsapp:+55..." quando o caso chega pelo WhatsApp (Twilio)
+    cliente_nome: Optional[str] = None     # nome do perfil no canal, até o Rastreador achar o cliente
 
 
 async def _criar(canal: str, mensagem: str, *, processar: bool = True, **campos: Any) -> Case:
@@ -80,7 +82,8 @@ async def criar_caso(body: NovoCaso, request: Request):
                      grafo={"politica_override": sug, "validacao": True} if sug else None,
                      order_id=body.order_id, conversation_id=body.conversation_id, anexos=body.anexos,
                      telegram_chat_id=str(body.telegram_chat_id) if body.telegram_chat_id else None,
-                     confirmacao=body.confirmacao)
+                     confirmacao=body.confirmacao, whatsapp_from=body.whatsapp_from,
+                     cliente_nome=body.cliente_nome)
     return {"case_id": c.id}
 
 
@@ -614,8 +617,13 @@ async def saude():
         db = True
     except sqlite3.Error:
         db = False
+    try:
+        from channels import whatsapp
+        wa = whatsapp.configurado()
+    except Exception:
+        wa = False
     return {"ia": llm.enabled(), "telegram": bool(config.TELEGRAM_BOT_TOKEN),
-            "slack": bool(config.SLACK_BOT_TOKEN and config.SLACK_APP_TOKEN), "db": db,
+            "slack": bool(config.SLACK_BOT_TOKEN and config.SLACK_APP_TOKEN), "whatsapp": wa, "db": db,
             "politica_versao": _politica_versao()}
 
 
