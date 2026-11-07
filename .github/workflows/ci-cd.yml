@@ -1,0 +1,106 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (testes)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # CI roda sem IA e sem canais: os agentes seguem pelo fallback de regras
+      AI_PROXY_API_KEY: ""
+      TELEGRAM_BOT_TOKEN: ""
+      SLACK_BOT_TOKEN: ""
+      SLACK_APP_TOKEN: ""
+      TWILIO_ACCOUNT_SID: ""
+      TWILIO_AUTH_TOKEN: ""
+      GOXYS_STEP_DELAY: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: goxys/requirements.txt
+      - name: Instalar dependências
+        run: pip install -r goxys/requirements.txt
+      - name: Extrair a base do evento
+        run: python -c "import zipfile; zipfile.ZipFile('GoHacks_Talent_2026_bases_csv.zip').extractall('data_raw')"
+      - name: Montar o banco
+        working-directory: goxys
+        run: python data/build_db.py
+      - name: Testes
+        working-directory: goxys
+        run: python -m pytest -q
+
+  web:
+    name: Painel (type-check e build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: goxys/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: goxys/web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npx tsc -b
+      - run: npx vite build --outDir dist --emptyOutDir
+
+  deploy:
+    name: Deploy na VPS
+    needs: [backend, web]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: producao
+      url: https://goxy.gabrielrichard.dev
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+    steps:
+      - name: Segredos de deploy ausentes
+        if: env.VPS_HOST == ''
+        run: echo "::warning::Deploy pulado - configure VPS_HOST, VPS_SSH_KEY e VPS_KNOWN_HOSTS (ver docs/OPERACAO.md)"
+      - uses: actions/checkout@v4
+        if: env.VPS_HOST != ''
+      - name: Configurar SSH
+        if: env.VPS_HOST != ''
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Enviar código
+        if: env.VPS_HOST != ''
+        # o .env de produção fica só na VPS; arquivos excluídos não são apagados pelo --delete
+        run: |
+          rsync -az --delete --exclude-from=.dockerignore --exclude='.git' --exclude='.github' \
+            -e "ssh -i ~/.ssh/deploy" ./ "root@${{ secrets.VPS_HOST }}:/opt/goxy/"
+      - name: Build e subida do container
+        if: env.VPS_HOST != ''
+        run: |
+          ssh -i ~/.ssh/deploy "root@${{ secrets.VPS_HOST }}" \
+            'cd /opt/goxy && test -f goxys/.env && docker compose up -d --build && docker image prune -f >/dev/null'
+      - name: Healthcheck
+        if: env.VPS_HOST != ''
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS https://goxy.gabrielrichard.dev/api/goxys/saude; then echo; exit 0; fi
+            sleep 5
+          done
+          echo "Goxy não respondeu após o deploy" >&2
+          exit 1

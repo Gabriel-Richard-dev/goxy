@@ -99,3 +99,23 @@ Observação: `docker compose up --build` recria o container e zera o estado dos
 | Aviso de certificado (emissor Fortinet) | Rede corporativa inspecionando HTTPS | Use outra rede (ex.: 4G) |
 | Webhook do WhatsApp retorna 403 | `GOXYS_PUBLIC_URL` diferente da URL configurada na Twilio | Deixe as duas idênticas |
 | Painel não atualiza ao vivo | Proxy segurando o SSE | `flush_interval -1` no Caddy |
+
+## CI/CD (GitHub Actions)
+
+[`.github/workflows/ci-cd.yml`](../.github/workflows/ci-cd.yml) roda em todo push e pull request:
+
+1. **Backend:** instala as dependências, extrai a base, monta o banco e roda `pytest` sem IA e sem canais.
+2. **Painel:** `tsc -b` e build do Vite.
+3. **Deploy** (só em push na `main`, depois dos dois anteriores): `rsync` do código para `/opt/goxy`, `docker compose up -d --build` na VPS e healthcheck em `/api/goxys/saude`. O `.env` de produção fica só na VPS.
+
+Para ativar o deploy, crie uma chave exclusiva e cadastre os segredos (uma vez):
+
+```bash
+ssh-keygen -t ed25519 -N "" -C github-actions-goxy-deploy -f ~/.ssh/goxy_deploy
+ssh-copy-id -i ~/.ssh/goxy_deploy.pub root@gabrielrichard.dev
+gh secret set VPS_SSH_KEY < ~/.ssh/goxy_deploy
+gh secret set VPS_HOST --body gabrielrichard.dev
+ssh-keyscan gabrielrichard.dev | gh secret set VPS_KNOWN_HOSTS
+```
+
+Sem esses segredos, o job de deploy é pulado com um aviso.
