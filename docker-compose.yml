@@ -1,0 +1,15 @@
+# Deploy de apresentação: atrás do Caddy (rede externa caddy_web), em goxy.gabrielrichard.dev
+services:
+  goxy:
+    build: .
+    container_name: goxy
+    restart: unless-stopped
+    env_file: goxys/.env
+    environment:
+      GOXYS_PUBLIC_URL: https://goxy.gabrielrichard.dev
+      GOXYS_SYSTEMS_URL: http://127.0.0.1:8000
+    mem_limit: 1200m
+    networks: [caddy_web]
+networks:
+  caddy_web:
+    external: true

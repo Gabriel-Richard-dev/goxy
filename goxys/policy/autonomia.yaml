@@ -1,0 +1,94 @@
+# Política de autonomia do Goxy (SPEC §6), calibrada com data_raw/.../atendimento/parametros.md e politicas.csv.
+# Editável: toda decisão registra `versao` para auditoria. Mudar um limite = subir a versão.
+versao: "2026.11.07-r2"   # r2: reação adversa, cobrança em dobro objetiva, valor do item, arrependimento (CDC), injeção
+moeda: BRL
+
+# Níveis (SPEC §6). Valores iniciais da SPEC, cortados pelos limites reais do papel "atendente".
+niveis:
+  A:
+    nome: Autônomo
+    valor_max_rs: 150          # SPEC: até R$ 150
+    veracidade_min: 80         # acima de 80
+    exige_cliente_sem_alerta: true
+    comportamento: executa e responde sozinho; registra no log
+  B:
+    nome: Autônomo com aviso
+    valor_max_rs: 500          # SPEC: de R$ 150 a R$ 500 (cortado pelo limite do papel, ver acoes)
+    veracidade_min: 70
+    desfazer_em_min: 15        # executa e agenda "desfazer em 15 min" para o supervisor
+    comportamento: executa, avisa o supervisor no canal com opção de desfazer em 15 min
+  C:
+    nome: Aprovação obrigatória
+    veracidade_min: 40         # faixa cinzenta 40..70
+    comportamento: pausa o caso e pede aprovação (Slack, Telegram ou painel)
+  D:
+    nome: Humano assume
+    comportamento: congela ações e abre caso para analista sênior
+
+# Limites por ação. `limite_papel_rs` vem de politicas.csv (limites_por_papel do atendente):
+# o Goxy nunca tem mais alçada do que um atendente humano. Acima disso → aprovação (C).
+acoes:
+  reenvio:            {tipo: escrita,         limite_papel_rs: 200, irreversivel: false, exige_foto: true}
+  nova_producao:      {tipo: escrita,         limite_papel_rs: 200, irreversivel: false, exige_foto: true}
+  troca:              {tipo: escrita,         limite_papel_rs: 200, irreversivel: false, exige_foto: false}
+  reembolso:          {tipo: escrita_critica, limite_papel_rs: 100, irreversivel: true,  exige_foto: false}
+  chamado_transportadora: {tipo: escrita,     limite_papel_rs: 0,   irreversivel: false, exige_foto: false, sem_valor: true}
+  informar_status:    {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
+  responder:          {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
+  solicitar_foto:     {tipo: leitura,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
+  negar:              {tipo: decisao,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true}
+  # reação adversa: registro de cosmetovigilância em até 24 h é do supervisor/responsável técnica → sempre C
+  cosmetovigilancia:  {tipo: escrita,         limite_papel_rs: 0,   irreversivel: false, sem_valor: true, exige_supervisor: true, prazo_horas: 24}
+
+# Valor da ação = valor do item afetado, não do pedido inteiro. Brinde de campanha tem preço 0:
+# usa-se uma estimativa de custo (produto + frete + manuseio) para a política.
+valor_item:
+  custo_brinde_estimado_rs: 25.0
+
+# Direitos do cliente que não dependem de nota de veracidade (CDC art. 49: arrependimento em 7 dias;
+# cobrança em dobro comprovada no gateway). Dentro do prazo e da alçada → A; acima da alçada → C.
+direitos_cliente:
+  arrependimento_dias_corridos: 7
+
+# Texto do cliente é dado, nunca instrução: tentativa de mandar no agente sobe para C (no mínimo).
+injecao_minimo_nivel: C
+
+# Gatilhos que sempre levam ao nível D (humano assume, ações congeladas).
+gatilhos_d:
+  risco_juridico: true         # ameaça de processo, advogado, Procon, juizado
+  imprensa: true               # imprensa, viralizar, Reclame Aqui citado como ameaça
+  menor_de_idade: true
+  fraude_objetiva_score_max: 40   # score < 40 COM evidência objetiva (foto reaproveitada, editor/IA) → supervisor decide
+
+# Custo de erro assimétrico (SPEC §14 ideia 2; números de parametros.md "Reclamações que não procedem").
+# Barrar um cliente honesto custa mais que deixar passar uma fraude pequena: na faixa cinzenta de baixo
+# valor, o Goxy age (e avisa) em vez de travar o cliente, quando o custo esperado de pagar indevidamente
+# é menor que o custo esperado de negar/atrasar uma reclamação verdadeira.
+custo_erro:
+  pagar_indevido_pct_valor: 0.45       # produto + frete + manuseio, e o caso tende a se repetir
+  negar_verdadeira_ltv_fator: 0.5      # metade do LTV do cliente
+  recompra_ano: 0.28
+  recompra_ano_acima_1500: 0.70
+  limite_receita_fiel_rs: 1500
+  chance_virar_reclame_aqui: 0.30
+  custo_reclame_aqui_rs: 42.0
+  custo_sinalizar_supervisor_rs: 6.0   # e até 24 h a mais para o cliente
+  faixa_cinzenta_valor_max_rs: 200     # o atalho assimétrico só vale até a alçada do atendente
+  faixas:
+    verde: 70          # score >= 70: presume boa-fé
+    amarela: 40        # 40..69: confere (aprovação, ou age se o custo assimétrico mandar)
+    # < 40: vermelha (só com evidência objetiva vira suspeita; nunca acusar o cliente)
+
+# Risco do cliente (histórico) que tira o caso do nível A.
+risco_cliente:
+  qtd_reclamacoes_90d_max: 3
+  trocas_12m_max: 3
+
+# Prazos (politicas.csv)
+prazos:
+  avaria_dias_corridos_do_recebimento: 7
+  atraso_dias_uteis_so_chamado: 7      # até 7 dias úteis: chamado; acima: reenvio ou reembolso
+
+aprovacao:
+  sla_s: 1800          # 30 min; sem resposta → escala ao supervisor e avisa o cliente
+  revisor_niveis: [C, D]   # maker-checker antes de agir/pausar

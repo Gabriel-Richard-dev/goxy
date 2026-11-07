@@ -1,0 +1,6 @@
+.env
+.venv/
+data/goxys.db
+web/node_modules/
+web/dist/
+__pycache__/

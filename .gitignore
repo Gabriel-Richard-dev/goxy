@@ -1,0 +1,22 @@
+# segredos
+.env
+**/.env
+!**/.env.example
+# ambientes e builds
+goxys/.venv/
+**/node_modules/
+goxys/web/dist/
+goxys/web/.dist-novo/
+**/__pycache__/
+*.pyc
+# dados gerados em tempo de execução
+goxys/data/goxys.db*
+goxys/data/checkpoints.db*
+goxys/data/aprendizado.jsonl
+goxys/policy/historico/
+# base do evento: versionamos só o zip; a pasta extraída é gerada
+data_raw/
+# intermediários pesados do mascote e materiais internos
+assets/goxys/_fonte/
+assets/uploads/
+assets/branding.pptx

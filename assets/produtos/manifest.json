@@ -1,0 +1,145 @@
+{
+  "gerado_em": "2026-11-07T14:44:36+00:00",
+  "aviso": "Fotos de catalogo; nunca evidencia de avaria.",
+  "familias": {
+    "case-personalizada": {
+      "img": "/assets-goxys/produtos/case-personalizada.webp",
+      "nome": "Case personalizada (nome/iniciais/foto)",
+      "url_origem": "https://www.gocase.com.br/capinha-para-celular-manuscrita-vertical/p"
+    },
+    "case-slim-air-vichy": {
+      "img": "/assets-goxys/produtos/case-slim-air-vichy.webp",
+      "nome": "Case Anti Impacto Slim Air Xadrez Vichy",
+      "url_origem": "https://www.gocase.com.br/capinha-para-celular-cottage-vichy/p"
+    },
+    "case-clear": {
+      "img": "/assets-goxys/produtos/case-clear.webp",
+      "nome": "Case Clear",
+      "url_origem": "https://www.gocase.com.br/capinha-para-celular-clear/p"
+    },
+    "copo-vibe": {
+      "img": "/assets-goxys/produtos/copo-vibe.webp",
+      "nome": "Copo Vibe 470 ml",
+      "url_origem": "https://www.gocase.com.br/copo-termico-vibe-clear/p"
+    },
+    "copo-life": {
+      "img": "/assets-goxys/produtos/copo-life.webp",
+      "nome": "Copo Life 1100 ml",
+      "url_origem": "https://www.gocase.com.br/copo-termico-life-ebook-clear/p"
+    },
+    "copo-daily": {
+      "img": "/assets-goxys/produtos/copo-daily.webp",
+      "nome": "Copo Daily 600 ml",
+      "url_origem": "https://www.gocase.com.br/copo-termico-daily-clear/p"
+    },
+    "garrafa-fresh": {
+      "img": "/assets-goxys/produtos/garrafa-fresh.webp",
+      "nome": "Garrafa Fresh",
+      "url_origem": "https://www.gocase.com.br/garrafa-termica-fresh-ebook-clear/p"
+    },
+    "garrafa-urban": {
+      "img": "/assets-goxys/produtos/garrafa-urban.webp",
+      "nome": "Garrafa Urban 500 ml",
+      "url_origem": "https://www.gocase.com.br/garrafa-termica-urban-ebook-clear/p"
+    },
+    "garrafa-mini": {
+      "img": "/assets-goxys/produtos/garrafa-mini.webp",
+      "nome": "Garrafa Mini 350 ml",
+      "url_origem": "https://www.gocase.com.br/garrafa-termica-mini-ebook-clear/p"
+    },
+    "necessaire-makeup-double": {
+      "img": "/assets-goxys/produtos/necessaire-makeup-double.webp",
+      "nome": "Necessaire Makeup Double",
+      "url_origem": "https://www.gocase.com.br/necessaire-makeup-double-clear/p"
+    },
+    "necessaire-voyage": {
+      "img": "/assets-goxys/produtos/necessaire-voyage.webp",
+      "nome": "Necessaire Voyage",
+      "url_origem": "https://www.gocase.com.br/necessaire-voyage-clear/p"
+    },
+    "tote-bag-daily": {
+      "img": "/assets-goxys/produtos/tote-bag-daily.webp",
+      "nome": "Tote Bag Daily",
+      "url_origem": "https://www.gocase.com.br/tote-daily-profissoes-minimalista/p"
+    },
+    "bolsa-moove": {
+      "img": "/assets-goxys/produtos/bolsa-moove.webp",
+      "nome": "Bolsa Moove",
+      "url_origem": "https://www.gocase.com.br/bolsa-moove-manuscrita/p"
+    },
+    "mala-trip": {
+      "img": "/assets-goxys/produtos/mala-trip.webp",
+      "nome": "Mala Trip 20\"",
+      "url_origem": "https://www.gocase.com.br/mala-de-bordo-trip-clear/p"
+    }
+  },
+  "skus": {
+    "GOC-5001": "case-personalizada",
+    "GOC-5002": "case-personalizada",
+    "GOC-5003": "case-personalizada",
+    "GOC-5004": "case-slim-air-vichy",
+    "GOC-5005": "case-personalizada",
+    "GOC-5006": "case-personalizada",
+    "GOC-5007": "case-personalizada",
+    "GOC-5008": "case-clear",
+    "GOC-5009": "case-personalizada",
+    "GOC-5010": "case-personalizada",
+    "GOC-5011": "case-personalizada",
+    "GOC-5012": "case-slim-air-vichy",
+    "GOC-5013": "case-personalizada",
+    "GOC-5014": "case-personalizada",
+    "GOC-5015": "case-personalizada",
+    "GOC-5016": "case-clear",
+    "GOC-5017": "case-personalizada",
+    "GOC-5018": "case-personalizada",
+    "GOC-5019": "case-personalizada",
+    "GOC-5020": "case-slim-air-vichy",
+    "GOC-5021": "case-personalizada",
+    "GOC-5022": "case-personalizada",
+    "GOC-5023": "case-personalizada",
+    "GOC-5024": "case-clear",
+    "GOC-5025": "case-personalizada",
+    "GOC-5026": "case-personalizada",
+    "GOC-5027": "case-personalizada",
+    "GOC-5028": "case-slim-air-vichy",
+    "GOC-5029": "case-personalizada",
+    "GOC-5030": "case-personalizada",
+    "GOC-5031": "case-personalizada",
+    "GOC-5032": "case-clear",
+    "GOC-5033": "case-personalizada",
+    "GOC-5034": "case-personalizada",
+    "GOC-5035": "case-personalizada",
+    "GOC-5036": "case-slim-air-vichy",
+    "GOC-5037": "copo-vibe",
+    "GOC-5038": "copo-vibe",
+    "GOC-5039": "copo-vibe",
+    "GOC-5040": "copo-life",
+    "GOC-5041": "copo-life",
+    "GOC-5042": "copo-life",
+    "GOC-5043": "copo-daily",
+    "GOC-5044": "copo-daily",
+    "GOC-5045": "copo-daily",
+    "GOC-5046": "garrafa-fresh",
+    "GOC-5047": "garrafa-fresh",
+    "GOC-5048": "garrafa-fresh",
+    "GOC-5049": "garrafa-fresh",
+    "GOC-5050": "garrafa-fresh",
+    "GOC-5051": "garrafa-fresh",
+    "GOC-5052": "garrafa-urban",
+    "GOC-5053": "garrafa-urban",
+    "GOC-5054": "garrafa-urban",
+    "GOC-5055": "garrafa-mini",
+    "GOC-5056": "garrafa-mini",
+    "GOC-5057": "garrafa-mini",
+    "GOC-5060": "necessaire-makeup-double",
+    "GOC-5061": "necessaire-makeup-double",
+    "GOC-5062": "necessaire-voyage",
+    "GOC-5063": "necessaire-voyage",
+    "GOC-5064": "tote-bag-daily",
+    "GOC-5065": "tote-bag-daily",
+    "GOC-5068": "bolsa-moove",
+    "GOC-5069": "bolsa-moove",
+    "GOC-5070": "mala-trip",
+    "GOC-5071": "mala-trip"
+  }
+}

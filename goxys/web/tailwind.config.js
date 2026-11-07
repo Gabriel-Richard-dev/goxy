@@ -1,0 +1,41 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  darkMode: ['selector', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        fundo: 'var(--fundo)',
+        sup: 'var(--superficie)',
+        sup2: 'var(--superficie-2)',
+        borda: 'var(--borda)',
+        texto: 'var(--texto)',
+        suave: 'var(--texto-suave)',
+        marca: 'var(--marca)',
+        'marca-suave': 'var(--marca-suave)',
+        estrutura: 'var(--estrutura)',
+        ok: 'var(--ok)',
+        'ok-suave': 'var(--ok-suave)',
+        espera: 'var(--espera)',
+        'espera-texto': 'var(--espera-texto)',
+        'espera-suave': 'var(--espera-suave)',
+        critico: 'var(--critico)',
+        'critico-suave': 'var(--critico-suave)',
+        agora: 'var(--agora)',
+        'agora-suave': 'var(--agora-suave)',
+        azul: '#2659a5',
+        limao: '#d7d900',
+        laranja: '#f8ae13',
+        ciano: '#3dbfef',
+        rosa: '#e61782',
+        carmim: '#e5273c',
+      },
+      fontFamily: {
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+      },
+      borderRadius: { card: '18px', col: '28px', gaveta: '40px' },
+    },
+  },
+  plugins: [],
+}

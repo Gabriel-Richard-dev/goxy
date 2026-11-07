@@ -1,0 +1,41 @@
+{
+  "oficiais": {
+    "gocase": [
+      {
+        "arquivo": "gocase.svg",
+        "url": "/assets-goxys/marca/gocase.svg",
+        "variante": "padrao (#005baa)",
+        "url_origem": "https://www.gocase.com.br (SVG inline do header)"
+      },
+      {
+        "arquivo": "gocase-branco.svg",
+        "url": "/assets-goxys/marca/gocase-branco.svg",
+        "variante": "branca, derivada do SVG oficial",
+        "url_origem": "https://www.gocase.com.br"
+      },
+      {
+        "arquivo": "gocase-royal.webp",
+        "url": "/assets-goxys/marca/gocase-royal.webp",
+        "variante": "royal",
+        "url_origem": "https://corporativo.gocase.com.br/assets/logo-gocase-royal.webp"
+      },
+      {
+        "arquivo": "gocase-offwhite.webp",
+        "url": "/assets-goxys/marca/gocase-offwhite.webp",
+        "variante": "off-white (fundo escuro)",
+        "url_origem": "https://corporativo.gocase.com.br/assets/logo-gocase-offwhite.webp"
+      }
+    ],
+    "gogroup": []
+  },
+  "goxys": {
+    "goxys-simbolo.svg": "/assets-goxys/marca/goxys-simbolo.svg",
+    "goxys-logo.svg": "/assets-goxys/marca/goxys-logo.svg",
+    "goxys-logo-branco.svg": "/assets-goxys/marca/goxys-logo-branco.svg",
+    "favicon.svg": "/assets-goxys/marca/favicon.svg",
+    "favicon-32.png": "/assets-goxys/marca/favicon-32.png",
+    "apple-touch-icon.png": "/assets-goxys/marca/apple-touch-icon.png"
+  },
+  "prancha": "/assets-goxys/marca/prancha.png",
+  "notas": "Logo Gogroup oficial nao encontrado nas paginas consultadas. Wordmark Goxy usa <text> Poppins 800 (carregar Poppins na pagina)."
+}

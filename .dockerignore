@@ -1,0 +1,14 @@
+**/.env
+goxys/.venv
+**/node_modules
+goxys/web/dist
+goxys/web/.dist-novo
+**/__pycache__
+goxys/data/*.db*
+goxys/data/aprendizado.jsonl
+goxys/policy/historico
+data_raw
+assets/goxys/_fonte
+assets/uploads
+assets/branding.pptx
+.git

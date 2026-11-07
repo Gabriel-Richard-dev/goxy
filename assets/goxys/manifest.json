@@ -1,0 +1,95 @@
+{
+  "agentes": {
+    "maestro": {
+      "img": "/assets-goxys/goxys/maestro.webp",
+      "img_sm": "/assets-goxys/goxys/maestro@512.webp",
+      "png": "/assets-goxys/goxys/maestro.png",
+      "video": "/assets-goxys/goxys/idle-maestro.webm"
+    },
+    "porteiro": {
+      "img": "/assets-goxys/goxys/porteiro.webp",
+      "img_sm": "/assets-goxys/goxys/porteiro@512.webp",
+      "png": "/assets-goxys/goxys/porteiro.png",
+      "video": "/assets-goxys/goxys/idle-porteiro.webm"
+    },
+    "rastreador": {
+      "img": "/assets-goxys/goxys/rastreador.webp",
+      "img_sm": "/assets-goxys/goxys/rastreador@512.webp",
+      "png": "/assets-goxys/goxys/rastreador.png",
+      "video": "/assets-goxys/goxys/idle-rastreador.webm"
+    },
+    "detetive": {
+      "img": "/assets-goxys/goxys/detetive.webp",
+      "img_sm": "/assets-goxys/goxys/detetive@512.webp",
+      "png": "/assets-goxys/goxys/detetive.png",
+      "video": "/assets-goxys/goxys/idle-detetive.webm"
+    },
+    "executor": {
+      "img": "/assets-goxys/goxys/executor.webp",
+      "img_sm": "/assets-goxys/goxys/executor@512.webp",
+      "png": "/assets-goxys/goxys/executor.png",
+      "video": "/assets-goxys/goxys/idle-executor.webm"
+    },
+    "voz": {
+      "img": "/assets-goxys/goxys/voz.webp",
+      "img_sm": "/assets-goxys/goxys/voz@512.webp",
+      "png": "/assets-goxys/goxys/voz.png",
+      "video": "/assets-goxys/goxys/idle-voz.webm"
+    },
+    "mensageiro": {
+      "img": "/assets-goxys/goxys/mensageiro.webp",
+      "img_sm": "/assets-goxys/goxys/mensageiro@512.webp",
+      "png": "/assets-goxys/goxys/mensageiro.png",
+      "video": "/assets-goxys/goxys/idle-mensageiro.webm"
+    },
+    "analista": {
+      "img": "/assets-goxys/goxys/analista.webp",
+      "img_sm": "/assets-goxys/goxys/analista@512.webp",
+      "png": "/assets-goxys/goxys/analista.png",
+      "video": "/assets-goxys/goxys/idle-analista.webm"
+    }
+  },
+  "estados": {
+    "investigando": {
+      "video": "/assets-goxys/goxys/estado-investigando.webm",
+      "poster": "/assets-goxys/goxys/estado-investigando.png",
+      "poster_sm": "/assets-goxys/goxys/estado-investigando@512.webp",
+      "img": "/assets-goxys/goxys/estado-investigando.webp",
+      "img_sm": "/assets-goxys/goxys/estado-investigando@512.webp"
+    },
+    "fraude": {
+      "video": "/assets-goxys/goxys/estado-fraude.webm",
+      "poster": "/assets-goxys/goxys/estado-fraude.png",
+      "poster_sm": "/assets-goxys/goxys/estado-fraude@512.webp",
+      "img": "/assets-goxys/goxys/estado-fraude.webp",
+      "img_sm": "/assets-goxys/goxys/estado-fraude@512.webp"
+    },
+    "esperando": {
+      "video": "/assets-goxys/goxys/estado-esperando.webm",
+      "poster": "/assets-goxys/goxys/estado-esperando.png",
+      "poster_sm": "/assets-goxys/goxys/estado-esperando@512.webp",
+      "img": "/assets-goxys/goxys/estado-esperando.webp",
+      "img_sm": "/assets-goxys/goxys/estado-esperando@512.webp"
+    },
+    "resolvido": {
+      "video": "/assets-goxys/goxys/estado-resolvido.webm",
+      "poster": "/assets-goxys/goxys/estado-resolvido.png",
+      "poster_sm": "/assets-goxys/goxys/estado-resolvido@512.webp",
+      "img": "/assets-goxys/goxys/estado-resolvido.webp",
+      "img_sm": "/assets-goxys/goxys/estado-resolvido@512.webp"
+    },
+    "humano": {
+      "video": "/assets-goxys/goxys/estado-humano.webm",
+      "poster": "/assets-goxys/goxys/estado-humano.png",
+      "poster_sm": "/assets-goxys/goxys/estado-humano@512.webp",
+      "img": "/assets-goxys/goxys/estado-humano.webp",
+      "img_sm": "/assets-goxys/goxys/estado-humano@512.webp"
+    }
+  },
+  "base": {
+    "img": "/assets-goxys/goxys/base.webp",
+    "img_sm": "/assets-goxys/goxys/base@512.webp",
+    "png": "/assets-goxys/goxys/base.png"
+  },
+  "gerado_em": "2026-11-07T13:36:16-03:00"
+}

@@ -1,0 +1,168 @@
+[
+  {
+    "n": 1,
+    "titulo": "Avaria legítima de baixo valor",
+    "esperado": {
+      "nivel": "A",
+      "acao": "reenvio",
+      "status_final": "resolvido"
+    },
+    "canal": "whatsapp",
+    "customer_id": "CH971787",
+    "order_id": "GCH559588",
+    "conversation_id": "DEMO-AT001",
+    "mensagem": "Oi, bom dia! Comprei um copo Daily personalizado com o nome Giovana pra dar de presente pra minha sobrinha e ele chegou com a tampa rachada 😢 Te mandei a foto aqui. O pedido é o GCH559588. Consegue mandar outro antes do aniversário dela?",
+    "anexos": [
+      {
+        "anexo_id": "DEMO-IMG01",
+        "tipo": "foto_produto",
+        "hash_perceptual": "7d3e9a41c2b85f06",
+        "exif_data_captura": "2026-10-31 19:42:10",
+        "exif_modelo_camera": "iPhone 14",
+        "exif_software": "",
+        "descricao_visual": "Copo térmico Daily 600ml com o nome Giovana gravado; a tampa está rachada na borda da rosca, com um pedaço solto ao lado do copo.",
+        "enviado_em": "2026-11-02 07:52:14"
+      }
+    ],
+    "sinais": [
+      "Pedido real GCH559588: Copo Daily 600ml Personalizado Nome (texto 'Giovana'), R$ 111,81, entregue em 29/10 pela ViaLog (dentro dos 7 dias para avaria).",
+      "Foto inédita: hash 7d3e9a41c2b85f06 não aparece em nenhum outro anexo da base.",
+      "EXIF de 31/10, depois da entrega; sem software de edição; a personalização da foto bate com o pedido.",
+      "Cliente Manuela Ribeiro (fiel, R$ 914 de receita): 0 trocas em 12 meses, 1 conversa anterior (endereço), nenhum Reclame Aqui."
+    ]
+  },
+  {
+    "n": 2,
+    "titulo": "Foto reaproveitada (caso real de 17/10)",
+    "esperado": {
+      "nivel": "D",
+      "acao": "negar",
+      "status_final": "rejeitado"
+    },
+    "canal": "whatsapp",
+    "customer_id": "CH585887",
+    "order_id": "GCH551285",
+    "conversation_id": "AT114498",
+    "replay_real": {
+      "conversation_id": "AT114498",
+      "mensagens_cliente": [
+        {
+          "message_id": "MS0011100",
+          "timestamp": "2026-10-17 15:05:20",
+          "texto": "a borad da capinha do iPhone 17 Pro Max veio com uma rachadura. Nem consegui usar"
+        },
+        {
+          "message_id": "MS0011102",
+          "timestamp": "2026-10-17 16:09:31",
+          "texto": "o número é GCH551285"
+        },
+        {
+          "message_id": "MS0011104",
+          "timestamp": "2026-10-17 16:39:59",
+          "texto": "[imagem] [imagem]"
+        }
+      ],
+      "desfecho_real": "2026-10-17 16:45:18, atendente_04: \"Já solicitei o reenvio sem custo da capinha do iPhone 17 Pro Max.\" Reenvio OMS000514 (GCH551285-R1), custo R$ 45,05, entregue em 26/10."
+    },
+    "mensagem": "a borad da capinha do iPhone 17 Pro Max veio com uma rachadura. Nem consegui usar\no número é GCH551285",
+    "anexos": [
+      {
+        "anexo_id": "IMG000267",
+        "conversation_id": "AT114498",
+        "message_id": "MS0011104",
+        "order_id": "GCH551285",
+        "customer_id": "CH585887",
+        "canal": "whatsapp",
+        "enviado_em": "2026-10-17 16:39:59",
+        "tipo": "foto_produto",
+        "hash_perceptual": "41b2c50cabf85942",
+        "exif_data_captura": "2026-10-03 17:58:00",
+        "exif_modelo_camera": "Galaxy S23",
+        "exif_software": "",
+        "descricao_visual": "Capinha de celular transparente com estampa rachada na lateral, perto dos botões."
+      }
+    ],
+    "sinais": [
+      "Conversa real AT114498 (WhatsApp, 17/10, cliente Joana, CH585887): na base, a atendente aprovou o reenvio às 16:45, 6 minutos depois da foto (OMS000514, R$ 45,05).",
+      "Hash 41b2c50cabf85942 já tinha sido enviado em 08/09 por OUTRO cliente: IMG000123 (CH999406, pedido GCH535078, Reclame Aqui), com a mesma descrição e o mesmo celular (Galaxy S23).",
+      "EXIF de 03/10/2026, antes do próprio pedido (04/10) e da entrega (13/10).",
+      "Produto não confere: o pedido é 'Case Infinite Air / iPhone 17 Pro Max Xadrez Vichy' (R$ 97,80) e a foto mostra uma capinha transparente com estampa, sem xadrez.",
+      "Três sinais objetivos e independentes → nível D, reclamação não procede, supervisor revisa. Não é C: a política só pede aprovação quando a evidência é ambígua; aqui ela é objetiva."
+    ]
+  },
+  {
+    "n": 3,
+    "titulo": "Atraso causado pela transportadora (TransNorte, sem API)",
+    "esperado": {
+      "nivel": "A",
+      "acao": "chamado_transportadora",
+      "status_final": "resolvido"
+    },
+    "canal": "email",
+    "customer_id": "CH107459",
+    "order_id": "GCH558661",
+    "conversation_id": "DEMO-AT003",
+    "mensagem": "Bom dia. Meu pedido GCH558661 (garrafa Mini 350ml lilás) tinha entrega prometida para 30/10 e até agora nada. O rastreio está parado desde o dia 28, quando chegou na unidade de MT. Era presente e eu preciso de uma posição, por favor. Obrigada, Tainá.",
+    "anexos": [],
+    "sinais": [
+      "Pedido real GCH558661: único pedido TransNorte em trânsito com data prometida vencida (30/10) na posição de 02/11 08:00.",
+      "Último evento no portal: chegada_unidade_destino em 28/10 21:37 (unidade MT), sem saída para entrega.",
+      "TransNorte não tem API de rastreio: GET /api/erp/rastreio responde 501 e o agente lê o portal /portal (login goxys/hackathon).",
+      "Ainda não há chamado com a transportadora para esse pedido; atraso de 3 dias corridos (1 dia útil, 02/11 é feriado) → chamado na transportadora, dentro da política de até 7 dias úteis.",
+      "Atenção: a cliente já publicou um Reclame Aqui em 01/11 (não respondido) sobre esse pedido; não há ameaça jurídica na mensagem."
+    ]
+  },
+  {
+    "n": 4,
+    "titulo": "Reembolso alto com foto duvidosa",
+    "esperado": {
+      "nivel": "C",
+      "acao": "reembolso",
+      "status_final": "aguardando_aprovacao"
+    },
+    "canal": "whatsapp",
+    "customer_id": "CH384938",
+    "order_id": "GBH990004",
+    "conversation_id": "DEMO-AT004",
+    "mensagem": "Boa tarde. Recebi o pedido GBH990004 com os 3 perfumes da Lescent e a caixa veio toda úmida, com um cheiro muito forte. Acho que algum frasco vazou. Paguei R$ 689,70 e quero o reembolso integral, não quero reenvio. Segue a foto.",
+    "anexos": [
+      {
+        "anexo_id": "DEMO-IMG04",
+        "tipo": "foto_embalagem",
+        "hash_perceptual": "e81c4f0a9b27d365",
+        "exif_data_captura": "",
+        "exif_modelo_camera": "",
+        "exif_software": "",
+        "descricao_visual": "Caixa de papelão com mancha de umidade em um dos cantos e três caixas de perfume Lescent fechadas dentro; não dá para ver se algum frasco está quebrado ou vazando.",
+        "enviado_em": "2026-11-02 07:58:03"
+      }
+    ],
+    "sinais": [
+      "Pedido DEMO GBH990004 (inserido pelo build_db para a cliente real CH384938): 2x Perfume Oriental Âmbar + 1x Cítrico Neroli + brinde, R$ 689,70, entregue em 30/10 pela ViaLog.",
+      "Pedido de reembolso de R$ 689,70: acima de R$ 500 (e da alçada de R$ 100 do atendente) → aprovação obrigatória; o financeiro responde 403 sem aprovação.",
+      "Foto sem EXIF (o WhatsApp remove), só da embalagem: mostra umidade mas não mostra frasco quebrado nem vazamento → confiança baixa, score na faixa 40-70.",
+      "Cliente Camila Carvalho: VIP, R$ 1.920 de receita, 1 troca em 12 meses e uma conversa anterior de 'Produto faltando' (GBH386103, agosto)."
+    ]
+  },
+  {
+    "n": 5,
+    "titulo": "Ameaça de processo + Reclame Aqui e Procon",
+    "esperado": {
+      "nivel": "D",
+      "acao": "humano",
+      "status_final": "humano"
+    },
+    "canal": "whatsapp",
+    "customer_id": "CH590826",
+    "order_id": "GCH547832",
+    "conversation_id": "DEMO-AT005",
+    "mensagem": "Já é a QUARTA vez que eu reclamo do pedido GCH547832. Comprei uma capinha em setembro, vocês disseram que a transportadora extraviou e até hoje ninguém resolve. Já abri 3 reclamações no Reclame Aqui e não adiantou nada. Agora vou no Procon e vou entrar com processo no Juizado Especial, meu advogado já está com todos os prints. Quero meu dinheiro de volta HOJE.",
+    "anexos": [],
+    "sinais": [
+      "Ameaça jurídica explícita (processo, Juizado Especial, advogado) e citação de Procon e Reclame Aqui → gatilho de nível D.",
+      "Pedido real GCH547832: Case Galaxy S24 FE iniciais R.F., R$ 75,81, Expressa Já, extraviado em 22/10 (prometido para 05/10).",
+      "Cliente Rodrigo Freitas: 3 Reclame Aqui reais sobre esse pedido (um avaliado com nota 0, 'não voltaria a fazer negócio') e conversas pendentes desde 12/10.",
+      "Valor baixo: mostra que o nível D vem do risco jurídico/reputacional, não do valor."
+    ]
+  }
+]

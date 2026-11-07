@@ -1,0 +1,38 @@
+{
+ "S-reenvio-200-300": {
+  "id": "S-reenvio-200-300",
+  "regra": "acoes.reenvio.limite_papel_rs",
+  "de": 200.0,
+  "para": 300.0,
+  "evidencia": "Supervisores aprovaram 45 de 45 reenvios entre R$ 200 e R$ 300 (base real)",
+  "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
+  "impacto": "Reenvios entre R$ 200 e R$ 300 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
+  "status": "proposta",
+  "criada_em": "2026-11-07T13:04:28",
+  "politica_base": "2026.11.07-r2"
+ },
+ "S-troca-200-300": {
+  "id": "S-troca-200-300",
+  "regra": "acoes.troca.limite_papel_rs",
+  "de": 200.0,
+  "para": 300.0,
+  "evidencia": "Supervisores aprovaram 20 de 20 trocas entre R$ 200 e R$ 300 (base real)",
+  "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
+  "impacto": "Trocas entre R$ 200 e R$ 300 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
+  "status": "proposta",
+  "criada_em": "2026-11-07T13:04:28",
+  "politica_base": "2026.11.07-r2"
+ },
+ "S-reembolso-100-150": {
+  "id": "S-reembolso-100-150",
+  "regra": "acoes.reembolso.limite_papel_rs",
+  "de": 100.0,
+  "para": 150.0,
+  "evidencia": "Supervisores aprovaram 20 de 20 reembolsos entre R$ 100 e R$ 150 (base real)",
+  "ressalva": "A base registra só ações executadas: recusas de supervisor não aparecem nela.",
+  "impacto": "Reembolsos entre R$ 100 e R$ 150 com veracidade ≥ 70 deixam de pedir aprovação e passam a nível B (executa, avisa o supervisor e pode desfazer em 15 min).",
+  "status": "proposta",
+  "criada_em": "2026-11-07T13:04:28",
+  "politica_base": "2026.11.07-r2"
+ }
+}

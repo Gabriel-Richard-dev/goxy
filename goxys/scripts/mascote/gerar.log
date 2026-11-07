@@ -1,0 +1,647 @@
+[2026-11-07 10:42:05] krea2 base (tentativa 1): concluído em 142s
+[2026-11-07 10:42:05] krea2 base (tentativa 1): borda verde 0% -> base_t1.png
+[2026-11-07 10:45:12] krea2 base (tentativa 2): concluído em 187s
+[2026-11-07 10:45:12] krea2 base (tentativa 2): borda verde 0% -> base_t2.png
+[2026-11-07 10:50:26] krea2 fraude (tentativa 1): concluído em 184s
+[2026-11-07 10:50:26] krea2 fraude (tentativa 1): borda verde 100% -> fraude_t1.png
+[2026-11-07 11:06:23] manifest.json escrito (0 clipes de estado, 0 idle de agente)
+[2026-11-07 11:18:23]   krea2 maestro (tentativa 1): +0s nó 57
+[2026-11-07 11:18:23]   krea2 maestro (tentativa 1): +0s nó 82
+[2026-11-07 11:18:23]   krea2 maestro (tentativa 1): +0s nó 72
+[2026-11-07 11:18:23]   krea2 maestro (tentativa 1): +0s nó 56
+[2026-11-07 11:18:24]   krea2 maestro (tentativa 1): +1s nó 85
+[2026-11-07 11:18:39]   krea2 maestro (tentativa 1): +16s nó 84
+[2026-11-07 11:18:41]   krea2 maestro (tentativa 1): +18s nó 73
+[2026-11-07 11:18:42]   krea2 maestro (tentativa 1): +19s nó 55
+[2026-11-07 11:18:42]   krea2 maestro (tentativa 1): +19s nó 71
+[2026-11-07 11:18:43]   krea2 maestro (tentativa 1): +19s nó 79
+[2026-11-07 11:18:43]   krea2 maestro (tentativa 1): +20s nó 53
+[2026-11-07 11:19:24]   krea2 maestro (tentativa 1): +61s passo 1/10
+[2026-11-07 11:21:13]   krea2 maestro (tentativa 1): +170s passo 10/10
+[2026-11-07 11:21:18]   krea2 maestro (tentativa 1): +175s nó 54
+[2026-11-07 11:21:19]   krea2 maestro (tentativa 1): +176s nó 29
+[2026-11-07 11:21:24] krea2 maestro (tentativa 1): concluído em 181s
+[2026-11-07 11:21:24] krea2 maestro (tentativa 1): borda verde 100% -> maestro_t1.png
+[2026-11-07 11:21:28]   krea2 porteiro (tentativa 1): +0s nó 84
+[2026-11-07 11:21:30]   krea2 porteiro (tentativa 1): +2s nó 53
+[2026-11-07 11:21:50] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 11:23:51] krea2 porteiro (tentativa 1): reaproveitando resultado já gerado no servidor
+[2026-11-07 11:23:51] krea2 porteiro (tentativa 1): borda verde 100% -> porteiro_t1.png
+[2026-11-07 11:23:55] memória baixa (RAM 10.5 GB, VRAM 6.2 GB): /free e espera 20 s
+[2026-11-07 11:24:15]   krea2 rastreador (tentativa 1): +0s nó 57
+[2026-11-07 11:24:15]   krea2 rastreador (tentativa 1): +0s nó 82
+[2026-11-07 11:24:15]   krea2 rastreador (tentativa 1): +0s nó 72
+[2026-11-07 11:24:15]   krea2 rastreador (tentativa 1): +0s nó 56
+[2026-11-07 11:24:15]   krea2 rastreador (tentativa 1): +1s nó 85
+[2026-11-07 11:24:30]   krea2 rastreador (tentativa 1): +15s nó 84
+[2026-11-07 11:24:32]   krea2 rastreador (tentativa 1): +17s nó 73
+[2026-11-07 11:24:32]   krea2 rastreador (tentativa 1): +18s nó 55
+[2026-11-07 11:24:32]   krea2 rastreador (tentativa 1): +18s nó 71
+[2026-11-07 11:24:33]   krea2 rastreador (tentativa 1): +18s nó 79
+[2026-11-07 11:24:33]   krea2 rastreador (tentativa 1): +18s nó 53
+[2026-11-07 11:25:15]   krea2 rastreador (tentativa 1): +60s passo 1/10
+[2026-11-07 11:27:07]   krea2 rastreador (tentativa 1): +172s passo 10/10
+[2026-11-07 11:27:12]   krea2 rastreador (tentativa 1): +177s nó 54
+[2026-11-07 11:27:13]   krea2 rastreador (tentativa 1): +178s nó 29
+[2026-11-07 11:27:17] krea2 rastreador (tentativa 1): concluído em 182s
+[2026-11-07 11:27:17] krea2 rastreador (tentativa 1): borda verde 100% -> rastreador_t1.png
+[2026-11-07 11:27:21] memória baixa (RAM 10.4 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 11:27:42]   krea2 detetive (tentativa 1): +0s nó 57
+[2026-11-07 11:27:42]   krea2 detetive (tentativa 1): +0s nó 82
+[2026-11-07 11:27:42]   krea2 detetive (tentativa 1): +0s nó 72
+[2026-11-07 11:27:42]   krea2 detetive (tentativa 1): +0s nó 56
+[2026-11-07 11:27:42]   krea2 detetive (tentativa 1): +1s nó 85
+[2026-11-07 11:27:57]   krea2 detetive (tentativa 1): +15s nó 84
+[2026-11-07 11:27:59]   krea2 detetive (tentativa 1): +17s nó 73
+[2026-11-07 11:27:59]   krea2 detetive (tentativa 1): +18s nó 55
+[2026-11-07 11:27:59]   krea2 detetive (tentativa 1): +18s nó 71
+[2026-11-07 11:27:59]   krea2 detetive (tentativa 1): +18s nó 79
+[2026-11-07 11:28:00]   krea2 detetive (tentativa 1): +18s nó 53
+[2026-11-07 11:28:41]   krea2 detetive (tentativa 1): +60s passo 1/10
+[2026-11-07 11:30:34]   krea2 detetive (tentativa 1): +172s passo 10/10
+[2026-11-07 11:30:38]   krea2 detetive (tentativa 1): +177s nó 54
+[2026-11-07 11:30:39]   krea2 detetive (tentativa 1): +178s nó 29
+[2026-11-07 11:30:42] krea2 detetive (tentativa 1): concluído em 181s
+[2026-11-07 11:30:43] krea2 detetive (tentativa 1): borda verde 100% -> detetive_t1.png
+[2026-11-07 11:30:46] memória baixa (RAM 10.4 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 11:31:07]   krea2 executor (tentativa 1): +0s nó 57
+[2026-11-07 11:31:07]   krea2 executor (tentativa 1): +0s nó 82
+[2026-11-07 11:31:07]   krea2 executor (tentativa 1): +0s nó 72
+[2026-11-07 11:31:07]   krea2 executor (tentativa 1): +0s nó 56
+[2026-11-07 11:31:07]   krea2 executor (tentativa 1): +1s nó 85
+[2026-11-07 11:31:22]   krea2 executor (tentativa 1): +16s nó 84
+[2026-11-07 11:31:24]   krea2 executor (tentativa 1): +17s nó 73
+[2026-11-07 11:31:24]   krea2 executor (tentativa 1): +18s nó 55
+[2026-11-07 11:31:24]   krea2 executor (tentativa 1): +18s nó 71
+[2026-11-07 11:31:25]   krea2 executor (tentativa 1): +18s nó 79
+[2026-11-07 11:31:25]   krea2 executor (tentativa 1): +18s nó 53
+[2026-11-07 11:32:06]   krea2 executor (tentativa 1): +60s passo 1/10
+[2026-11-07 11:33:59]   krea2 executor (tentativa 1): +172s passo 10/10
+[2026-11-07 11:34:04]   krea2 executor (tentativa 1): +177s nó 54
+[2026-11-07 11:34:04]   krea2 executor (tentativa 1): +178s nó 29
+[2026-11-07 11:34:08] krea2 executor (tentativa 1): concluído em 181s
+[2026-11-07 11:34:08] krea2 executor (tentativa 1): borda verde 72% -> executor_t1.png
+[2026-11-07 11:34:08] memória baixa (RAM 10.4 GB, VRAM 6.2 GB): /free e espera 20 s
+[2026-11-07 11:34:33] folha de contato -> assets/goxys/_fonte/folha.png
+[2026-11-07 11:34:52] hero: memória ok (RAM 30.0 GB, VRAM 12.2 GB); enfileirando 384 px / 73 quadros / 4 passos
+[2026-11-07 11:34:52]   hero: +0s nó 11
+[2026-11-07 11:34:53]   hero: +0s nó 114
+[2026-11-07 11:34:53]   hero: +0s nó 13
+[2026-11-07 11:34:59]   hero: +7s nó 104
+[2026-11-07 11:35:22] hero: +30s RAM livre 18.0 GB, VRAM livre 3.2 GB
+[2026-11-07 11:35:37]   hero: +45s nó 6
+[2026-11-07 11:35:37]   hero: +45s nó 121
+[2026-11-07 11:35:37]   hero: +45s nó 9
+[2026-11-07 11:35:37]   hero: +45s nó 17
+[2026-11-07 11:35:37]   hero: +45s nó 16
+[2026-11-07 11:35:37]   hero: +45s nó 15
+[2026-11-07 11:35:37]   hero: +45s nó 14
+[2026-11-07 11:35:52] hero: +60s RAM livre 6.6 GB, VRAM livre 7.2 GB
+[2026-11-07 11:36:24] hero: +91s RAM livre 2.6 GB, VRAM livre 4.4 GB
+[2026-11-07 11:36:24] hero: INTERROMPIDO (RAM livre 2.6 GB < 3 GB) após 91s; /interrupt + /free. Não tentar de novo.
+[2026-11-07 11:37:52]   krea2 executor (tentativa 2): +0s nó 57
+[2026-11-07 11:37:52]   krea2 executor (tentativa 2): +0s nó 82
+[2026-11-07 11:37:52]   krea2 executor (tentativa 2): +0s nó 72
+[2026-11-07 11:37:52]   krea2 executor (tentativa 2): +1s nó 56
+[2026-11-07 11:37:53]   krea2 executor (tentativa 2): +1s nó 85
+[2026-11-07 11:38:11]   krea2 executor (tentativa 2): +19s nó 84
+[2026-11-07 11:38:13]   krea2 executor (tentativa 2): +21s nó 73
+[2026-11-07 11:38:14]   krea2 executor (tentativa 2): +22s nó 55
+[2026-11-07 11:38:14]   krea2 executor (tentativa 2): +22s nó 71
+[2026-11-07 11:38:15]   krea2 executor (tentativa 2): +23s nó 79
+[2026-11-07 11:38:15]   krea2 executor (tentativa 2): +23s nó 53
+[2026-11-07 11:39:02]   krea2 executor (tentativa 2): +70s passo 1/10
+[2026-11-07 11:40:56]   krea2 executor (tentativa 2): +185s passo 10/10
+[2026-11-07 11:41:01]   krea2 executor (tentativa 2): +190s nó 54
+[2026-11-07 11:41:02]   krea2 executor (tentativa 2): +191s nó 29
+[2026-11-07 11:41:03] krea2 executor (tentativa 2): concluído em 191s
+[2026-11-07 11:41:03] krea2 executor (tentativa 2): borda verde 100% -> executor_t2.png
+[2026-11-07 11:41:10] memória baixa (RAM 10.6 GB, VRAM 6.1 GB): /free e espera 20 s
+[2026-11-07 11:41:30]   krea2 voz (tentativa 1): +0s nó 57
+[2026-11-07 11:41:31]   krea2 voz (tentativa 1): +0s nó 82
+[2026-11-07 11:41:31]   krea2 voz (tentativa 1): +0s nó 72
+[2026-11-07 11:41:31]   krea2 voz (tentativa 1): +0s nó 56
+[2026-11-07 11:41:31]   krea2 voz (tentativa 1): +1s nó 85
+[2026-11-07 11:41:47]   krea2 voz (tentativa 1): +16s nó 84
+[2026-11-07 11:41:48]   krea2 voz (tentativa 1): +18s nó 73
+[2026-11-07 11:41:49]   krea2 voz (tentativa 1): +18s nó 55
+[2026-11-07 11:41:49]   krea2 voz (tentativa 1): +19s nó 71
+[2026-11-07 11:41:49]   krea2 voz (tentativa 1): +19s nó 79
+[2026-11-07 11:41:49]   krea2 voz (tentativa 1): +19s nó 53
+[2026-11-07 11:42:30]   krea2 voz (tentativa 1): +60s passo 1/10
+[2026-11-07 11:44:19]   krea2 voz (tentativa 1): +169s passo 10/10
+[2026-11-07 11:44:24]   krea2 voz (tentativa 1): +174s nó 54
+[2026-11-07 11:44:25]   krea2 voz (tentativa 1): +175s nó 29
+[2026-11-07 11:44:27] krea2 voz (tentativa 1): concluído em 176s
+[2026-11-07 11:44:27] krea2 voz (tentativa 1): borda verde 100% -> voz_t1.png
+[2026-11-07 11:44:35] memória baixa (RAM 10.6 GB, VRAM 6.4 GB): /free e espera 20 s
+[2026-11-07 11:44:55]   krea2 mensageiro (tentativa 1): +0s nó 57
+[2026-11-07 11:44:55]   krea2 mensageiro (tentativa 1): +0s nó 82
+[2026-11-07 11:44:55]   krea2 mensageiro (tentativa 1): +0s nó 72
+[2026-11-07 11:44:55]   krea2 mensageiro (tentativa 1): +0s nó 56
+[2026-11-07 11:44:56]   krea2 mensageiro (tentativa 1): +1s nó 85
+[2026-11-07 11:45:11]   krea2 mensageiro (tentativa 1): +16s nó 84
+[2026-11-07 11:45:12]   krea2 mensageiro (tentativa 1): +18s nó 73
+[2026-11-07 11:45:13]   krea2 mensageiro (tentativa 1): +18s nó 55
+[2026-11-07 11:45:13]   krea2 mensageiro (tentativa 1): +18s nó 71
+[2026-11-07 11:45:13]   krea2 mensageiro (tentativa 1): +18s nó 79
+[2026-11-07 11:45:13]   krea2 mensageiro (tentativa 1): +18s nó 53
+[2026-11-07 11:45:56]   krea2 mensageiro (tentativa 1): +61s passo 1/10
+[2026-11-07 11:47:45]   krea2 mensageiro (tentativa 1): +170s passo 10/10
+[2026-11-07 11:47:49]   krea2 mensageiro (tentativa 1): +174s nó 54
+[2026-11-07 11:47:50]   krea2 mensageiro (tentativa 1): +175s nó 29
+[2026-11-07 11:47:51] krea2 mensageiro (tentativa 1): concluído em 176s
+[2026-11-07 11:47:51] krea2 mensageiro (tentativa 1): borda verde 100% -> mensageiro_t1.png
+[2026-11-07 11:48:00] memória baixa (RAM 10.6 GB, VRAM 6.4 GB): /free e espera 20 s
+[2026-11-07 11:48:20]   krea2 analista (tentativa 1): +0s nó 57
+[2026-11-07 11:48:20]   krea2 analista (tentativa 1): +0s nó 82
+[2026-11-07 11:48:20]   krea2 analista (tentativa 1): +0s nó 72
+[2026-11-07 11:48:20]   krea2 analista (tentativa 1): +0s nó 56
+[2026-11-07 11:48:20]   krea2 analista (tentativa 1): +1s nó 85
+[2026-11-07 11:48:36]   krea2 analista (tentativa 1): +16s nó 84
+[2026-11-07 11:48:38]   krea2 analista (tentativa 1): +18s nó 73
+[2026-11-07 11:48:38]   krea2 analista (tentativa 1): +18s nó 55
+[2026-11-07 11:48:38]   krea2 analista (tentativa 1): +18s nó 71
+[2026-11-07 11:48:38]   krea2 analista (tentativa 1): +18s nó 79
+[2026-11-07 11:48:39]   krea2 analista (tentativa 1): +19s nó 53
+[2026-11-07 11:49:20]   krea2 analista (tentativa 1): +60s passo 1/10
+[2026-11-07 11:51:13]   krea2 analista (tentativa 1): +173s passo 10/10
+[2026-11-07 11:51:18]   krea2 analista (tentativa 1): +178s nó 54
+[2026-11-07 11:51:18]   krea2 analista (tentativa 1): +178s nó 29
+[2026-11-07 11:51:21] krea2 analista (tentativa 1): concluído em 181s
+[2026-11-07 11:51:21] krea2 analista (tentativa 1): borda verde 100% -> analista_t1.png
+[2026-11-07 11:51:28] memória baixa (RAM 10.6 GB, VRAM 6.9 GB): /free e espera 20 s
+[2026-11-07 11:51:49]   krea2 investigando (tentativa 1): +0s nó 57
+[2026-11-07 11:51:49]   krea2 investigando (tentativa 1): +0s nó 82
+[2026-11-07 11:51:49]   krea2 investigando (tentativa 1): +0s nó 72
+[2026-11-07 11:51:49]   krea2 investigando (tentativa 1): +0s nó 56
+[2026-11-07 11:51:49]   krea2 investigando (tentativa 1): +1s nó 85
+[2026-11-07 11:52:04]   krea2 investigando (tentativa 1): +16s nó 84
+[2026-11-07 11:52:06]   krea2 investigando (tentativa 1): +17s nó 73
+[2026-11-07 11:52:06]   krea2 investigando (tentativa 1): +18s nó 55
+[2026-11-07 11:52:06]   krea2 investigando (tentativa 1): +18s nó 71
+[2026-11-07 11:52:07]   krea2 investigando (tentativa 1): +18s nó 79
+[2026-11-07 11:52:07]   krea2 investigando (tentativa 1): +18s nó 53
+[2026-11-07 11:52:48]   krea2 investigando (tentativa 1): +60s passo 1/10
+[2026-11-07 11:54:41]   krea2 investigando (tentativa 1): +172s passo 10/10
+[2026-11-07 11:54:45]   krea2 investigando (tentativa 1): +177s nó 54
+[2026-11-07 11:54:46]   krea2 investigando (tentativa 1): +178s nó 29
+[2026-11-07 11:54:49] krea2 investigando (tentativa 1): concluído em 181s
+[2026-11-07 11:54:50] krea2 investigando (tentativa 1): borda verde 100% -> investigando_t1.png
+[2026-11-07 11:54:54]   krea2 esperando (tentativa 1): +0s nó 57
+[2026-11-07 11:54:54]   krea2 esperando (tentativa 1): +0s nó 82
+[2026-11-07 11:54:54]   krea2 esperando (tentativa 1): +0s nó 72
+[2026-11-07 11:54:54]   krea2 esperando (tentativa 1): +0s nó 56
+[2026-11-07 11:54:54]   krea2 esperando (tentativa 1): +1s nó 85
+[2026-11-07 11:55:09]   krea2 esperando (tentativa 1): +16s nó 84
+[2026-11-07 11:55:11]   krea2 esperando (tentativa 1): +17s nó 73
+[2026-11-07 11:55:11]   krea2 esperando (tentativa 1): +18s nó 55
+[2026-11-07 11:55:12]   krea2 esperando (tentativa 1): +18s nó 71
+[2026-11-07 11:55:12]   krea2 esperando (tentativa 1): +18s nó 79
+[2026-11-07 11:55:12]   krea2 esperando (tentativa 1): +18s nó 53
+[2026-11-07 11:55:54]   krea2 esperando (tentativa 1): +60s passo 1/10
+[2026-11-07 11:57:43]   krea2 esperando (tentativa 1): +169s passo 10/10
+[2026-11-07 11:57:47]   krea2 esperando (tentativa 1): +174s nó 54
+[2026-11-07 11:57:48]   krea2 esperando (tentativa 1): +175s nó 29
+[2026-11-07 11:57:49] krea2 esperando (tentativa 1): concluído em 176s
+[2026-11-07 11:57:49] krea2 esperando (tentativa 1): borda verde 100% -> esperando_t1.png
+[2026-11-07 11:57:53] memória baixa (RAM 10.6 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 11:58:13]   krea2 resolvido (tentativa 1): +0s nó 57
+[2026-11-07 11:58:13]   krea2 resolvido (tentativa 1): +0s nó 82
+[2026-11-07 11:58:13]   krea2 resolvido (tentativa 1): +0s nó 72
+[2026-11-07 11:58:13]   krea2 resolvido (tentativa 1): +0s nó 56
+[2026-11-07 11:58:14]   krea2 resolvido (tentativa 1): +1s nó 85
+[2026-11-07 11:58:29]   krea2 resolvido (tentativa 1): +16s nó 84
+[2026-11-07 11:58:31]   krea2 resolvido (tentativa 1): +17s nó 73
+[2026-11-07 11:58:31]   krea2 resolvido (tentativa 1): +18s nó 55
+[2026-11-07 11:58:31]   krea2 resolvido (tentativa 1): +18s nó 71
+[2026-11-07 11:58:31]   krea2 resolvido (tentativa 1): +18s nó 79
+[2026-11-07 11:58:32]   krea2 resolvido (tentativa 1): +18s nó 53
+[2026-11-07 11:59:13]   krea2 resolvido (tentativa 1): +60s passo 1/10
+[2026-11-07 12:01:06]   krea2 resolvido (tentativa 1): +173s passo 10/10
+[2026-11-07 12:01:11]   krea2 resolvido (tentativa 1): +177s nó 54
+[2026-11-07 12:01:11]   krea2 resolvido (tentativa 1): +178s nó 29
+[2026-11-07 12:01:14] krea2 resolvido (tentativa 1): concluído em 181s
+[2026-11-07 12:01:14] krea2 resolvido (tentativa 1): borda verde 100% -> resolvido_t1.png
+[2026-11-07 12:01:18] memória baixa (RAM 10.6 GB, VRAM 6.5 GB): /free e espera 20 s
+[2026-11-07 12:01:38]   krea2 humano (tentativa 1): +0s nó 57
+[2026-11-07 12:01:38]   krea2 humano (tentativa 1): +0s nó 82
+[2026-11-07 12:01:38]   krea2 humano (tentativa 1): +0s nó 72
+[2026-11-07 12:01:38]   krea2 humano (tentativa 1): +0s nó 56
+[2026-11-07 12:01:39]   krea2 humano (tentativa 1): +1s nó 85
+[2026-11-07 12:01:54]   krea2 humano (tentativa 1): +16s nó 84
+[2026-11-07 12:01:56]   krea2 humano (tentativa 1): +18s nó 73
+[2026-11-07 12:01:56]   krea2 humano (tentativa 1): +18s nó 55
+[2026-11-07 12:01:56]   krea2 humano (tentativa 1): +18s nó 71
+[2026-11-07 12:01:56]   krea2 humano (tentativa 1): +18s nó 79
+[2026-11-07 12:01:57]   krea2 humano (tentativa 1): +18s nó 53
+[2026-11-07 12:02:39]   krea2 humano (tentativa 1): +60s passo 1/10
+[2026-11-07 12:04:31]   krea2 humano (tentativa 1): +173s passo 10/10
+[2026-11-07 12:04:36]   krea2 humano (tentativa 1): +177s nó 54
+[2026-11-07 12:04:37]   krea2 humano (tentativa 1): +178s nó 29
+[2026-11-07 12:04:38] krea2 humano (tentativa 1): concluído em 179s
+[2026-11-07 12:04:38] krea2 humano (tentativa 1): borda verde 100% -> humano_t1.png
+[2026-11-07 12:04:43] memória baixa (RAM 10.6 GB, VRAM 6.6 GB): /free e espera 20 s
+[2026-11-07 12:05:03]   krea2 investigando-k2 (tentativa 1): +0s nó 57
+[2026-11-07 12:05:03]   krea2 investigando-k2 (tentativa 1): +0s nó 82
+[2026-11-07 12:05:03]   krea2 investigando-k2 (tentativa 1): +0s nó 72
+[2026-11-07 12:05:03]   krea2 investigando-k2 (tentativa 1): +0s nó 56
+[2026-11-07 12:05:04]   krea2 investigando-k2 (tentativa 1): +1s nó 85
+[2026-11-07 12:05:19]   krea2 investigando-k2 (tentativa 1): +16s nó 84
+[2026-11-07 12:05:20]   krea2 investigando-k2 (tentativa 1): +17s nó 73
+[2026-11-07 12:05:21]   krea2 investigando-k2 (tentativa 1): +18s nó 55
+[2026-11-07 12:05:21]   krea2 investigando-k2 (tentativa 1): +18s nó 71
+[2026-11-07 12:05:21]   krea2 investigando-k2 (tentativa 1): +18s nó 79
+[2026-11-07 12:05:21]   krea2 investigando-k2 (tentativa 1): +18s nó 53
+[2026-11-07 12:06:07]   krea2 investigando-k2 (tentativa 1): +64s passo 1/10
+[2026-11-07 12:07:55]   krea2 investigando-k2 (tentativa 1): +172s passo 10/10
+[2026-11-07 12:08:00]   krea2 investigando-k2 (tentativa 1): +177s nó 54
+[2026-11-07 12:08:01]   krea2 investigando-k2 (tentativa 1): +178s nó 29
+[2026-11-07 12:08:04] krea2 investigando-k2 (tentativa 1): concluído em 181s
+[2026-11-07 12:08:04] krea2 investigando-k2 (tentativa 1): borda verde 100% -> investigando-k2_t1.png
+[2026-11-07 12:08:04]   krea2 investigando-k3 (tentativa 1): +0s nó 57
+[2026-11-07 12:08:04]   krea2 investigando-k3 (tentativa 1): +0s nó 82
+[2026-11-07 12:08:04]   krea2 investigando-k3 (tentativa 1): +0s nó 72
+[2026-11-07 12:08:04]   krea2 investigando-k3 (tentativa 1): +0s nó 56
+[2026-11-07 12:08:05]   krea2 investigando-k3 (tentativa 1): +1s nó 85
+[2026-11-07 12:08:20]   krea2 investigando-k3 (tentativa 1): +16s nó 84
+[2026-11-07 12:08:22]   krea2 investigando-k3 (tentativa 1): +18s nó 73
+[2026-11-07 12:08:22]   krea2 investigando-k3 (tentativa 1): +18s nó 55
+[2026-11-07 12:08:22]   krea2 investigando-k3 (tentativa 1): +18s nó 71
+[2026-11-07 12:08:22]   krea2 investigando-k3 (tentativa 1): +19s nó 79
+[2026-11-07 12:08:23]   krea2 investigando-k3 (tentativa 1): +19s nó 53
+[2026-11-07 12:09:05]   krea2 investigando-k3 (tentativa 1): +61s passo 1/10
+[2026-11-07 12:10:57]   krea2 investigando-k3 (tentativa 1): +173s passo 10/10
+[2026-11-07 12:11:02]   krea2 investigando-k3 (tentativa 1): +178s nó 54
+[2026-11-07 12:11:03]   krea2 investigando-k3 (tentativa 1): +179s nó 29
+[2026-11-07 12:11:04] krea2 investigando-k3 (tentativa 1): concluído em 181s
+[2026-11-07 12:11:05] krea2 investigando-k3 (tentativa 1): borda verde 100% -> investigando-k3_t1.png
+[2026-11-07 12:11:13] estado-investigando.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 127 KB
+[2026-11-07 12:11:13] memória baixa (RAM 10.6 GB, VRAM 6.4 GB): /free e espera 20 s
+[2026-11-07 12:11:33]   krea2 fraude-k2 (tentativa 1): +0s nó 57
+[2026-11-07 12:11:33]   krea2 fraude-k2 (tentativa 1): +0s nó 82
+[2026-11-07 12:11:33]   krea2 fraude-k2 (tentativa 1): +0s nó 72
+[2026-11-07 12:11:33]   krea2 fraude-k2 (tentativa 1): +0s nó 56
+[2026-11-07 12:11:33]   krea2 fraude-k2 (tentativa 1): +1s nó 85
+[2026-11-07 12:11:49]   krea2 fraude-k2 (tentativa 1): +16s nó 84
+[2026-11-07 12:11:50]   krea2 fraude-k2 (tentativa 1): +17s nó 73
+[2026-11-07 12:11:51]   krea2 fraude-k2 (tentativa 1): +18s nó 55
+[2026-11-07 12:11:51]   krea2 fraude-k2 (tentativa 1): +18s nó 71
+[2026-11-07 12:11:51]   krea2 fraude-k2 (tentativa 1): +18s nó 79
+[2026-11-07 12:11:51]   krea2 fraude-k2 (tentativa 1): +18s nó 53
+[2026-11-07 12:12:33]   krea2 fraude-k2 (tentativa 1): +60s passo 1/10
+[2026-11-07 12:13:22] validar estado-investigando.webm: 127 KB, alfa 0..255, transparente 52%
+[2026-11-07 12:13:22] validação -> assets/goxys/_fonte/validacao/grade_composta.png
+[2026-11-07 12:14:25]   krea2 fraude-k2 (tentativa 1): +172s passo 10/10
+[2026-11-07 12:14:30]   krea2 fraude-k2 (tentativa 1): +177s nó 54
+[2026-11-07 12:14:31]   krea2 fraude-k2 (tentativa 1): +178s nó 29
+[2026-11-07 12:14:33] krea2 fraude-k2 (tentativa 1): concluído em 181s
+[2026-11-07 12:14:33] krea2 fraude-k2 (tentativa 1): borda verde 100% -> fraude-k2_t1.png
+[2026-11-07 12:14:34] memória baixa (RAM 10.6 GB, VRAM 6.4 GB): /free e espera 20 s
+[2026-11-07 12:14:54]   krea2 fraude-k3 (tentativa 1): +0s nó 57
+[2026-11-07 12:14:54]   krea2 fraude-k3 (tentativa 1): +0s nó 82
+[2026-11-07 12:14:54]   krea2 fraude-k3 (tentativa 1): +0s nó 72
+[2026-11-07 12:14:54]   krea2 fraude-k3 (tentativa 1): +0s nó 56
+[2026-11-07 12:14:54]   krea2 fraude-k3 (tentativa 1): +1s nó 85
+[2026-11-07 12:15:10]   krea2 fraude-k3 (tentativa 1): +16s nó 84
+[2026-11-07 12:15:11]   krea2 fraude-k3 (tentativa 1): +17s nó 73
+[2026-11-07 12:15:12]   krea2 fraude-k3 (tentativa 1): +18s nó 55
+[2026-11-07 12:15:12]   krea2 fraude-k3 (tentativa 1): +18s nó 71
+[2026-11-07 12:15:12]   krea2 fraude-k3 (tentativa 1): +18s nó 79
+[2026-11-07 12:15:12]   krea2 fraude-k3 (tentativa 1): +18s nó 53
+[2026-11-07 12:15:55]   krea2 fraude-k3 (tentativa 1): +62s passo 1/10
+[2026-11-07 12:26:46] krea2 fraude-k3 (tentativa 1): concluído em 713s
+[2026-11-07 12:26:46] krea2 fraude-k3 (tentativa 1): borda verde 100% -> fraude-k3_t1.png
+[2026-11-07 12:26:50]   krea2 fraude-k3 (tentativa 1): +717s passo 10/10
+[2026-11-07 12:26:50]   krea2 fraude-k3 (tentativa 1): +717s nó 54
+[2026-11-07 12:26:50]   krea2 fraude-k3 (tentativa 1): +717s nó 29
+[2026-11-07 12:26:54] estado-fraude.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 107 KB
+[2026-11-07 12:26:54] memória baixa (RAM 10.6 GB, VRAM 6.5 GB): /free e espera 20 s
+[2026-11-07 12:27:46]   krea2 esperando-k2 (tentativa 1): +0s nó 57
+[2026-11-07 12:27:46]   krea2 esperando-k2 (tentativa 1): +0s nó 82
+[2026-11-07 12:27:46]   krea2 esperando-k2 (tentativa 1): +0s nó 72
+[2026-11-07 12:27:46]   krea2 esperando-k2 (tentativa 1): +0s nó 56
+[2026-11-07 12:27:47]   krea2 esperando-k2 (tentativa 1): +1s nó 85
+[2026-11-07 12:28:02]   krea2 esperando-k2 (tentativa 1): +16s nó 84
+[2026-11-07 12:28:03]   krea2 esperando-k2 (tentativa 1): +17s nó 73
+[2026-11-07 12:28:04]   krea2 esperando-k2 (tentativa 1): +18s nó 55
+[2026-11-07 12:28:04]   krea2 esperando-k2 (tentativa 1): +18s nó 71
+[2026-11-07 12:28:04]   krea2 esperando-k2 (tentativa 1): +18s nó 79
+[2026-11-07 12:28:04]   krea2 esperando-k2 (tentativa 1): +18s nó 53
+[2026-11-07 12:28:47]   krea2 esperando-k2 (tentativa 1): +61s passo 1/10
+[2026-11-07 12:29:17] krea2 esperando-k2 (tentativa 1): falhou (krea2 esperando-k2 (tentativa 1) falhou: []); seguindo
+[2026-11-07 12:29:17]   krea2 esperando-k3 (tentativa 1): +0s nó 57
+[2026-11-07 12:29:17]   krea2 esperando-k3 (tentativa 1): +0s nó 82
+[2026-11-07 12:29:17]   krea2 esperando-k3 (tentativa 1): +0s nó 72
+[2026-11-07 12:29:17]   krea2 esperando-k3 (tentativa 1): +0s nó 56
+[2026-11-07 12:29:17]   krea2 esperando-k3 (tentativa 1): +1s nó 85
+[2026-11-07 12:29:32] krea2 esperando-k3 (tentativa 1): falhou (krea2 esperando-k3 (tentativa 1) falhou: []); seguindo
+[2026-11-07 12:29:32]   krea2 resolvido-k2 (tentativa 1): +0s nó 72
+[2026-11-07 12:29:32]   krea2 resolvido-k2 (tentativa 1): +0s nó 85
+[2026-11-07 12:29:38]   krea2 resolvido-k2 (tentativa 1): +6s nó 84
+[2026-11-07 12:29:39]   krea2 resolvido-k2 (tentativa 1): +7s nó 73
+[2026-11-07 12:29:40]   krea2 resolvido-k2 (tentativa 1): +8s nó 55
+[2026-11-07 12:29:40]   krea2 resolvido-k2 (tentativa 1): +8s nó 71
+[2026-11-07 12:29:40]   krea2 resolvido-k2 (tentativa 1): +8s nó 79
+[2026-11-07 12:29:40]   krea2 resolvido-k2 (tentativa 1): +8s nó 53
+[2026-11-07 12:30:22]   krea2 resolvido-k2 (tentativa 1): +50s passo 1/10
+[2026-11-07 12:31:02] krea2 resolvido-k2 (tentativa 1): falhou (krea2 resolvido-k2 (tentativa 1) falhou: []); seguindo
+[2026-11-07 12:31:03] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 12:32:36] estado-esperando.webm: laço por quadros-chave (sem GPU), 56 KB
+[2026-11-07 12:32:39] estado-resolvido.webm: laço por quadros-chave (sem GPU), 59 KB
+[2026-11-07 12:32:42] estado-humano.webm: laço por quadros-chave (sem GPU), 57 KB
+[2026-11-07 12:32:45] idle-maestro.webm: laço por quadros-chave (sem GPU), 68 KB
+[2026-11-07 12:32:49] idle-porteiro.webm: laço por quadros-chave (sem GPU), 56 KB
+[2026-11-07 12:32:54] idle-rastreador.webm: laço por quadros-chave (sem GPU), 54 KB
+[2026-11-07 12:32:58] idle-detetive.webm: laço por quadros-chave (sem GPU), 57 KB
+[2026-11-07 12:33:02] idle-executor.webm: laço por quadros-chave (sem GPU), 67 KB
+[2026-11-07 12:33:05] idle-voz.webm: laço por quadros-chave (sem GPU), 66 KB
+[2026-11-07 12:33:08] idle-mensageiro.webm: laço por quadros-chave (sem GPU), 66 KB
+[2026-11-07 12:33:12] idle-analista.webm: laço por quadros-chave (sem GPU), 55 KB
+[2026-11-07 12:33:12] manifest.json escrito (5 clipes de estado, 8 idle de agente)
+[2026-11-07 12:33:19] validar estado-fraude.webm: 107 KB, alfa 0..255, transparente 52%
+[2026-11-07 12:33:19] validar estado-investigando.webm: 127 KB, alfa 0..255, transparente 52%
+[2026-11-07 12:33:19] validar estado-resolvido.webm: 59 KB, alfa 0..255, transparente 49%
+[2026-11-07 12:33:19] validar idle-voz.webm: 66 KB, alfa 0..255, transparente 51%
+[2026-11-07 12:33:20] validação -> assets/goxys/_fonte/validacao/grade_composta.png
+[2026-11-07 12:54:27]   variante resolvido v1: +0s nó 57
+[2026-11-07 12:54:28]   variante resolvido v1: +0s nó 82
+[2026-11-07 12:54:28]   variante resolvido v1: +0s nó 72
+[2026-11-07 12:54:28]   variante resolvido v1: +0s nó 56
+[2026-11-07 12:54:28]   variante resolvido v1: +1s nó 85
+[2026-11-07 12:54:45]   variante resolvido v1: +17s nó 84
+[2026-11-07 12:54:47]   variante resolvido v1: +19s nó 73
+[2026-11-07 12:54:48]   variante resolvido v1: +20s nó 55
+[2026-11-07 12:54:48]   variante resolvido v1: +21s nó 71
+[2026-11-07 12:54:49]   variante resolvido v1: +21s nó 79
+[2026-11-07 12:54:49]   variante resolvido v1: +22s nó 53
+[2026-11-07 12:55:31]   variante resolvido v1: +64s passo 1/10
+[2026-11-07 12:57:22]   variante resolvido v1: +175s passo 10/10
+[2026-11-07 12:57:27]   variante resolvido v1: +180s nó 54
+[2026-11-07 12:57:28]   variante resolvido v1: +180s nó 29
+[2026-11-07 12:57:28] variante resolvido v1: concluído em 181s
+[2026-11-07 12:57:28] variante resolvido v1: borda verde 100% -> resolvido_v1.png
+[2026-11-07 12:57:29] memória baixa (RAM 10.5 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 12:57:49]   variante resolvido v2: +0s nó 57
+[2026-11-07 12:57:49]   variante resolvido v2: +0s nó 82
+[2026-11-07 12:57:49]   variante resolvido v2: +0s nó 72
+[2026-11-07 12:57:49]   variante resolvido v2: +0s nó 56
+[2026-11-07 12:57:49]   variante resolvido v2: +1s nó 85
+[2026-11-07 12:58:04]   variante resolvido v2: +15s nó 84
+[2026-11-07 12:58:06]   variante resolvido v2: +17s nó 73
+[2026-11-07 12:58:06]   variante resolvido v2: +18s nó 55
+[2026-11-07 12:58:06]   variante resolvido v2: +18s nó 71
+[2026-11-07 12:58:06]   variante resolvido v2: +18s nó 79
+[2026-11-07 12:58:07]   variante resolvido v2: +18s nó 53
+[2026-11-07 12:58:47]   variante resolvido v2: +59s passo 1/10
+[2026-11-07 13:00:38]   variante resolvido v2: +170s passo 10/10
+[2026-11-07 13:00:44]   variante resolvido v2: +175s nó 54
+[2026-11-07 13:00:45]   variante resolvido v2: +176s nó 29
+[2026-11-07 13:00:45] variante resolvido v2: concluído em 177s
+[2026-11-07 13:00:45] variante resolvido v2: borda verde 90% -> resolvido_v2.png
+[2026-11-07 13:00:46] memória baixa (RAM 10.5 GB, VRAM 6.2 GB): /free e espera 20 s
+[2026-11-07 13:01:06]   variante humano v1: +0s nó 57
+[2026-11-07 13:01:06]   variante humano v1: +0s nó 82
+[2026-11-07 13:01:06]   variante humano v1: +0s nó 72
+[2026-11-07 13:01:06]   variante humano v1: +0s nó 56
+[2026-11-07 13:01:06]   variante humano v1: +1s nó 85
+[2026-11-07 13:01:21]   variante humano v1: +16s nó 84
+[2026-11-07 13:01:23]   variante humano v1: +18s nó 73
+[2026-11-07 13:01:24]   variante humano v1: +18s nó 55
+[2026-11-07 13:01:24]   variante humano v1: +18s nó 71
+[2026-11-07 13:01:24]   variante humano v1: +18s nó 79
+[2026-11-07 13:01:24]   variante humano v1: +18s nó 53
+[2026-11-07 13:02:06]   variante humano v1: +60s passo 1/10
+[2026-11-07 13:04:01]   variante humano v1: +175s passo 10/10
+[2026-11-07 13:04:06]   variante humano v1: +180s nó 54
+[2026-11-07 13:04:06]   variante humano v1: +181s nó 29
+[2026-11-07 13:04:11] variante humano v1: concluído em 186s
+[2026-11-07 13:04:11] variante humano v1: borda verde 100% -> humano_v1.png
+[2026-11-07 13:04:12] memória baixa (RAM 10.4 GB, VRAM 6.2 GB): /free e espera 20 s
+[2026-11-07 13:04:32]   variante humano v2: +0s nó 57
+[2026-11-07 13:04:32]   variante humano v2: +0s nó 82
+[2026-11-07 13:04:32]   variante humano v2: +0s nó 72
+[2026-11-07 13:04:32]   variante humano v2: +0s nó 56
+[2026-11-07 13:04:32]   variante humano v2: +1s nó 85
+[2026-11-07 13:04:48]   variante humano v2: +16s nó 84
+[2026-11-07 13:04:49]   variante humano v2: +18s nó 73
+[2026-11-07 13:04:50]   variante humano v2: +18s nó 55
+[2026-11-07 13:04:50]   variante humano v2: +18s nó 71
+[2026-11-07 13:04:50]   variante humano v2: +18s nó 79
+[2026-11-07 13:04:50]   variante humano v2: +18s nó 53
+[2026-11-07 13:05:29] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:07:40] estado-investigando.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 269 KB
+[2026-11-07 13:07:44] memória baixa (RAM 10.4 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 13:07:59] estado-fraude.webm: 3 quadros-chave, 45 quadros a 20 fps (2.2s), crf 36, 232 KB
+[2026-11-07 13:08:04]   variante investigando v1: +0s nó 57
+[2026-11-07 13:08:05]   variante investigando v1: +0s nó 82
+[2026-11-07 13:08:05]   variante investigando v1: +0s nó 72
+[2026-11-07 13:08:05]   variante investigando v1: +0s nó 56
+[2026-11-07 13:08:05]   variante investigando v1: +1s nó 85
+[2026-11-07 13:08:16] estado-esperando.webm: laço de respiração (sem GPU), 132 KB
+[2026-11-07 13:08:20]   variante investigando v1: +16s nó 84
+[2026-11-07 13:08:22]   variante investigando v1: +17s nó 73
+[2026-11-07 13:08:22]   variante investigando v1: +18s nó 55
+[2026-11-07 13:08:22]   variante investigando v1: +18s nó 71
+[2026-11-07 13:08:22]   variante investigando v1: +18s nó 79
+[2026-11-07 13:08:23]   variante investigando v1: +18s nó 53
+[2026-11-07 13:08:38] estado-resolvido.webm: laço de respiração (sem GPU), 138 KB
+[2026-11-07 13:08:55] estado-humano.webm: laço de respiração (sem GPU), 131 KB
+[2026-11-07 13:09:01] idle-maestro.webm: laço de respiração (sem GPU), 164 KB
+[2026-11-07 13:09:04]   variante investigando v1: +60s passo 1/12
+[2026-11-07 13:09:06] idle-porteiro.webm: laço de respiração (sem GPU), 132 KB
+[2026-11-07 13:09:14] idle-rastreador.webm: laço de respiração (sem GPU), 128 KB
+[2026-11-07 13:09:22] idle-detetive.webm: laço de respiração (sem GPU), 137 KB
+[2026-11-07 13:09:29] idle-executor.webm: laço de respiração (sem GPU), 159 KB
+[2026-11-07 13:09:37] idle-voz.webm: laço de respiração (sem GPU), 161 KB
+[2026-11-07 13:09:45] idle-mensageiro.webm: laço de respiração (sem GPU), 158 KB
+[2026-11-07 13:09:51] idle-analista.webm: laço de respiração (sem GPU), 125 KB
+[2026-11-07 13:09:51] reexportação 1024/640 concluída
+[2026-11-07 13:11:20] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:11:35] memória baixa (RAM 10.4 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 13:11:55]   upscale detetive: +0s nó 1
+[2026-11-07 13:11:55]   upscale detetive: +0s nó 2
+[2026-11-07 13:11:55]   upscale detetive: +0s nó 3
+[2026-11-07 13:11:58]   upscale detetive: +3s passo 1/9
+[2026-11-07 13:12:05]   upscale detetive: +10s passo 9/9
+[2026-11-07 13:12:05]   upscale detetive: +10s nó 4
+[2026-11-07 13:12:06]   upscale detetive: +11s nó 29
+[2026-11-07 13:12:10] upscale detetive: concluído em 15s
+[2026-11-07 13:12:11]   upscale voz: +0s nó 1
+[2026-11-07 13:12:11]   upscale voz: +0s nó 3
+[2026-11-07 13:12:13]   upscale voz: +2s passo 1/9
+[2026-11-07 13:12:20]   upscale voz: +10s passo 9/9
+[2026-11-07 13:12:21]   upscale voz: +10s nó 4
+[2026-11-07 13:12:21]   upscale voz: +11s nó 29
+[2026-11-07 13:12:26] upscale voz: concluído em 15s
+[2026-11-07 13:12:26] upscale: 2 imagens em assets/goxys/_fonte/hd
+[2026-11-07 13:12:27]   variante esperando v1: +0s nó 56
+[2026-11-07 13:12:27]   variante esperando v1: +0s nó 85
+[2026-11-07 13:12:42]   variante esperando v1: +16s nó 84
+[2026-11-07 13:12:44]   variante esperando v1: +17s nó 73
+[2026-11-07 13:12:45]   variante esperando v1: +18s nó 55
+[2026-11-07 13:12:45]   variante esperando v1: +18s nó 71
+[2026-11-07 13:12:45]   variante esperando v1: +18s nó 79
+[2026-11-07 13:12:45]   variante esperando v1: +18s nó 53
+[2026-11-07 13:13:26]   variante esperando v1: +60s passo 1/12
+[2026-11-07 13:14:01] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:15:48]   variante esperando v1: +201s passo 12/12
+[2026-11-07 13:15:53]   variante esperando v1: +206s nó 54
+[2026-11-07 13:15:53]   variante esperando v1: +207s nó 29
+[2026-11-07 13:15:58] variante esperando v1: concluído em 211s
+[2026-11-07 13:15:58] variante esperando v1: borda verde 100% -> esperando_v1.png
+[2026-11-07 13:15:58] memória baixa (RAM 10.3 GB, VRAM 6.3 GB): /free e espera 20 s
+[2026-11-07 13:16:18]   variante esperando v2: +0s nó 57
+[2026-11-07 13:16:18]   variante esperando v2: +0s nó 82
+[2026-11-07 13:16:18]   variante esperando v2: +0s nó 72
+[2026-11-07 13:16:18]   variante esperando v2: +0s nó 56
+[2026-11-07 13:16:19]   variante esperando v2: +1s nó 85
+[2026-11-07 13:16:34]   variante esperando v2: +16s nó 84
+[2026-11-07 13:16:36]   variante esperando v2: +17s nó 73
+[2026-11-07 13:16:36]   variante esperando v2: +18s nó 55
+[2026-11-07 13:16:36]   variante esperando v2: +18s nó 71
+[2026-11-07 13:16:36]   variante esperando v2: +18s nó 79
+[2026-11-07 13:16:37]   variante esperando v2: +18s nó 53
+[2026-11-07 13:17:18]   variante esperando v2: +60s passo 1/12
+[2026-11-07 13:19:39]   variante esperando v2: +201s passo 12/12
+[2026-11-07 13:19:44]   variante esperando v2: +206s nó 54
+[2026-11-07 13:19:45]   variante esperando v2: +207s nó 29
+[2026-11-07 13:19:49] variante esperando v2: concluído em 211s
+[2026-11-07 13:19:49] memória baixa (RAM 10.3 GB, VRAM 6.4 GB): /free e espera 20 s
+[2026-11-07 13:19:49] variante esperando v2: borda verde 100% -> esperando_v2.png
+[2026-11-07 13:19:49] variante investigando v1: borda verde 100% -> investigando_v1.png
+[2026-11-07 13:20:09]   upscale maestro: +0s nó 2
+[2026-11-07 13:20:09]   upscale maestro: +0s nó 3
+[2026-11-07 13:20:12]   upscale maestro: +3s passo 1/9
+[2026-11-07 13:20:19]   upscale maestro: +10s passo 9/9
+[2026-11-07 13:20:19]   upscale maestro: +10s nó 4
+[2026-11-07 13:20:20]   upscale maestro: +11s nó 29
+[2026-11-07 13:20:24] upscale maestro: concluído em 15s
+[2026-11-07 13:20:24]   variante investigando v2: +0s nó 57
+[2026-11-07 13:20:24]   variante investigando v2: +0s nó 82
+[2026-11-07 13:20:24]   variante investigando v2: +0s nó 72
+[2026-11-07 13:20:24]   variante investigando v2: +0s nó 56
+[2026-11-07 13:20:25]   variante investigando v2: +1s nó 85
+[2026-11-07 13:20:25] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:20:36] estado-esperando.webm: laço de respiração (sem GPU), 138 KB
+[2026-11-07 13:20:36] escolhido esperando = v1 -> assets/goxys/estado-esperando.png
+[2026-11-07 13:20:40]   variante investigando v2: +16s nó 84
+[2026-11-07 13:20:42]   variante investigando v2: +17s nó 73
+[2026-11-07 13:20:42]   variante investigando v2: +18s nó 55
+[2026-11-07 13:20:42]   variante investigando v2: +18s nó 71
+[2026-11-07 13:20:42]   variante investigando v2: +18s nó 79
+[2026-11-07 13:20:43]   variante investigando v2: +18s nó 53
+[2026-11-07 13:21:24]   variante investigando v2: +60s passo 1/12
+[2026-11-07 13:23:45]   variante investigando v2: +201s passo 12/12
+[2026-11-07 13:23:50]   variante investigando v2: +206s nó 54
+[2026-11-07 13:23:51]   variante investigando v2: +207s nó 29
+[2026-11-07 13:23:55] variante investigando v2: concluído em 211s
+[2026-11-07 13:23:55] variante investigando v2: borda verde 100% -> investigando_v2.png
+[2026-11-07 13:23:55] memória baixa (RAM 10.3 GB, VRAM 6.2 GB): /free e espera 20 s
+[2026-11-07 13:23:56] variante humano v2: borda verde 85% -> humano_v2.png
+[2026-11-07 13:24:15]   upscale porteiro: +0s nó 1
+[2026-11-07 13:24:15]   upscale porteiro: +0s nó 2
+[2026-11-07 13:24:16]   upscale porteiro: +0s nó 3
+[2026-11-07 13:24:18]   upscale porteiro: +3s passo 1/9
+[2026-11-07 13:24:25]   upscale porteiro: +10s passo 9/9
+[2026-11-07 13:24:26]   upscale porteiro: +10s nó 4
+[2026-11-07 13:24:26]   upscale porteiro: +11s nó 29
+[2026-11-07 13:24:30] upscale porteiro: concluído em 15s
+[2026-11-07 13:24:31]   variante mensageiro v1: +0s nó 57
+[2026-11-07 13:24:31]   variante mensageiro v1: +0s nó 82
+[2026-11-07 13:24:31]   variante mensageiro v1: +0s nó 72
+[2026-11-07 13:24:31]   variante mensageiro v1: +0s nó 56
+[2026-11-07 13:24:31]   variante mensageiro v1: +1s nó 85
+[2026-11-07 13:24:31] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:24:46]   variante mensageiro v1: +16s nó 84
+[2026-11-07 13:24:48]   variante mensageiro v1: +18s nó 73
+[2026-11-07 13:24:49]   variante mensageiro v1: +18s nó 55
+[2026-11-07 13:24:49]   variante mensageiro v1: +18s nó 71
+[2026-11-07 13:24:49]   variante mensageiro v1: +18s nó 79
+[2026-11-07 13:24:49]   variante mensageiro v1: +19s nó 53
+[2026-11-07 13:25:31]   variante mensageiro v1: +61s passo 1/12
+[2026-11-07 13:27:15] estado-investigando.webm: laço de respiração (sem GPU), 140 KB
+[2026-11-07 13:27:15] escolhido investigando = v1 -> assets/goxys/estado-investigando.png
+[2026-11-07 13:27:29] estado-humano.webm: laço de respiração (sem GPU), 142 KB
+[2026-11-07 13:27:29] escolhido humano = v1 -> assets/goxys/estado-humano.png
+[2026-11-07 13:27:53]   variante mensageiro v1: +202s passo 12/12
+[2026-11-07 13:27:58]   variante mensageiro v1: +207s nó 54
+[2026-11-07 13:27:59]   variante mensageiro v1: +208s nó 29
+[2026-11-07 13:28:01] variante mensageiro v1: concluído em 211s
+[2026-11-07 13:28:01] variante mensageiro v1: borda verde 100% -> mensageiro_v1.png
+[2026-11-07 13:28:01] memória baixa (RAM 10.3 GB, VRAM 6.9 GB): /free e espera 20 s
+[2026-11-07 13:28:22]   variante mensageiro v2: +0s nó 57
+[2026-11-07 13:28:22]   variante mensageiro v2: +0s nó 82
+[2026-11-07 13:28:22]   variante mensageiro v2: +0s nó 72
+[2026-11-07 13:28:22]   variante mensageiro v2: +0s nó 56
+[2026-11-07 13:28:22]   variante mensageiro v2: +1s nó 85
+[2026-11-07 13:28:37]   variante mensageiro v2: +16s nó 84
+[2026-11-07 13:28:39]   variante mensageiro v2: +17s nó 73
+[2026-11-07 13:28:39]   variante mensageiro v2: +18s nó 55
+[2026-11-07 13:28:39]   variante mensageiro v2: +18s nó 71
+[2026-11-07 13:28:39]   variante mensageiro v2: +18s nó 79
+[2026-11-07 13:28:40]   variante mensageiro v2: +18s nó 53
+[2026-11-07 13:29:21]   variante mensageiro v2: +59s passo 1/12
+[2026-11-07 13:31:43]   variante mensageiro v2: +201s passo 12/12
+[2026-11-07 13:31:48]   variante mensageiro v2: +206s nó 54
+[2026-11-07 13:31:49]   variante mensageiro v2: +207s nó 29
+[2026-11-07 13:31:53] variante mensageiro v2: concluído em 211s
+[2026-11-07 13:31:53]   upscale rastreador: +0s nó 2
+[2026-11-07 13:31:53] variante mensageiro v2: borda verde 74% -> mensageiro_v2.png
+[2026-11-07 13:31:53]   upscale rastreador: +0s nó 3
+[2026-11-07 13:31:53] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:31:55]   upscale rastreador: +2s passo 1/9
+[2026-11-07 13:32:03]   upscale rastreador: +10s passo 9/9
+[2026-11-07 13:32:03]   upscale rastreador: +10s nó 4
+[2026-11-07 13:32:03]   upscale rastreador: +11s nó 29
+[2026-11-07 13:32:08] upscale rastreador: concluído em 15s
+[2026-11-07 13:32:09]   upscale executor: +0s nó 1
+[2026-11-07 13:32:09]   upscale executor: +0s nó 2
+[2026-11-07 13:32:09]   upscale executor: +0s nó 3
+[2026-11-07 13:32:11]   upscale executor: +2s passo 1/9
+[2026-11-07 13:32:19]   upscale executor: +10s passo 9/9
+[2026-11-07 13:32:19]   upscale executor: +10s nó 4
+[2026-11-07 13:32:19]   upscale executor: +11s nó 29
+[2026-11-07 13:32:24] upscale executor: concluído em 15s
+[2026-11-07 13:32:24]   variante resolvido v3: +0s nó 57
+[2026-11-07 13:32:24]   variante resolvido v3: +0s nó 82
+[2026-11-07 13:32:24]   variante resolvido v3: +0s nó 72
+[2026-11-07 13:32:24]   variante resolvido v3: +0s nó 56
+[2026-11-07 13:32:24]   variante resolvido v3: +1s nó 85
+[2026-11-07 13:32:24] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:32:39]   variante resolvido v3: +16s nó 84
+[2026-11-07 13:32:41]   variante resolvido v3: +17s nó 73
+[2026-11-07 13:32:42]   variante resolvido v3: +18s nó 55
+[2026-11-07 13:32:42]   variante resolvido v3: +18s nó 71
+[2026-11-07 13:32:42]   variante resolvido v3: +18s nó 79
+[2026-11-07 13:32:42]   variante resolvido v3: +18s nó 53
+[2026-11-07 13:33:24]   variante resolvido v3: +60s passo 1/12
+[2026-11-07 13:35:45]   variante resolvido v3: +201s passo 12/12
+[2026-11-07 13:35:50]   variante resolvido v3: +206s nó 54
+[2026-11-07 13:35:51]   variante resolvido v3: +207s nó 29
+[2026-11-07 13:35:54] variante resolvido v3: concluído em 211s
+[2026-11-07 13:35:55] variante resolvido v3: borda verde 100% -> resolvido_v3.png
+[2026-11-07 13:35:55] memória baixa (RAM 10.3 GB, VRAM 6.7 GB): /free e espera 20 s
+[2026-11-07 13:36:15]   upscale mensageiro: +0s nó 1
+[2026-11-07 13:36:15]   upscale mensageiro: +0s nó 2
+[2026-11-07 13:36:15]   upscale mensageiro: +0s nó 3
+[2026-11-07 13:36:16] estado-resolvido.webm: laço de respiração (sem GPU), 117 KB
+[2026-11-07 13:36:16] escolhido resolvido = v3 -> assets/goxys/estado-resolvido.png
+[2026-11-07 13:36:17]   upscale mensageiro: +2s passo 1/9
+[2026-11-07 13:36:25]   upscale mensageiro: +10s passo 9/9
+[2026-11-07 13:36:25]   upscale mensageiro: +10s nó 4
+[2026-11-07 13:36:25]   upscale mensageiro: +11s nó 29
+[2026-11-07 13:36:30] upscale mensageiro: concluído em 15s
+[2026-11-07 13:36:30]   variante mensageiro v3: +0s nó 57
+[2026-11-07 13:36:30]   variante mensageiro v3: +0s nó 82
+[2026-11-07 13:36:30]   variante mensageiro v3: +0s nó 72
+[2026-11-07 13:36:30]   variante mensageiro v3: +0s nó 56
+[2026-11-07 13:36:30]   variante mensageiro v3: +1s nó 85
+[2026-11-07 13:36:30] fila do ComfyUI ocupada (dono usando?); aguardando...
+[2026-11-07 13:36:46]   variante mensageiro v3: +16s nó 84
+[2026-11-07 13:36:47]   variante mensageiro v3: +18s nó 73
+[2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 55
+[2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 71
+[2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 79
+[2026-11-07 13:36:48]   variante mensageiro v3: +18s nó 53
+[2026-11-07 13:37:30]   variante mensageiro v3: +60s passo 1/12

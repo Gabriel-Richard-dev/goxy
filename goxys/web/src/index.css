@@ -1,0 +1,139 @@
+@import './tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 3px solid var(--estrutura); outline-offset: 2px; border-radius: 10px; }
+::selection { background: var(--marca-suave); }
+
+.rolagem { scrollbar-width: thin; scrollbar-color: var(--borda) transparent; }
+
+/* agente ativo pulsa */
+@keyframes pulso {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cor) 55%, transparent); }
+  70% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--cor) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.pulsa { animation: pulso 1.6s ease-out infinite; }
+
+@keyframes check { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.check-in { animation: check 260ms cubic-bezier(.3,1.6,.6,1) both; }
+
+@keyframes acende { from { background-color: var(--borda); } to { background-color: var(--cor); } }
+.trilho-aceso { animation: acende 500ms ease-out both; }
+
+@keyframes ponto { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.ao-vivo { animation: ponto 1.8s ease-in-out infinite; }
+
+@keyframes gaveta { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.gaveta-in { animation: gaveta 220ms ease-out both; }
+
+@keyframes carimbo { 0% { transform: scale(1.6) rotate(-14deg); opacity: 0; } 100% { transform: scale(1) rotate(-8deg); opacity: 1; } }
+.carimbo { animation: carimbo 380ms cubic-bezier(.2,1.4,.5,1) 300ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Goxy animado por CSS (reserva até os vídeos com alfa chegarem) */
+.goxy-anim > img, .goxy-anim > span:last-child { transform-origin: 50% 85%; }
+@keyframes respira { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-1.5%) scale(1.01); } }
+@keyframes inclina { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-1.5deg); } }
+@keyframes alerta { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-1.5%); } 75% { transform: translateX(1.5%); } }
+@keyframes pulinho { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-4%); } }
+@keyframes recua { from { transform: translateX(0); opacity: 1; } to { transform: translateX(3%); opacity: .85; } }
+.goxy-anim > img, .goxy-anim > span:last-child { transform-origin: 50% 100%; }
+.goxy-parado > img, .goxy-parado > span:last-child,
+.goxy-esperando > img, .goxy-esperando > span:last-child { animation: respira 4.5s ease-in-out infinite; }
+.goxy-investigando > img, .goxy-investigando > span:last-child { animation: inclina 5s ease-in-out infinite; }
+.goxy-fraude > img, .goxy-fraude > span:last-child { animation: alerta .4s ease-in-out 1, respira 4.5s ease-in-out .4s infinite; }
+.goxy-resolvido > img, .goxy-resolvido > span:last-child { animation: pulinho .7s ease-out 1, respira 4.5s ease-in-out .7s infinite; }
+.goxy-humano > img, .goxy-humano > span:last-child { animation: recua .8s ease-out 1 forwards; }
+@keyframes flutua { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+.flutua-in { animation: flutua 280ms ease-out both; }
+
+/* grafo */
+@keyframes corre { to { stroke-dashoffset: -32; } }
+.aresta-viva { animation: corre .8s linear infinite; }
+@keyframes anel { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.35); } }
+.anel-vivo { transform-box: fill-box; transform-origin: center; animation: anel 1.4s ease-out infinite; }
+.no-grafo:focus-visible { outline: none; }
+.no-grafo:focus-visible circle:nth-of-type(1) { stroke: var(--estrutura); }
+
+/* o mascote entrega o caso para uma pessoa */
+@keyframes entrega { 0% { transform: none; } 35% { transform: translateX(-14px) rotate(-4deg); } 70% { transform: translateX(22px) rotate(5deg); } 100% { transform: none; } }
+.entrega-anim { display: inline-block; animation: entrega 1.1s ease-in-out 1; }
+
+/* adesivos decorativos da landing: flutuam devagar */
+@keyframes adesivo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.adesivo { animation: adesivo 6s ease-in-out infinite; }
+
+@keyframes lightbox { from { opacity: 0; } to { opacity: 1; } }
+.lightbox-in { animation: lightbox 160ms ease-out both; }
+.lightbox-in > img { animation: check 200ms ease-out both; }
+
+/* fundo do herói: pontinhos discretos na cor de estrutura, sumindo para as bordas */
+.fundo-heroi { background-image: radial-gradient(color-mix(in srgb, var(--estrutura) 22%, transparent) 1.4px, transparent 1.6px); background-size: 22px 22px; }
+.fundo-heroi::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 45%, transparent 0%, var(--fundo) 72%); pointer-events: none; }
+.fundo-heroi > * { position: relative; }
+
+/* ---- Magic UI (paleta Gogroup) ---- */
+@keyframes shimmer { from { transform: translateX(-120%) skewX(-20deg); } to { transform: translateX(220%) skewX(-20deg); } }
+.shimmer::after { content: ''; position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent); animation: shimmer 2.8s ease-in-out infinite; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+.marquee-trilho { animation: marquee var(--dur, 60s) linear infinite; }
+
+@property --bb-ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes bb-gira { to { --bb-ang: 360deg; } }
+.border-beam {
+  padding: var(--bb-larg, 2px);
+  background: conic-gradient(from var(--bb-ang), transparent 0 78%, var(--bb-cor) 88%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: bb-gira var(--bb-dur, 6s) linear var(--bb-vezes, infinite);
+}
+
+/* o Goxy reage ao CTA: um quique só */
+@keyframes quique { 0%, 100% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-4%) rotate(-3deg); } 60% { transform: translateY(0) rotate(2deg); } }
+.goxy-quique { animation: quique 700ms ease-out 1; transform-origin: 50% 100%; }
+
+/* dentro do painel, os mascotes ficam parados: só o agente ativo pulsa */
+.sem-respiro .goxy-anim > img, .sem-respiro .goxy-anim > span:last-child { animation: none !important; }
+
+/* Goxy do herói: agacha, pula, gira no topo (troca a 90°), cai com um quique. 1,1 s numa animação só. */
+@keyframes pulo-flip {
+  0%   { transform: perspective(1100px) translateY(0) scaleY(1) rotateY(0deg); }
+  14%  { transform: perspective(1100px) translateY(0) scaleY(.96) rotateY(0deg); animation-timing-function: ease-out; }
+  40%  { transform: perspective(1100px) translateY(-7%) scaleY(1.01) rotateY(90deg); }
+  40.1%{ transform: perspective(1100px) translateY(-7%) scaleY(1.01) rotateY(-90deg); animation-timing-function: ease-in; }
+  70%  { transform: perspective(1100px) translateY(0) scaleY(.97) rotateY(0deg); animation-timing-function: ease-out; }
+  84%  { transform: perspective(1100px) translateY(-1.6%) scaleY(1) rotateY(0deg); animation-timing-function: ease-in; }
+  100% { transform: perspective(1100px) translateY(0) scaleY(1) rotateY(0deg); }
+}
+.pulo-flip { animation: pulo-flip 1100ms linear 1 both; }
+@keyframes sombra-pulo { 0%, 100% { transform: scaleX(1); opacity: 1; } 14% { transform: scaleX(1.04); } 40% { transform: scaleX(.7); opacity: .7; } 70% { transform: scaleX(1); opacity: 1; } 84% { transform: scaleX(.92); } }
+.sombra-pulo { animation: sombra-pulo 1100ms linear 1 both; }
+
+@keyframes balao-toc { 0% { transform: scale(.85); opacity: 0; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); } }
+.balao-toc { animation: balao-toc 260ms ease-out both; transform-origin: 0% 100%; }
+
+@keyframes anel-chama { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.12); opacity: .35; } }
+.anel-chama { animation: anel-chama 2s ease-in-out infinite; }
+@keyframes barra-flip { from { width: 0%; } to { width: 100%; } }
+.barra-flip { width: 0%; animation-name: barra-flip; animation-timing-function: linear; animation-fill-mode: forwards; }
+
+/* movimento reduzido: a troca de agente vira um crossfade curto (só opacidade) */
+@keyframes fade-rm { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .fade-rm { animation: fade-rm 300ms ease-out both !important; } }

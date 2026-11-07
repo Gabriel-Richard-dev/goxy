@@ -1,0 +1,88 @@
+/* Tokens do Goxy: manual oficial de marca do Gogroup (CONTRACTS.md §8b).
+   Azul #2659a5 é a cor protagonista; rosa só como acento pontual (fraude, "nova"). Sem verde. */
+:root {
+  --fundo: #f5f5f5;
+  --superficie: #ffffff;
+  --superficie-2: #eef1f6;
+  --borda: #dde2ea;
+  --texto: #333333;
+  --texto-suave: #5f6670;
+
+  --azul: #2659a5;
+  --limao: #d7d900;
+  --laranja: #f8ae13;
+  --ciano: #3dbfef;
+  --rosa: #e61782;
+  --carmim: #e5273c;
+  --vermelho: #e5381a;
+
+  --marca: var(--azul);                /* botão principal, ativo */
+  --marca-suave: rgba(38, 89, 165, 0.10);
+  --estrutura: var(--azul);            /* links, seleção */
+  --agora: var(--ciano);               /* informação / acontecendo agora */
+  --agora-suave: rgba(61, 191, 239, 0.18);
+  --ok: var(--azul);                   /* concluído = azul com check */
+  --ok-suave: rgba(38, 89, 165, 0.10);
+  --espera: var(--laranja);
+  --espera-texto: #333333;             /* nunca texto branco sobre laranja */
+  --espera-suave: rgba(248, 174, 19, 0.28);
+  --critico: var(--carmim);
+  --critico-suave: rgba(229, 39, 60, 0.10);
+  --raio: 18px;
+  --raio-col: 28px;
+  --raio-gaveta: 40px;
+
+  /* cor fixa de cada agente (só paleta) */
+  --ag-maestro: #2659a5;
+  --ag-porteiro: #3dbfef;
+  --ag-rastreador: #f8ae13;
+  --ag-detetive: #e61782;
+  --ag-executor: #2659a5;
+  --ag-voz: #d7d900;
+  --ag-mensageiro: #e5273c;
+  --ag-analista: #3dbfef;
+  --ag-politica: #2659a5;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --fundo: #0f2440;
+    --superficie: #16335c;
+    --superficie-2: #1d3f6e;
+    --borda: #2b5288;
+    --texto: #ffffff;
+    --texto-suave: #c3d0e6;
+    --marca-suave: rgba(61, 191, 239, 0.16);
+    --estrutura: #3dbfef;
+    --ok: #3dbfef;
+    --ok-suave: rgba(61, 191, 239, 0.16);
+    --espera-texto: #f8ae13;
+    --espera-suave: rgba(248, 174, 19, 0.18);
+    --critico-suave: rgba(229, 39, 60, 0.22);
+    --ag-maestro: #3dbfef;
+    --ag-executor: #3dbfef;
+    --ag-politica: #c3d0e6;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --fundo: #0f2440;
+  --superficie: #16335c;
+  --superficie-2: #1d3f6e;
+  --borda: #2b5288;
+  --texto: #ffffff;
+  --texto-suave: #c3d0e6;
+  --marca-suave: rgba(61, 191, 239, 0.16);
+  --estrutura: #3dbfef;
+  --ok: #3dbfef;
+  --ok-suave: rgba(61, 191, 239, 0.16);
+  --espera-texto: #f8ae13;
+  --espera-suave: rgba(248, 174, 19, 0.18);
+  --critico-suave: rgba(229, 39, 60, 0.22);
+  --ag-maestro: #3dbfef;
+  --ag-executor: #3dbfef;
+  --ag-politica: #c3d0e6;
+  color-scheme: dark;
+}
