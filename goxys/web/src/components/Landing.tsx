@@ -233,8 +233,8 @@ function CartaoFoto({ a, data, comprou }: { a: AnexoEv; data: string; comprou?: 
 
 const REGUA: { n: string; cor: string; fg: string; nome: string; cond: string; ex: string; estado: string }[] = [
   { n: 'A', cor: '#2659a5', fg: '#ffffff', nome: 'Resolve sozinho', cond: 'Até R$ 150 e prova clara', ex: 'Copo de R$ 111 com avaria comprovada: reenvio na hora', estado: 'resolvido' },
-  { n: 'B', cor: '#2659a5', fg: '#ffffff', nome: 'Resolve e avisa', cond: 'Baixo risco e dá para desfazer em 15 min', ex: 'Chamado na transportadora para a garrafa atrasada', estado: 'resolvido' },
-  { n: 'C', cor: '#f8ae13', fg: '#333333', nome: 'Pede sua aprovação', cond: 'Valor alto ou prova duvidosa', ex: 'Reembolso de R$ 689,70 com foto sem EXIF', estado: 'esperando' },
+  { n: 'B', cor: '#2659a5', fg: '#ffffff', nome: 'Resolve e avisa', cond: 'Baixo risco e dá para desfazer em 15 min', ex: '', estado: 'resolvido' },
+  { n: 'C', cor: '#f8ae13', fg: '#333333', nome: 'Pede sua aprovação', cond: 'Valor alto ou prova duvidosa', ex: '', estado: 'esperando' },
   { n: 'D', cor: '#e5273c', fg: '#ffffff', nome: 'Passa para uma pessoa', cond: 'Processo, Procon, fraude ou caso público', ex: 'Cliente que ameaça o Procon e o Reclame Aqui', estado: 'humano' },
 ]
 
@@ -260,7 +260,7 @@ function Chamar({ m, mascote }: { m: ManifestoLanding | null; mascote: Mascote }
                 </div>
                 <p className="mt-3 text-[16px] font-semibold leading-tight">{r.nome}</p>
                 <p className="mt-1 text-[13.5px] text-suave">{r.cond}</p>
-                <p className="mt-3 border-t border-borda pt-2 text-[13.5px] leading-snug">{r.ex}</p>
+                {r.ex && <p className="mt-3 border-t border-borda pt-2 text-[13.5px] leading-snug">{r.ex}</p>}
                 {r.n === 'C' && <span className="absolute -right-3 top-1/2 hidden h-[3px] w-6 rounded-full bg-laranja lg:block" aria-hidden />}
               </li>
             ))}
